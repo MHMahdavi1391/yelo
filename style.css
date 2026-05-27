@@ -1,0 +1,270 @@
+:root {
+    --bg-primary: #0d1117;
+    --bg-surface: #161b22;
+    --bg-card: #1c2333;
+    --accent: #e6b422;
+    --accent-glow: rgba(230, 180, 34, 0.25);
+    --text-primary: #f0f0f0;
+    --text-secondary: #b0b8c4;
+    --text-muted: #6e7681;
+    --border-subtle: rgba(255, 255, 255, 0.07);
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
+    --space-xs: 0.5rem;
+    --space-sm: 0.8rem;
+    --space-md: 1.3rem;
+    --space-lg: 2rem;
+    --space-xl: 3rem;
+    --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 15px;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    padding: var(--space-sm);
+    direction: rtl;
+    line-height: 1.7;
+}
+
+.container {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: var(--space-sm);
+}
+
+/* === هدر === */
+.header {
+    text-align: center;
+    margin-bottom: var(--space-lg);
+    padding-top: var(--space-md);
+}
+
+.logo-wrapper {
+    display: inline-block;
+    background: #f5c842;
+    padding: 8px;
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--space-sm);
+    box-shadow: 0 6px 20px rgba(230, 180, 34, 0.3);
+    line-height: 0;
+}
+
+.logo-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.header h1 {
+    font-size: clamp(2rem, 6vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--accent);
+    margin-top: var(--space-xs);
+}
+
+.tagline {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+    margin-top: 2px;
+}
+
+/* === جستجو === */
+.search-wrapper {
+    margin-bottom: var(--space-lg);
+}
+
+.search-box {
+    position: relative;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.search-icon {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 1rem;
+    pointer-events: none;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px 40px 12px 40px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-family: var(--font-family);
+    font-size: 0.95rem;
+    transition: all var(--transition-smooth);
+    outline: none;
+}
+
+.search-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.search-input::placeholder {
+    color: var(--text-muted);
+}
+
+.clear-btn {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 4px;
+    transition: color var(--transition-smooth);
+}
+
+.clear-btn:hover {
+    color: var(--accent);
+}
+
+/* === کارت‌های آهنگ === */
+.songs-section {
+    min-height: 200px;
+}
+
+.song-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: var(--space-sm);
+}
+
+.song-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    cursor: pointer;
+    transition: all var(--transition-smooth);
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.song-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--accent-glow);
+}
+
+.card-cover {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+    background: var(--bg-surface);
+}
+
+.card-info {
+    padding: var(--space-xs) var(--space-sm);
+}
+
+.card-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-artist {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.no-results {
+    text-align: center;
+    padding: var(--space-xl);
+    color: var(--text-muted);
+}
+
+.no-results i {
+    font-size: 3rem;
+    margin-bottom: var(--space-sm);
+    opacity: 0.5;
+}
+
+/* === فوتر === */
+.footer {
+    text-align: center;
+    margin-top: var(--space-xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--border-subtle);
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+
+.footer .back-link {
+    display: inline-block;
+    margin-top: var(--space-xs);
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color var(--transition-smooth);
+}
+
+.footer .back-link:hover {
+    color: var(--accent);
+}
+
+/* === ریسپانسیو === */
+@media (max-width: 600px) {
+    .song-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+
+    .card-title {
+        font-size: 0.8rem;
+    }
+
+    .card-artist {
+        font-size: 0.7rem;
+    }
+
+    .header h1 {
+        font-size: 1.6rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .song-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
