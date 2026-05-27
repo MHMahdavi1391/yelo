@@ -1,26 +1,15 @@
 [
   {
     "id": 1,
-    "title": "نام آهنگ اول",
-    "artist": "نام خواننده",
-    "description": "توضیح کوتاه درباره این آهنگ.",
-    "releaseDate": "۱۴۰۴ بهار",
-    "cover": "https://your-server.com/covers/song1.jpg",
+    "title": "inhale the throne",
+    "artist": "cho young-wuk",
+    "description": "استنشاق تاج و تخت . از ساند ترک سریال ساخت کره",
+    "releaseDate": "-",
+    "cover": "https://cdn.imgurl.ir/uploads/l22747_photo_2026-05-27_14-33-40.jpg",
     "music": "https://your-server.com/music/song1.mp3",
-    "video": "https://your-server.com/videos/song1.mp4",
-    "hasMusic": true,
-    "hasVideo": true
-  },
-  {
-    "id": 2,
-    "title": "نام آهنگ دوم",
-    "artist": "نام خواننده",
-    "description": "توضیح کوتاه درباره این آهنگ.",
-    "releaseDate": "۱۴۰۴ تابستان",
-    "cover": "https://your-server.com/covers/song2.jpg",
-    "music": "https://your-server.com/music/song2.mp3",
-    "video": "",
+    "video": "https://cdn.imgurl.ir/uploads/t9654_Inhale_the_Throne.mp3",
     "hasMusic": true,
     "hasVideo": false
   }
+  
 ]
