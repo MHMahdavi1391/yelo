@@ -1,6 +1,6 @@
 [
   {
-    "id": 1,
+    "id": 3,
     "title": "inhale the throne",
     "artist": "cho young-wuk",
     "description": "استنشاق تاج و تخت . از ساند ترک سریال ساخت کره",
@@ -22,6 +22,18 @@
     "video": "video/bek.mp4",
     "hasMusic": false,
     "hasVideo": true
+  },
+  {
+    "id": 1,
+    "title": "شب - the night",
+    "artist": "071 Music Group",
+    "description": "موسیقی ای جدید از گروه 071",
+    "releaseDate": "2026",
+    "cover": "picture/shab.jpg",
+    "music": "music/shab - 071 Music group.mp3",
+    "video": "",
+    "hasMusic": true,
+    "hasVideo": false
   }
   
 ]
