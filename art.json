@@ -10,18 +10,6 @@
     "video": "",
     "hasMusic": true,
     "hasVideo": false
-  },
-   {
-    "id": 2,
-    "title": "من بک کیته ام",
-    "artist": "mohammad hosein mahdavi",
-    "description": "سریال ساخت کره",
-    "releaseDate": "2026/04/25",
-    "cover": "picture/bekprof.jpg",
-    "music": "",
-    "video": "video/bek.mp4",
-    "hasMusic": false,
-    "hasVideo": true
   }
   
   
