@@ -8,55 +8,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
     <style>
-        :root {
-            --bg-primary: #0d1117;
-            --bg-surface: #161b22;
-            --bg-card: #1c2333;
-            --accent: #e6b422;
-            --accent-glow: rgba(230, 180, 34, 0.25);
-            --text-primary: #f0f0f0;
-            --text-secondary: #b0b8c4;
-            --text-muted: #6e7681;
-            --border-subtle: rgba(255, 255, 255, 0.07);
-            --radius-sm: 8px;
-            --radius-md: 14px;
-            --radius-lg: 20px;
-            --space-xs: 0.5rem;
-            --space-sm: 0.8rem;
-            --space-md: 1.3rem;
-            --space-lg: 2rem;
-            --space-xl: 3rem;
-            --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --font-family: 'Inter', system-ui, -apple-system, sans-serif;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        html { font-size: 15px; scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-
-        body {
-            font-family: var(--font-family);
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            min-height: 100vh;
-            padding: var(--space-sm);
-            direction: rtl;
-            line-height: 1.7;
-        }
-
-        .container {
-            width: 100%;
+        /* ===== استایل اختصاصی پلیر ===== */
+        .player-page {
             max-width: 700px;
             margin: 0 auto;
             padding: var(--space-sm);
         }
 
-        /* === دکمه برگشت === */
         .back-nav {
             margin-bottom: var(--space-md);
         }
-
         .back-btn {
             display: inline-flex;
             align-items: center;
@@ -67,50 +30,39 @@
             font-weight: 500;
             transition: color var(--transition-smooth);
         }
-
         .back-btn:hover { color: var(--accent); }
 
-        /* === هدر آهنگ === */
+        /* ===== اطلاعات آهنگ ===== */
         .song-header {
             text-align: center;
-            margin-bottom: var(--space-lg);
+            margin-bottom: var(--space-md);
         }
-
         .cover-large {
             width: 100%;
-            max-width: 350px;
-            aspect-ratio: 1 / 1;
+            max-width: 300px;
+            aspect-ratio: 1/1;
             object-fit: cover;
             border-radius: var(--radius-lg);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
-            margin-bottom: var(--space-md);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+            margin-bottom: var(--space-sm);
             border: 2px solid var(--border-subtle);
             background: var(--bg-surface);
         }
-
         .song-title {
             font-size: 1.6rem;
             font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
-
         .song-artist {
             font-size: 1.1rem;
             color: var(--accent);
             font-weight: 500;
-            margin-bottom: var(--space-xs);
         }
-
         .song-meta {
             font-size: 0.85rem;
             color: var(--text-muted);
-            display: flex;
-            justify-content: center;
-            gap: var(--space-sm);
-            flex-wrap: wrap;
+            margin-top: var(--space-xs);
         }
-
         .song-description {
             text-align: center;
             color: var(--text-secondary);
@@ -119,66 +71,164 @@
             line-height: 1.8;
         }
 
-        /* === پخش‌کننده‌ها === */
-        .player-section {
-            margin-top: var(--space-lg);
-        }
-
-        .player-box {
+        /* ===== پلیر اختصاصی ===== */
+        .custom-player {
             background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
             border-radius: var(--radius-md);
             padding: var(--space-md);
+            margin-top: var(--space-md);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .player-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
             margin-bottom: var(--space-sm);
         }
 
-        .player-box h3 {
-            font-size: 1rem;
+        .ctrl-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 50%;
+            transition: all var(--transition-smooth);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .ctrl-btn:hover {
             color: var(--accent);
-            margin-bottom: var(--space-xs);
+            background: var(--accent-glow);
+        }
+        .ctrl-btn.active {
+            color: var(--accent);
+        }
+        .ctrl-btn.play-btn {
+            font-size: 2rem;
+            color: var(--accent);
+            background: rgba(245, 200, 66, 0.15);
+        }
+        .ctrl-btn.play-btn:hover {
+            background: rgba(245, 200, 66, 0.3);
+        }
+
+        /* نوار پیشرفت */
+        .progress-container {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            margin: var(--space-sm) 0;
+        }
+        .progress-time {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            min-width: 40px;
+            font-variant-numeric: tabular-nums;
+        }
+        .progress-bar {
+            flex: 1;
+            height: 4px;
+            background: var(--bg-surface);
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+            transition: height 0.2s;
+        }
+        .progress-bar:hover {
+            height: 6px;
+        }
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            background: var(--accent);
+            border-radius: 4px;
+            transition: width 0.1s linear;
+        }
+
+        /* کنترل صدا */
+        .volume-control {
             display: flex;
             align-items: center;
             gap: 6px;
+            margin-top: var(--space-xs);
+            justify-content: center;
+        }
+        .volume-control i {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        .volume-slider {
+            width: 100px;
+            height: 4px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: var(--bg-surface);
+            border-radius: 4px;
+            outline: none;
+            transition: height 0.2s;
+        }
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent);
+            cursor: pointer;
+        }
+        .volume-slider::-moz-range-thumb {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent);
+            cursor: pointer;
+            border: none;
         }
 
-        audio, video {
+        /* ===== ویدیو ===== */
+        .video-wrapper {
+            margin-top: var(--space-md);
+        }
+        .video-wrapper video {
             width: 100%;
             border-radius: var(--radius-sm);
-            outline: none;
-        }
-
-        audio {
-            background: var(--bg-surface);
-        }
-
-        video {
-            max-height: 400px;
             background: #000;
+            max-height: 400px;
         }
 
-        /* === خطا === */
+        /* ===== خطا ===== */
         .error-msg {
             text-align: center;
             padding: var(--space-xl);
             color: var(--text-muted);
         }
-
         .error-msg i {
             font-size: 3rem;
             margin-bottom: var(--space-sm);
             opacity: 0.5;
         }
 
-        /* === ریسپانسیو === */
+        /* ریسپانسیو */
         @media (max-width: 500px) {
             .song-title { font-size: 1.3rem; }
             .song-artist { font-size: 0.95rem; }
-            .cover-large { max-width: 280px; }
+            .cover-large { max-width: 200px; }
+            .player-controls { gap: 4px; }
+            .ctrl-btn { font-size: 1rem; width: 34px; height: 34px; }
+            .ctrl-btn.play-btn { font-size: 1.6rem; }
+            .volume-slider { width: 60px; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="player-page">
         <nav class="back-nav">
             <a href="./index.html" class="back-btn">
                 <i class="fas fa-arrow-right"></i> بازگشت به لیست آهنگ‌ها
@@ -186,7 +236,7 @@
         </nav>
 
         <div id="songContent">
-            <!-- با JS پر میشه -->
+            <!-- اطلاعات و پلیر با JS پر میشه -->
         </div>
     </div>
 
@@ -196,6 +246,15 @@
 
             const songContent = document.getElementById('songContent');
 
+            let allSongs = [];
+            let currentSongIndex = 0;
+            let currentSong = null;
+            let audio = null;
+            let isPlaying = false;
+            let shuffle = false;
+            let repeat = false;
+
+            // ===== Helper =====
             function escapeHTML(str) {
                 const div = document.createElement('div');
                 div.textContent = str;
@@ -207,6 +266,242 @@
                 return params.get(param);
             }
 
+            // ===== بارگذاری لیست آهنگ‌ها =====
+            async function loadSongs() {
+                try {
+                    const response = await fetch('./art.json');
+                    if (!response.ok) throw new Error('فایل art.json یافت نشد.');
+                    allSongs = await response.json();
+                    if (!allSongs.length) throw new Error('هیچ آهنگی وجود ندارد.');
+
+                    const idParam = getQueryParam('id');
+                    let id = parseInt(idParam, 10);
+                    if (isNaN(id)) id = allSongs[0].id;
+
+                    const index = allSongs.findIndex(s => s.id === id);
+                    currentSongIndex = (index === -1) ? 0 : index;
+                    renderSong(currentSongIndex);
+                } catch (error) {
+                    console.error(error);
+                    showError('خطا در بارگذاری اطلاعات آهنگ.');
+                }
+            }
+
+            // ===== نمایش آهنگ =====
+            function renderSong(index) {
+                if (!allSongs.length) return;
+                currentSong = allSongs[index];
+                if (!currentSong) return;
+
+                // به‌روزرسانی URL (بدون رفرش)
+                const newUrl = `./song.html?id=${currentSong.id}`;
+                window.history.replaceState({}, '', newUrl);
+
+                // ساخت HTML
+                let html = `
+                    <div class="song-header">
+                        <img src="${escapeHTML(currentSong.cover)}" alt="${escapeHTML(currentSong.title)}" class="cover-large" loading="lazy" onerror="this.style.display='none'">
+                        <h1 class="song-title">${escapeHTML(currentSong.title)}</h1>
+                        <p class="song-artist">${escapeHTML(currentSong.artist)}</p>
+                        ${currentSong.releaseDate ? `<div class="song-meta"><i class="fas fa-calendar-alt"></i> ${escapeHTML(currentSong.releaseDate)}</div>` : ''}
+                        ${currentSong.description ? `<p class="song-description">${escapeHTML(currentSong.description)}</p>` : ''}
+                    </div>
+                `;
+
+                // پلیر صوتی (اگر موزیک داشته باشد)
+                if (currentSong.hasMusic && currentSong.music) {
+                    html += `
+                        <div class="custom-player" id="customPlayer">
+                            <div class="player-controls">
+                                <button class="ctrl-btn" id="shuffleBtn" title="Shuffle"><i class="fas fa-random"></i></button>
+                                <button class="ctrl-btn" id="prevBtn" title="Previous"><i class="fas fa-step-backward"></i></button>
+                                <button class="ctrl-btn play-btn" id="playBtn" title="Play/Pause"><i class="fas fa-play"></i></button>
+                                <button class="ctrl-btn" id="nextBtn" title="Next"><i class="fas fa-step-forward"></i></button>
+                                <button class="ctrl-btn" id="repeatBtn" title="Repeat"><i class="fas fa-redo"></i></button>
+                            </div>
+                            <div class="progress-container">
+                                <span class="progress-time" id="currentTime">0:00</span>
+                                <div class="progress-bar" id="progressBar">
+                                    <div class="progress-fill" id="progressFill"></div>
+                                </div>
+                                <span class="progress-time" id="totalTime">0:00</span>
+                            </div>
+                            <div class="volume-control">
+                                <i class="fas fa-volume-down"></i>
+                                <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.01" value="0.8">
+                                <i class="fas fa-volume-up"></i>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                // ویدیو (اگر داشته باشد)
+                if (currentSong.hasVideo && currentSong.video) {
+                    html += `
+                        <div class="video-wrapper">
+                            <video controls playsinline>
+                                <source src="${escapeHTML(currentSong.video)}" type="video/mp4">
+                                مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
+                            </video>
+                        </div>
+                    `;
+                }
+
+                if (!currentSong.hasMusic && !currentSong.hasVideo) {
+                    html += `
+                        <div class="error-msg">
+                            <i class="fas fa-ban"></i>
+                            <p>محتوای قابل پخشی برای این آهنگ موجود نیست.</p>
+                        </div>
+                    `;
+                }
+
+                songContent.innerHTML = html;
+
+                // اگر موزیک دارد، پلیر را راه‌اندازی کن
+                if (currentSong.hasMusic && currentSong.music) {
+                    initPlayer();
+                }
+            }
+
+            // ===== راه‌اندازی پلیر =====
+            function initPlayer() {
+                if (!currentSong) return;
+                const musicSrc = currentSong.music;
+
+                // ایجاد audio element
+                if (audio) {
+                    audio.pause();
+                    audio.src = '';
+                }
+                audio = new Audio(musicSrc);
+                audio.volume = parseFloat(document.getElementById('volumeSlider')?.value || 0.8);
+                audio.loop = false;
+
+                const playBtn = document.getElementById('playBtn');
+                const prevBtn = document.getElementById('prevBtn');
+                const nextBtn = document.getElementById('nextBtn');
+                const shuffleBtn = document.getElementById('shuffleBtn');
+                const repeatBtn = document.getElementById('repeatBtn');
+                const progressFill = document.getElementById('progressFill');
+                const progressBar = document.getElementById('progressBar');
+                const currentTimeSpan = document.getElementById('currentTime');
+                const totalTimeSpan = document.getElementById('totalTime');
+                const volumeSlider = document.getElementById('volumeSlider');
+
+                // ===== رویدادهای صوتی =====
+                audio.addEventListener('loadedmetadata', () => {
+                    totalTimeSpan.textContent = formatTime(audio.duration);
+                });
+
+                audio.addEventListener('timeupdate', () => {
+                    const percent = (audio.currentTime / audio.duration) * 100;
+                    progressFill.style.width = percent + '%';
+                    currentTimeSpan.textContent = formatTime(audio.currentTime);
+                });
+
+                audio.addEventListener('ended', () => {
+                    if (repeat) {
+                        audio.currentTime = 0;
+                        audio.play();
+                    } else {
+                        playBtn.innerHTML = '<i class="fas fa-play"></i>';
+                        isPlaying = false;
+                        // پخش آهنگ بعدی
+                        playNext();
+                    }
+                });
+
+                // ===== دکمه Play/Pause =====
+                playBtn.addEventListener('click', () => {
+                    togglePlay();
+                });
+
+                function togglePlay() {
+                    if (isPlaying) {
+                        audio.pause();
+                        playBtn.innerHTML = '<i class="fas fa-play"></i>';
+                    } else {
+                        audio.play().catch(() => {});
+                        playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                    }
+                    isPlaying = !isPlaying;
+                }
+
+                // ===== دکمه‌های قبلی و بعدی =====
+                prevBtn.addEventListener('click', playPrev);
+                nextBtn.addEventListener('click', playNext);
+
+                function playPrev() {
+                    let newIndex = currentSongIndex - 1;
+                    if (newIndex < 0) newIndex = allSongs.length - 1;
+                    changeSong(newIndex);
+                }
+
+                function playNext() {
+                    let newIndex = currentSongIndex + 1;
+                    if (newIndex >= allSongs.length) newIndex = 0;
+                    changeSong(newIndex);
+                }
+
+                function changeSong(index) {
+                    if (audio) {
+                        audio.pause();
+                        audio.src = '';
+                    }
+                    isPlaying = false;
+                    currentSongIndex = index;
+                    renderSong(index);
+                    // بعد از رندر، پلیر جدید ساخته میشه و باید دوباره تابع initPlayer صدا زده بشه (در render دوباره صدا میشه)
+                    // اما چون render دوباره صدا می‌زنه، کافیه که اینجا فقط توقف کنیم
+                    // ولی برای اینکه پخش خودکار شروع بشه، می‌تونیم بعد از لود جدید، play رو صدا بزنیم
+                    // اما چون render دوباره کل محتوا رو می‌سازه، لازم نیست کاری کنیم.
+                }
+
+                // ===== Shuffle =====
+                shuffleBtn.addEventListener('click', () => {
+                    shuffle = !shuffle;
+                    shuffleBtn.classList.toggle('active', shuffle);
+                });
+
+                // ===== Repeat =====
+                repeatBtn.addEventListener('click', () => {
+                    repeat = !repeat;
+                    repeatBtn.classList.toggle('active', repeat);
+                });
+
+                // ===== نوار پیشرفت (کلیک) =====
+                progressBar.addEventListener('click', (e) => {
+                    const rect = progressBar.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const percent = x / rect.width;
+                    audio.currentTime = percent * audio.duration;
+                });
+
+                // ===== کنترل صدا =====
+                volumeSlider.addEventListener('input', () => {
+                    audio.volume = parseFloat(volumeSlider.value);
+                });
+
+                // ===== کیبورد =====
+                document.addEventListener('keydown', (e) => {
+                    if (e.code === 'Space' && document.activeElement?.tagName !== 'INPUT') {
+                        e.preventDefault();
+                        togglePlay();
+                    }
+                });
+
+                // نمایش زمان اولیه
+                currentTimeSpan.textContent = '0:00';
+                if (audio.duration) totalTimeSpan.textContent = formatTime(audio.duration);
+
+                // شروع خودکار (اختیاری)
+                // audio.play().catch(() => {});
+                // isPlaying = true;
+                // playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            }
+
+            // ===== نمایش خطا =====
             function showError(msg) {
                 songContent.innerHTML = `
                     <div class="error-msg">
@@ -220,98 +515,16 @@
                 `;
             }
 
-            async function loadSong() {
-                const idParam = getQueryParam('id');
-                if (!idParam) {
-                    showError('شناسه آهنگ نامشخص است.');
-                    return;
-                }
-
-                const songId = parseInt(idParam, 10);
-                if (isNaN(songId)) {
-                    showError('شناسه آهنگ نامعتبر است.');
-                    return;
-                }
-
-                try {
-                    const response = await fetch('./art.json');
-                    if (!response.ok) throw new Error('فایل art.json یافت نشد.');
-                    const songs = await response.json();
-
-                    const song = songs.find(s => s.id === songId);
-                    if (!song) {
-                        showError('آهنگ مورد نظر یافت نشد.');
-                        return;
-                    }
-
-                    renderSong(song);
-                } catch (error) {
-                    console.error('خطا:', error);
-                    showError('خطا در بارگذاری اطلاعات آهنگ.');
-                }
+            // ===== فرمت زمان =====
+            function formatTime(seconds) {
+                if (isNaN(seconds) || !isFinite(seconds)) return '0:00';
+                const m = Math.floor(seconds / 60);
+                const s = Math.floor(seconds % 60);
+                return m + ':' + (s < 10 ? '0' : '') + s;
             }
 
-            function renderSong(song) {
-                let html = `
-                    <div class="song-header">
-                        <img 
-                            src="${escapeHTML(song.cover)}" 
-                            alt="${escapeHTML(song.title)}" 
-                            class="cover-large"
-                            loading="lazy"
-                            onerror="this.style.display='none'"
-                        >
-                        <h1 class="song-title">${escapeHTML(song.title)}</h1>
-                        <p class="song-artist">${escapeHTML(song.artist)}</p>
-                        <div class="song-meta">
-                            ${song.releaseDate ? `<span><i class="fas fa-calendar-alt"></i> ${escapeHTML(song.releaseDate)}</span>` : ''}
-                        </div>
-                        ${song.description ? `<p class="song-description">${escapeHTML(song.description)}</p>` : ''}
-                    </div>
-                `;
-
-                // پخش‌کننده‌ها
-                if (song.hasMusic && song.music) {
-                    html += `
-                        <div class="player-section">
-                            <div class="player-box">
-                                <h3><i class="fas fa-music"></i> پخش آهنگ</h3>
-                                <audio controls>
-                                    <source src="${escapeHTML(song.music)}" type="audio/mpeg">
-                                    مرورگر شما از پخش صدا پشتیبانی نمی‌کند.
-                                </audio>
-                            </div>
-                        </div>
-                    `;
-                }
-
-                if (song.hasVideo && song.video) {
-                    html += `
-                        <div class="player-section">
-                            <div class="player-box">
-                                <h3><i class="fas fa-video"></i> موزیک ویدیو</h3>
-                                <video controls playsinline>
-                                    <source src="${escapeHTML(song.video)}" type="video/mp4">
-                                    مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
-                                </video>
-                            </div>
-                        </div>
-                    `;
-                }
-
-                if (!song.hasMusic && !song.hasVideo) {
-                    html += `
-                        <div class="error-msg" style="padding: var(--space-md);">
-                            <i class="fas fa-ban"></i>
-                            <p>محتوای قابل پخشی برای این آهنگ موجود نیست.</p>
-                        </div>
-                    `;
-                }
-
-                songContent.innerHTML = html;
-            }
-
-            loadSong();
+            // ===== شروع =====
+            loadSongs();
         })();
     </script>
 </body>
