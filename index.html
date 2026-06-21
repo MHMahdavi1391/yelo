@@ -6,65 +6,45 @@
     <title>فراوا — لیبل موسیقی</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <!-- هدر با لوگو (بدون اسم) -->
         <header class="header">
             <div class="header-top">
                 <div class="logo-wrapper">
-                    <img 
-                        src="logo.jpg" 
-                        alt="Farava Logo" 
-                        class="logo-img"
-                        loading="lazy"
-                    >
+                    <img src="logo.jpg" alt="فراوا" class="logo-img" loading="lazy">
                 </div>
-                <!-- جستجو در کنار لوگو (مثل اسپاتیفای) -->
                 <div class="search-wrapper">
                     <div class="search-box">
                         <i class="fas fa-search search-icon"></i>
-                        <input 
-                            type="text" 
-                            id="searchInput" 
-                            class="search-input" 
-                            placeholder="جستجوی آهنگ یا هنرمند..."
-                            autocomplete="off"
-                        >
-                        <button id="clearSearch" class="clear-btn" style="display: none;">
-                            <i class="fas fa-times"></i>
-                        </button>
+                        <input type="text" id="searchInput" class="search-input" placeholder="جستجوی آهنگ یا هنرمند..." autocomplete="off">
+                        <button id="clearSearch" class="clear-btn" style="display: none;"><i class="fas fa-times"></i></button>
                     </div>
                 </div>
             </div>
         </header>
 
-        <!-- بخش کارت‌ها -->
         <section class="songs-section">
-            <div id="songGrid" class="song-grid">
-                <!-- کارت‌ها با JS پر میشن -->
-            </div>
+            <div id="songGrid" class="song-grid"></div>
             <div id="noResults" class="no-results" style="display: none;">
                 <i class="fas fa-music"></i>
                 <p>موردی یافت نشد.</p>
             </div>
         </section>
 
-        <!-- فوتر با لوگو به جای اسم شرکت -->
         <footer class="footer">
             <div class="footer-content">
-                <img src="logo.jpg" alt="Farava" class="footer-logo" loading="lazy">
-                <span class="footer-text">— زیرمجموعه Lumen Technologies Co. (LTC)</span>
+                <img src="logo.jpg" alt="فراوا" class="footer-logo" loading="lazy">
+                <span>زیرمجموعه Lumen Technologies Co. (LTC)</span>
             </div>
             <a href="https://lt-c.iddns.ir" class="back-link">
                 <i class="fas fa-arrow-right"></i> بازگشت به هاب LTC
             </a>
         </footer>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
