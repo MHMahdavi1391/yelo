@@ -12,36 +12,35 @@
 </head>
 <body>
     <div class="container">
-        <!-- هدر با لوگو -->
+        <!-- هدر با لوگو (بدون اسم) -->
         <header class="header">
-            <div class="logo-wrapper">
-                <img 
-                    src="logo.jpg" 
-                    alt="Farava Logo" 
-                    class="logo-img"
-                    loading="lazy"
-                >
+            <div class="header-top">
+                <div class="logo-wrapper">
+                    <img 
+                        src="logo.jpg" 
+                        alt="Farava Logo" 
+                        class="logo-img"
+                        loading="lazy"
+                    >
+                </div>
+                <!-- جستجو در کنار لوگو (مثل اسپاتیفای) -->
+                <div class="search-wrapper">
+                    <div class="search-box">
+                        <i class="fas fa-search search-icon"></i>
+                        <input 
+                            type="text" 
+                            id="searchInput" 
+                            class="search-input" 
+                            placeholder="جستجوی آهنگ یا هنرمند..."
+                            autocomplete="off"
+                        >
+                        <button id="clearSearch" class="clear-btn" style="display: none;">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
-            <h1>فراوا</h1>
-            <p class="tagline">لیبل رسمی موسیقی</p>
         </header>
-
-        <!-- کادر جستجو -->
-        <div class="search-wrapper">
-            <div class="search-box">
-                <i class="fas fa-search search-icon"></i>
-                <input 
-                    type="text" 
-                    id="searchInput" 
-                    class="search-input" 
-                    placeholder="جستجوی آهنگ یا هنرمند..."
-                    autocomplete="off"
-                >
-                <button id="clearSearch" class="clear-btn" style="display: none;">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-        </div>
 
         <!-- بخش کارت‌ها -->
         <section class="songs-section">
@@ -54,9 +53,12 @@
             </div>
         </section>
 
-        <!-- فوتر -->
+        <!-- فوتر با لوگو به جای اسم شرکت -->
         <footer class="footer">
-            <p>© Farava — زیرمجموعه Lumen Technologies Co. (LTC)</p>
+            <div class="footer-content">
+                <img src="logo.jpg" alt="Farava" class="footer-logo" loading="lazy">
+                <span class="footer-text">— زیرمجموعه Lumen Technologies Co. (LTC)</span>
+            </div>
             <a href="https://lt-c.iddns.ir" class="back-link">
                 <i class="fas fa-arrow-right"></i> بازگشت به هاب LTC
             </a>
