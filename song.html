@@ -83,7 +83,7 @@
             background: var(--bg-surface);
         }
 
-        /* iOS 26 glass effect: subtle gradient overlay + blur backdrop */
+        /* iOS 26 glass effect */
         .cover-wrapper::after {
             content: '';
             position: absolute;
@@ -175,7 +175,7 @@
             background: rgba(245, 200, 66, 0.25);
         }
 
-        /* Progress bar with touch support */
+        /* ===== Progress Bar (از راست به چپ پر می‌شود) ===== */
         .progress-container {
             display: flex;
             align-items: center;
@@ -189,6 +189,7 @@
             font-variant-numeric: tabular-nums;
             user-select: none;
         }
+        /* کانتینر نوار با موقعیت نسبی و راست‌چین */
         .progress-bar {
             flex: 1;
             height: 6px;
@@ -198,18 +199,26 @@
             position: relative;
             touch-action: none;
             transition: height 0.2s;
+            overflow: hidden;
+            direction: ltr; /* برای اینکه موقعیت‌یابی از چپ انجام شود، ولی ما از راست محاسبه می‌کنیم */
         }
-        .progress-bar:hover { height: 8px; }
+        .progress-bar:hover {
+            height: 8px;
+        }
+        /* Fill که از راست به چپ پر می‌شود */
         .progress-fill {
-            width: 0%;
+            position: absolute;
+            top: 0;
+            right: 0;
             height: 100%;
             background: var(--accent-gradient);
             border-radius: 6px;
-            transition: width 0.05s linear;
+            width: 0%; /* از ۰ تا ۱۰۰ درصد، از راست به چپ */
             pointer-events: none;
+            transition: width 0.05s linear;
         }
 
-        /* Volume control */
+        /* ===== Volume Slider (چپ به راست زیاد شود) ===== */
         .volume-control {
             display: flex;
             align-items: center;
@@ -229,6 +238,7 @@
             background: var(--bg-surface);
             border-radius: 4px;
             outline: none;
+            direction: ltr; /* چپ به راست افزایش */
         }
         .volume-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
@@ -267,7 +277,7 @@
         }
         .error-msg i { font-size: 3rem; margin-bottom: var(--space-sm); opacity: 0.5; }
 
-        /* ===== Responsive for mobile (cover top, player bottom) ===== */
+        /* ===== Responsive for mobile ===== */
         @media (max-width: 899px) {
             .player-layout {
                 flex-direction: column;
@@ -362,7 +372,7 @@
                 }
             }
 
-            // ===== نمایش آهنگ (با چینش جدید) =====
+            // ===== نمایش آهنگ =====
             function renderSong(index) {
                 if (!allSongs.length) return;
                 currentSong = allSongs[index];
@@ -372,7 +382,6 @@
                 const newUrl = `./song.html?id=${currentSong.id}`;
                 window.history.replaceState({}, '', newUrl);
 
-                // ساختار دوتکه: سمت چپ (کاور + اطلاعات) و سمت راست (پلیر)
                 let html = `
                     <div class="player-left">
                         <div class="cover-wrapper">
@@ -388,7 +397,6 @@
                     <div class="player-right">
                 `;
 
-                // پلیر صوتی
                 if (currentSong.hasMusic && currentSong.music) {
                     html += `
                         <div class="custom-player" id="customPlayer">
@@ -408,14 +416,13 @@
                             </div>
                             <div class="volume-control">
                                 <i class="fas fa-volume-down"></i>
-                                <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.01" value="0.8">
+                                <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.01" value="0.8" dir="ltr">
                                 <i class="fas fa-volume-up"></i>
                             </div>
                         </div>
                     `;
                 }
 
-                // ویدیو
                 if (currentSong.hasVideo && currentSong.video) {
                     html += `
                         <div class="video-wrapper">
@@ -436,7 +443,7 @@
                     `;
                 }
 
-                html += `</div>`; // بستن player-right
+                html += `</div>`;
                 songContent.innerHTML = html;
 
                 if (currentSong.hasMusic && currentSong.music) {
@@ -444,7 +451,7 @@
                 }
             }
 
-            // ===== مقداردهی پلیر با پشتیبانی از لمس =====
+            // ===== مقداردهی پلیر با پشتیبانی از لمس و اصلاح جهت =====
             function initPlayer() {
                 if (!currentSong) return;
                 const musicSrc = currentSong.music;
@@ -474,9 +481,11 @@
                 });
 
                 audio.addEventListener('timeupdate', () => {
-                    const percent = (audio.currentTime / audio.duration) * 100;
-                    progressFill.style.width = percent + '%';
-                    currentTimeSpan.textContent = formatTime(audio.currentTime);
+                    if (audio.duration) {
+                        const percent = (audio.currentTime / audio.duration) * 100;
+                        progressFill.style.width = percent + '%';
+                        currentTimeSpan.textContent = formatTime(audio.currentTime);
+                    }
                 });
 
                 audio.addEventListener('ended', () => {
@@ -537,14 +546,15 @@
                     repeatBtn.classList.toggle('active', repeat);
                 });
 
-                // ===== نوار پیشرفت با پشتیبانی از ماوس و لمس =====
+                // ===== نوار پیشرفت با پشتیبانی از ماوس و لمس (از راست به چپ) =====
                 let isDragging = false;
 
                 function setProgress(e) {
                     const rect = progressBar.getBoundingClientRect();
+                    // محاسبه موقعیت از سمت راست
                     const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-                    const x = clientX - rect.left;
-                    const percent = Math.min(Math.max(x / rect.width, 0), 1);
+                    const xFromRight = rect.right - clientX; // فاصله از راست
+                    const percent = Math.min(Math.max(xFromRight / rect.width, 0), 1);
                     progressFill.style.width = (percent * 100) + '%';
                     if (audio.duration) {
                         audio.currentTime = percent * audio.duration;
@@ -576,10 +586,6 @@
                     e.preventDefault();
                     setProgress(e);
                 }, { passive: false });
-
-                progressBar.addEventListener('touchend', (e) => {
-                    // هیچ کاری لازم نیست
-                });
 
                 // ===== کنترل صدا =====
                 volumeSlider.addEventListener('input', () => {
