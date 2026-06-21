@@ -53,13 +53,16 @@
             .player-left {
                 flex: 1.2;
                 min-width: 0;
+                display: flex;
+                flex-direction: column;
+                gap: var(--space-md);
             }
             .player-right {
                 flex: 1;
                 min-width: 0;
                 display: flex;
-                flex-direction: column;
-                gap: var(--space-md);
+                justify-content: center;
+                align-items: center;
             }
         }
 
@@ -124,7 +127,7 @@
             line-height: 1.7;
         }
 
-        /* ===== Custom Player (تمیز و مرتب) ===== */
+        /* ===== Custom Player (بدون Shuffle و Repeat) ===== */
         .custom-player {
             background: var(--bg-card);
             border-radius: var(--radius-md);
@@ -161,9 +164,6 @@
             color: var(--accent);
             background: var(--accent-glow);
         }
-        .ctrl-btn.active {
-            color: var(--accent);
-        }
         .ctrl-btn.play-btn {
             font-size: 2.2rem;
             color: var(--accent);
@@ -175,7 +175,7 @@
             background: rgba(245, 200, 66, 0.25);
         }
 
-        /* ===== Progress Bar (از راست به چپ پر می‌شود) ===== */
+        /* ===== Progress Bar (چپ به راست) ===== */
         .progress-container {
             display: flex;
             align-items: center;
@@ -189,7 +189,6 @@
             font-variant-numeric: tabular-nums;
             user-select: none;
         }
-        /* کانتینر نوار با موقعیت نسبی و راست‌چین */
         .progress-bar {
             flex: 1;
             height: 6px;
@@ -200,25 +199,25 @@
             touch-action: none;
             transition: height 0.2s;
             overflow: hidden;
-            direction: ltr; /* برای اینکه موقعیت‌یابی از چپ انجام شود، ولی ما از راست محاسبه می‌کنیم */
+            direction: ltr; /* چپ به راست */
         }
         .progress-bar:hover {
             height: 8px;
         }
-        /* Fill که از راست به چپ پر می‌شود */
+        /* Fill از چپ به راست پر می‌شود */
         .progress-fill {
             position: absolute;
             top: 0;
-            right: 0;
+            left: 0;
             height: 100%;
             background: var(--accent-gradient);
             border-radius: 6px;
-            width: 0%; /* از ۰ تا ۱۰۰ درصد، از راست به چپ */
+            width: 0%;
             pointer-events: none;
             transition: width 0.05s linear;
         }
 
-        /* ===== Volume Slider (چپ به راست زیاد شود) ===== */
+        /* ===== Volume Slider (چپ = کم، راست = زیاد) ===== */
         .volume-control {
             display: flex;
             align-items: center;
@@ -238,7 +237,7 @@
             background: var(--bg-surface);
             border-radius: 4px;
             outline: none;
-            direction: ltr; /* چپ به راست افزایش */
+            direction: ltr;
         }
         .volume-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
@@ -258,15 +257,21 @@
             border: none;
         }
 
-        /* ===== Video ===== */
+        /* ===== Video (زیر پلیر، در سمت چپ) ===== */
         .video-wrapper {
             margin-top: var(--space-md);
+            width: 100%;
         }
         .video-wrapper video {
             width: 100%;
             border-radius: var(--radius-sm);
             background: #000;
             max-height: 400px;
+        }
+
+        /* اگر فقط ویدیو باشد (بدون پلیر صوتی) */
+        .video-only {
+            margin-top: 0;
         }
 
         /* ===== Error ===== */
@@ -277,7 +282,7 @@
         }
         .error-msg i { font-size: 3rem; margin-bottom: var(--space-sm); opacity: 0.5; }
 
-        /* ===== Responsive for mobile ===== */
+        /* ===== Responsive ===== */
         @media (max-width: 899px) {
             .player-layout {
                 flex-direction: column;
@@ -295,6 +300,7 @@
             .ctrl-btn.play-btn { width: 56px; height: 56px; font-size: 1.8rem; }
             .custom-player { padding: var(--space-md); }
             .volume-slider { width: 80px; }
+            .video-wrapper video { max-height: 300px; }
         }
 
         @media (max-width: 500px) {
@@ -304,6 +310,7 @@
             .ctrl-btn.play-btn { width: 48px; height: 48px; font-size: 1.5rem; }
             .progress-time { font-size: 0.7rem; min-width: 36px; }
             .volume-slider { width: 60px; }
+            .video-wrapper video { max-height: 220px; }
         }
     </style>
 </head>
@@ -330,8 +337,6 @@
             let currentSong = null;
             let audio = null;
             let isPlaying = false;
-            let shuffle = false;
-            let repeat = false;
 
             // ===== Helpers =====
             function escapeHTML(str) {
@@ -382,30 +387,25 @@
                 const newUrl = `./song.html?id=${currentSong.id}`;
                 window.history.replaceState({}, '', newUrl);
 
-                let html = `
+                // سمت چپ: اطلاعات + پلیر (در صورت وجود) + ویدیو (در صورت وجود)
+                let leftHtml = `
                     <div class="player-left">
-                        <div class="cover-wrapper">
-                            <img src="${escapeHTML(currentSong.cover)}" alt="${escapeHTML(currentSong.title)}" class="cover-large" loading="lazy" onerror="this.style.display='none'">
-                        </div>
                         <div class="song-info">
                             <h1 class="song-title">${escapeHTML(currentSong.title)}</h1>
                             <p class="song-artist">${escapeHTML(currentSong.artist)}</p>
                             ${currentSong.releaseDate ? `<div class="song-meta"><i class="fas fa-calendar-alt"></i> ${escapeHTML(currentSong.releaseDate)}</div>` : ''}
                             ${currentSong.description ? `<p class="song-description">${escapeHTML(currentSong.description)}</p>` : ''}
                         </div>
-                    </div>
-                    <div class="player-right">
                 `;
 
+                // ===== پلیر صوتی (اگر موزیک داشته باشد) =====
                 if (currentSong.hasMusic && currentSong.music) {
-                    html += `
+                    leftHtml += `
                         <div class="custom-player" id="customPlayer">
                             <div class="player-controls">
-                                <button class="ctrl-btn" id="shuffleBtn" title="Shuffle"><i class="fas fa-random"></i></button>
                                 <button class="ctrl-btn" id="prevBtn" title="Previous"><i class="fas fa-step-backward"></i></button>
                                 <button class="ctrl-btn play-btn" id="playBtn" title="Play/Pause"><i class="fas fa-play"></i></button>
                                 <button class="ctrl-btn" id="nextBtn" title="Next"><i class="fas fa-step-forward"></i></button>
-                                <button class="ctrl-btn" id="repeatBtn" title="Repeat"><i class="fas fa-redo"></i></button>
                             </div>
                             <div class="progress-container">
                                 <span class="progress-time" id="currentTime">0:00</span>
@@ -423,9 +423,11 @@
                     `;
                 }
 
+                // ===== ویدیو (اگر داشته باشد) - زیر پلیر یا جایگزین آن =====
                 if (currentSong.hasVideo && currentSong.video) {
-                    html += `
-                        <div class="video-wrapper">
+                    const videoClass = currentSong.hasMusic ? '' : 'video-only';
+                    leftHtml += `
+                        <div class="video-wrapper ${videoClass}">
                             <video controls playsinline>
                                 <source src="${escapeHTML(currentSong.video)}" type="video/mp4">
                                 مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
@@ -434,24 +436,40 @@
                     `;
                 }
 
+                leftHtml += `</div>`; // بستن player-left
+
+                // ===== سمت راست: کاور =====
+                let rightHtml = `
+                    <div class="player-right">
+                        <div class="cover-wrapper">
+                            <img src="${escapeHTML(currentSong.cover)}" alt="${escapeHTML(currentSong.title)}" class="cover-large" loading="lazy" onerror="this.style.display='none'">
+                        </div>
+                    </div>
+                `;
+
+                // اگر هیچ محتوایی وجود نداشت
                 if (!currentSong.hasMusic && !currentSong.hasVideo) {
-                    html += `
-                        <div class="error-msg">
+                    leftHtml = `
+                        <div class="error-msg" style="width:100%;">
                             <i class="fas fa-ban"></i>
                             <p>محتوای قابل پخشی برای این آهنگ موجود نیست.</p>
+                            <br>
+                            <a href="./index.html" class="back-btn">
+                                <i class="fas fa-arrow-right"></i> بازگشت به صفحه اصلی
+                            </a>
                         </div>
                     `;
+                    rightHtml = '';
                 }
 
-                html += `</div>`;
-                songContent.innerHTML = html;
+                songContent.innerHTML = leftHtml + rightHtml;
 
                 if (currentSong.hasMusic && currentSong.music) {
                     initPlayer();
                 }
             }
 
-            // ===== مقداردهی پلیر با پشتیبانی از لمس و اصلاح جهت =====
+            // ===== مقداردهی پلیر =====
             function initPlayer() {
                 if (!currentSong) return;
                 const musicSrc = currentSong.music;
@@ -467,8 +485,6 @@
                 const playBtn = document.getElementById('playBtn');
                 const prevBtn = document.getElementById('prevBtn');
                 const nextBtn = document.getElementById('nextBtn');
-                const shuffleBtn = document.getElementById('shuffleBtn');
-                const repeatBtn = document.getElementById('repeatBtn');
                 const progressFill = document.getElementById('progressFill');
                 const progressBar = document.getElementById('progressBar');
                 const currentTimeSpan = document.getElementById('currentTime');
@@ -489,14 +505,9 @@
                 });
 
                 audio.addEventListener('ended', () => {
-                    if (repeat) {
-                        audio.currentTime = 0;
-                        audio.play().catch(() => {});
-                    } else {
-                        playBtn.innerHTML = '<i class="fas fa-play"></i>';
-                        isPlaying = false;
-                        playNext();
-                    }
+                    playBtn.innerHTML = '<i class="fas fa-play"></i>';
+                    isPlaying = false;
+                    playNext();
                 });
 
                 // ===== Play/Pause =====
@@ -536,25 +547,14 @@
                 prevBtn.addEventListener('click', playPrev);
                 nextBtn.addEventListener('click', playNext);
 
-                // ===== Shuffle & Repeat =====
-                shuffleBtn.addEventListener('click', () => {
-                    shuffle = !shuffle;
-                    shuffleBtn.classList.toggle('active', shuffle);
-                });
-                repeatBtn.addEventListener('click', () => {
-                    repeat = !repeat;
-                    repeatBtn.classList.toggle('active', repeat);
-                });
-
-                // ===== نوار پیشرفت با پشتیبانی از ماوس و لمس (از راست به چپ) =====
+                // ===== نوار پیشرفت (چپ به راست) =====
                 let isDragging = false;
 
                 function setProgress(e) {
                     const rect = progressBar.getBoundingClientRect();
-                    // محاسبه موقعیت از سمت راست
                     const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-                    const xFromRight = rect.right - clientX; // فاصله از راست
-                    const percent = Math.min(Math.max(xFromRight / rect.width, 0), 1);
+                    const x = clientX - rect.left; // فاصله از چپ
+                    const percent = Math.min(Math.max(x / rect.width, 0), 1);
                     progressFill.style.width = (percent * 100) + '%';
                     if (audio.duration) {
                         audio.currentTime = percent * audio.duration;
@@ -576,7 +576,6 @@
                     isDragging = false;
                 });
 
-                // پشتیبانی از لمس
                 progressBar.addEventListener('touchstart', (e) => {
                     e.preventDefault();
                     setProgress(e);
@@ -600,7 +599,6 @@
                     }
                 });
 
-                // مقداردهی اولیه
                 currentTimeSpan.textContent = '0:00';
                 if (audio.duration) totalTimeSpan.textContent = formatTime(audio.duration);
             }
