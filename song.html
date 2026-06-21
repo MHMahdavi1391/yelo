@@ -35,7 +35,7 @@
         }
         .back-btn:hover { color: var(--accent); }
 
-        /* ===== Layout: دو ستونه در لپ‌تاپ ===== */
+        /* ===== Layout ===== */
         .player-layout {
             display: flex;
             flex-direction: column;
@@ -43,6 +43,7 @@
             flex: 1;
         }
 
+        /* ===== در لپ‌تاپ: دو ستونه (چپ = اطلاعات+پلیر، راست = کاور) ===== */
         @media (min-width: 900px) {
             .player-layout {
                 flex-direction: row;
@@ -56,6 +57,7 @@
                 display: flex;
                 flex-direction: column;
                 gap: var(--space-md);
+                order: 1; /* چپ */
             }
             .player-right {
                 flex: 1;
@@ -63,6 +65,24 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                order: 2; /* راست */
+            }
+        }
+
+        /* ===== در موبایل: کاور بالا، اطلاعات و پلیر پایین ===== */
+        @media (max-width: 899px) {
+            .player-layout {
+                flex-direction: column;
+                align-items: center;
+            }
+            .player-left {
+                width: 100%;
+                order: 2; /* اطلاعات و پلیر پایین */
+            }
+            .player-right {
+                width: 100%;
+                order: 1; /* کاور بالا */
+                margin-bottom: var(--space-sm);
             }
         }
 
@@ -86,7 +106,6 @@
             background: var(--bg-surface);
         }
 
-        /* iOS 26 glass effect */
         .cover-wrapper::after {
             content: '';
             position: absolute;
@@ -199,12 +218,11 @@
             touch-action: none;
             transition: height 0.2s;
             overflow: hidden;
-            direction: ltr; /* چپ به راست */
+            direction: ltr;
         }
         .progress-bar:hover {
             height: 8px;
         }
-        /* Fill از چپ به راست پر می‌شود */
         .progress-fill {
             position: absolute;
             top: 0;
@@ -217,7 +235,7 @@
             transition: width 0.05s linear;
         }
 
-        /* ===== Volume Slider (چپ = کم، راست = زیاد) ===== */
+        /* ===== Volume Slider (چپ = زیاد، راست = کم) ===== */
         .volume-control {
             display: flex;
             align-items: center;
@@ -238,26 +256,27 @@
             border-radius: 4px;
             outline: none;
             direction: ltr;
+            touch-action: none;
         }
         .volume-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
-            width: 14px;
-            height: 14px;
+            width: 18px;
+            height: 18px;
             border-radius: 50%;
             background: var(--accent);
             cursor: pointer;
         }
         .volume-slider::-moz-range-thumb {
-            width: 14px;
-            height: 14px;
+            width: 18px;
+            height: 18px;
             border-radius: 50%;
             background: var(--accent);
             cursor: pointer;
             border: none;
         }
 
-        /* ===== Video (زیر پلیر، در سمت چپ) ===== */
+        /* ===== Video ===== */
         .video-wrapper {
             margin-top: var(--space-md);
             width: 100%;
@@ -268,8 +287,6 @@
             background: #000;
             max-height: 400px;
         }
-
-        /* اگر فقط ویدیو باشد (بدون پلیر صوتی) */
         .video-only {
             margin-top: 0;
         }
@@ -282,15 +299,8 @@
         }
         .error-msg i { font-size: 3rem; margin-bottom: var(--space-sm); opacity: 0.5; }
 
-        /* ===== Responsive ===== */
+        /* ===== Responsive (موبایل) ===== */
         @media (max-width: 899px) {
-            .player-layout {
-                flex-direction: column;
-                align-items: center;
-            }
-            .player-left, .player-right {
-                width: 100%;
-            }
             .cover-large {
                 max-width: 300px;
             }
@@ -301,6 +311,17 @@
             .custom-player { padding: var(--space-md); }
             .volume-slider { width: 80px; }
             .video-wrapper video { max-height: 300px; }
+            /* بزرگ‌تر کردن ناحیه لمس برای موبایل */
+            .progress-bar { height: 10px; }
+            .volume-slider { height: 6px; }
+            .volume-slider::-webkit-slider-thumb {
+                width: 22px;
+                height: 22px;
+            }
+            .volume-slider::-moz-range-thumb {
+                width: 22px;
+                height: 22px;
+            }
         }
 
         @media (max-width: 500px) {
@@ -311,6 +332,16 @@
             .progress-time { font-size: 0.7rem; min-width: 36px; }
             .volume-slider { width: 60px; }
             .video-wrapper video { max-height: 220px; }
+            .progress-bar { height: 12px; }
+            .volume-slider { height: 8px; }
+            .volume-slider::-webkit-slider-thumb {
+                width: 26px;
+                height: 26px;
+            }
+            .volume-slider::-moz-range-thumb {
+                width: 26px;
+                height: 26px;
+            }
         }
     </style>
 </head>
@@ -387,7 +418,7 @@
                 const newUrl = `./song.html?id=${currentSong.id}`;
                 window.history.replaceState({}, '', newUrl);
 
-                // سمت چپ: اطلاعات + پلیر (در صورت وجود) + ویدیو (در صورت وجود)
+                // سمت چپ (در موبایل پایین): اطلاعات + پلیر + ویدیو
                 let leftHtml = `
                     <div class="player-left">
                         <div class="song-info">
@@ -398,7 +429,7 @@
                         </div>
                 `;
 
-                // ===== پلیر صوتی (اگر موزیک داشته باشد) =====
+                // ===== پلیر صوتی =====
                 if (currentSong.hasMusic && currentSong.music) {
                     leftHtml += `
                         <div class="custom-player" id="customPlayer">
@@ -415,15 +446,15 @@
                                 <span class="progress-time" id="totalTime">0:00</span>
                             </div>
                             <div class="volume-control">
-                                <i class="fas fa-volume-down"></i>
+                                <i class="fas fa-volume-up"></i> <!-- چپ = زیاد -->
                                 <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.01" value="0.8" dir="ltr">
-                                <i class="fas fa-volume-up"></i>
+                                <i class="fas fa-volume-down"></i> <!-- راست = کم -->
                             </div>
                         </div>
                     `;
                 }
 
-                // ===== ویدیو (اگر داشته باشد) - زیر پلیر یا جایگزین آن =====
+                // ===== ویدیو =====
                 if (currentSong.hasVideo && currentSong.video) {
                     const videoClass = currentSong.hasMusic ? '' : 'video-only';
                     leftHtml += `
@@ -438,7 +469,7 @@
 
                 leftHtml += `</div>`; // بستن player-left
 
-                // ===== سمت راست: کاور =====
+                // ===== سمت راست (در موبایل بالا): کاور =====
                 let rightHtml = `
                     <div class="player-right">
                         <div class="cover-wrapper">
@@ -447,7 +478,7 @@
                     </div>
                 `;
 
-                // اگر هیچ محتوایی وجود نداشت
+                // اگر هیچ محتوایی نبود
                 if (!currentSong.hasMusic && !currentSong.hasVideo) {
                     leftHtml = `
                         <div class="error-msg" style="width:100%;">
@@ -469,7 +500,7 @@
                 }
             }
 
-            // ===== مقداردهی پلیر =====
+            // ===== مقداردهی پلیر با پشتیبانی کامل از لمس =====
             function initPlayer() {
                 if (!currentSong) return;
                 const musicSrc = currentSong.music;
@@ -547,13 +578,12 @@
                 prevBtn.addEventListener('click', playPrev);
                 nextBtn.addEventListener('click', playNext);
 
-                // ===== نوار پیشرفت (چپ به راست) =====
+                // ===== نوار پیشرفت (چپ به راست) با پشتیبانی از لمس =====
                 let isDragging = false;
 
-                function setProgress(e) {
+                function setProgress(clientX) {
                     const rect = progressBar.getBoundingClientRect();
-                    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-                    const x = clientX - rect.left; // فاصله از چپ
+                    const x = clientX - rect.left;
                     const percent = Math.min(Math.max(x / rect.width, 0), 1);
                     progressFill.style.width = (percent * 100) + '%';
                     if (audio.duration) {
@@ -561,14 +591,15 @@
                     }
                 }
 
+                // ماوس
                 progressBar.addEventListener('mousedown', (e) => {
                     isDragging = true;
-                    setProgress(e);
+                    setProgress(e.clientX);
                 });
 
                 document.addEventListener('mousemove', (e) => {
                     if (isDragging) {
-                        setProgress(e);
+                        setProgress(e.clientX);
                     }
                 });
 
@@ -576,17 +607,20 @@
                     isDragging = false;
                 });
 
+                // لمس (با دقت بالا)
                 progressBar.addEventListener('touchstart', (e) => {
                     e.preventDefault();
-                    setProgress(e);
+                    const touch = e.touches[0];
+                    setProgress(touch.clientX);
                 }, { passive: false });
 
                 progressBar.addEventListener('touchmove', (e) => {
                     e.preventDefault();
-                    setProgress(e);
+                    const touch = e.touches[0];
+                    setProgress(touch.clientX);
                 }, { passive: false });
 
-                // ===== کنترل صدا =====
+                // ===== کنترل صدا (اسلایدر) =====
                 volumeSlider.addEventListener('input', () => {
                     audio.volume = parseFloat(volumeSlider.value);
                 });
