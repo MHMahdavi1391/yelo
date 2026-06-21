@@ -7,7 +7,19 @@
     "releaseDate": "نامشخص",
     "cover": "picture/bek.jpg",
     "music": "music/Inhale the Throne.mp3",
-    "video": "sdcvfgbnm",
+    "video": "",
+    "hasMusic": true,
+    "hasVideo": false
+  },
+   {
+    "id": 2,
+    "title": "Esperso Maciyato",
+    "artist": "Tommy",
+    "description": "اهنگ اسپرسو ماکیاتو",
+    "releaseDate": "نامشخص",
+    "cover": "picture/spereso.jpg",
+    "music": "music/Esperso Maciyato (320).mp3",
+    "video": "video/spereso.mp4",
     "hasMusic": true,
     "hasVideo": true
   }
