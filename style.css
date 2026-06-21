@@ -2,8 +2,9 @@
     --bg-primary: #0d1117;
     --bg-surface: #161b22;
     --bg-card: #1c2333;
-    --accent: #e6b422;
-    --accent-glow: rgba(230, 180, 34, 0.25);
+    --accent: #f5c842;          /* زرد اسپاتیفای */
+    --accent-hover: #e6b422;
+    --accent-glow: rgba(245, 200, 66, 0.3);
     --text-primary: #f0f0f0;
     --text-secondary: #b0b8c4;
     --text-muted: #6e7681;
@@ -44,59 +45,49 @@ body {
 
 .container {
     width: 100%;
-    max-width: 900px;
+    max-width: 1100px;
     margin: 0 auto;
     padding: var(--space-sm);
 }
 
-/* === هدر === */
+/* ===== هدر ===== */
 .header {
-    text-align: center;
     margin-bottom: var(--space-lg);
-    padding-top: var(--space-md);
+    padding-top: var(--space-sm);
+}
+
+.header-top {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    flex-wrap: wrap;
 }
 
 .logo-wrapper {
-    display: inline-block;
     background: #f5c842;
-    padding: 8px;
+    padding: 6px;
     border-radius: var(--radius-sm);
-    margin-bottom: var(--space-sm);
-    box-shadow: 0 6px 20px rgba(230, 180, 34, 0.3);
+    box-shadow: 0 4px 15px rgba(245, 200, 66, 0.3);
     line-height: 0;
+    flex-shrink: 0;
 }
 
 .logo-img {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     object-fit: cover;
     border-radius: 4px;
+    display: block;
 }
 
-.header h1 {
-    font-size: clamp(2rem, 6vw, 3rem);
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    color: var(--accent);
-    margin-top: var(--space-xs);
-}
-
-.tagline {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    font-weight: 400;
-    margin-top: 2px;
-}
-
-/* === جستجو === */
 .search-wrapper {
-    margin-bottom: var(--space-lg);
+    flex: 1;
+    min-width: 200px;
 }
 
 .search-box {
     position: relative;
-    max-width: 500px;
-    margin: 0 auto;
+    width: 100%;
 }
 
 .search-icon {
@@ -111,10 +102,10 @@ body {
 
 .search-input {
     width: 100%;
-    padding: 12px 40px 12px 40px;
+    padding: 10px 40px 10px 40px;
     background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-md);
+    border-radius: 50px;
     color: var(--text-primary);
     font-family: var(--font-family);
     font-size: 0.95rem;
@@ -149,7 +140,7 @@ body {
     color: var(--accent);
 }
 
-/* === کارت‌های آهنگ === */
+/* ===== کارت‌ها ===== */
 .songs-section {
     min-height: 200px;
 }
@@ -220,7 +211,7 @@ body {
     opacity: 0.5;
 }
 
-/* === فوتر === */
+/* ===== فوتر ===== */
 .footer {
     text-align: center;
     margin-top: var(--space-xl);
@@ -228,6 +219,27 @@ body {
     border-top: 1px solid var(--border-subtle);
     color: var(--text-muted);
     font-size: 0.8rem;
+}
+
+.footer-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.footer-logo {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 4px;
+    background: #f5c842;
+    padding: 2px;
+}
+
+.footer-text {
+    color: var(--text-muted);
 }
 
 .footer .back-link {
@@ -243,23 +255,24 @@ body {
     color: var(--accent);
 }
 
-/* === ریسپانسیو === */
+/* ===== ریسپانسیو ===== */
 @media (max-width: 600px) {
+    .header-top {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .logo-wrapper {
+        align-self: center;
+    }
     .song-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 8px;
     }
-
     .card-title {
         font-size: 0.8rem;
     }
-
     .card-artist {
         font-size: 0.7rem;
-    }
-
-    .header h1 {
-        font-size: 1.6rem;
     }
 }
 
