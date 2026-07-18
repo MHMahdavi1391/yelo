@@ -1,364 +1,258 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>فراوا — پخش آهنگ</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* ===== Reset & Base ===== */
-        *,
-        *::before,
-        *::after {
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --bg-primary: #0a0a0f;
-            --bg-secondary: #11111a;
-            --bg-card: #181825;
-            --bg-surface: #22223b;
-            --bg-elevated: #2a2a45;
-            --text-primary: #f1f1f6;
-            --text-secondary: #b0b0c8;
-            --text-muted: #6b6b85;
-            --accent: #7c3aed;
-            --accent-light: #a78bfa;
-            --accent-glow: rgba(124, 58, 237, 0.25);
-            --accent-gradient: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
-            --border-subtle: rgba(255, 255, 255, 0.06);
-            --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.6);
-            --shadow-glow: 0 0 60px rgba(124, 58, 237, 0.15);
-            --radius-lg: 24px;
-            --radius-md: 16px;
-            --radius-sm: 12px;
-            --radius-full: 9999px;
-            --transition-smooth: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        body {
+            font-family: 'Inter', -apple-system, system-ui, sans-serif;
+            background: #f5f5f7;
+            color: #1c1c1e;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            transition: background 0.2s;
         }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            min-height: 100vh;
+        /* حالت تاریک اختیاری با کلاس dark-mode */
+        body.dark-mode {
+            background: #0a0a0b;
+            color: #f5f5f7;
+        }
+
+        .player-container {
+            width: 100%;
+            max-width: 480px;
+            margin: 0 auto;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 20px 16px;
-            background-image: radial-gradient(ellipse at 30% 50%, rgba(124, 58, 237, 0.06) 0%, transparent 70%);
+            padding: 12px 0;
         }
 
-        /* ===== Container ===== */
-        .player-container {
-            width: 100%;
-            max-width: 1200px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* ===== Back Nav ===== */
+        /* ===== Back ===== */
         .back-nav {
-            margin-bottom: 24px;
+            width: 100%;
+            margin-bottom: 28px;
         }
         .back-btn {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            color: var(--text-muted);
+            gap: 6px;
+            color: #8e8e93;
             text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            padding: 8px 16px;
-            border-radius: var(--radius-full);
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border-subtle);
-            transition: var(--transition-smooth);
-            backdrop-filter: blur(4px);
+            font-size: 0.85rem;
+            font-weight: 400;
+            padding: 6px 12px;
+            border-radius: 20px;
+            background: rgba(0,0,0,0.02);
+            transition: all 0.2s;
+        }
+        body.dark-mode .back-btn {
+            background: rgba(255,255,255,0.04);
+            color: #8e8e93;
         }
         .back-btn:hover {
-            color: var(--accent-light);
-            background: var(--accent-glow);
-            border-color: var(--accent);
-            transform: translateX(-4px);
+            background: rgba(0,0,0,0.05);
+            color: #1c1c1e;
         }
-        .back-btn i {
-            font-size: 0.85rem;
+        body.dark-mode .back-btn:hover {
+            background: rgba(255,255,255,0.08);
+            color: #fff;
         }
 
         /* ===== Layout ===== */
         .player-layout {
+            width: 100%;
             display: flex;
             flex-direction: column;
+            align-items: center;
             gap: 32px;
-            flex: 1;
-        }
-
-        @media (min-width: 900px) {
-            .player-layout {
-                flex-direction: row;
-                align-items: center;
-                gap: 48px;
-            }
-            .player-left {
-                flex: 1.2;
-                order: 1;
-                min-width: 0;
-                display: flex;
-                flex-direction: column;
-                gap: 24px;
-            }
-            .player-right {
-                flex: 1;
-                order: 2;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-        }
-
-        @media (max-width: 899px) {
-            .player-layout {
-                flex-direction: column;
-                align-items: center;
-                gap: 24px;
-            }
-            .player-left {
-                order: 2;
-                width: 100%;
-            }
-            .player-right {
-                order: 1;
-                width: 100%;
-                margin-bottom: 4px;
-            }
         }
 
         /* ===== Cover ===== */
         .cover-wrapper {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 12px;
+            width: 100%;
+            max-width: 380px;
+            aspect-ratio: 1/1;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.02);
+            transition: box-shadow 0.3s;
         }
-        .cover-wrapper::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at center, rgba(124, 58, 237, 0.15) 0%, transparent 70%);
-            border-radius: var(--radius-lg);
-            pointer-events: none;
-            opacity: 0.6;
+        body.dark-mode .cover-wrapper {
+            box-shadow: 0 12px 40px rgba(0,0,0,0.6);
         }
-
         .cover-large {
             width: 100%;
-            max-width: 420px;
-            aspect-ratio: 1/1;
+            height: 100%;
             object-fit: cover;
-            border-radius: var(--radius-lg);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.04), var(--shadow-glow);
-            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
-            background: var(--bg-surface);
-            position: relative;
-            z-index: 1;
+            display: block;
+            background: #e5e5ea;
         }
-        .cover-wrapper:hover .cover-large {
-            transform: scale(1.02);
-            box-shadow: 0 28px 72px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.06), var(--shadow-glow);
+        body.dark-mode .cover-large {
+            background: #2c2c2e;
         }
 
         /* ===== Song Info ===== */
         .song-info {
+            width: 100%;
             text-align: center;
-            padding: 0 4px;
+            padding: 0 8px;
         }
-        .song-info .song-title {
-            font-size: 2rem;
-            font-weight: 800;
+        .song-title {
+            font-size: 1.9rem;
+            font-weight: 600;
             letter-spacing: -0.5px;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 2px;
+            margin-bottom: 4px;
             line-height: 1.2;
         }
-        .song-info .song-artist {
-            font-size: 1.2rem;
-            font-weight: 500;
-            color: var(--text-secondary);
-            margin-bottom: 6px;
+        .song-artist {
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: #8e8e93;
+            margin-bottom: 0;
         }
-        .song-info .song-artist i {
-            color: var(--accent-light);
-            margin-left: 6px;
-            font-size: 0.85rem;
-            -webkit-text-fill-color: initial;
-        }
-        .song-info .song-meta {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-top: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            flex-wrap: wrap;
-        }
-        .song-info .song-meta i {
-            color: var(--accent-light);
-            opacity: 0.7;
-        }
-        .song-info .song-description {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            margin-top: 12px;
-            line-height: 1.8;
-            max-width: 480px;
-            margin-left: auto;
-            margin-right: auto;
-            opacity: 0.85;
+        body.dark-mode .song-artist {
+            color: #aeaeb2;
         }
 
-        @media (max-width: 500px) {
-            .song-info .song-title {
-                font-size: 1.5rem;
-            }
-            .song-info .song-artist {
-                font-size: 1rem;
-            }
-            .song-info .song-description {
-                font-size: 0.85rem;
-            }
-        }
-
-        /* ===== Custom Player (Spotify‑inspired) ===== */
+        /* ===== Custom Player (مینیمال) ===== */
         .custom-player {
-            background: var(--bg-card);
-            border-radius: var(--radius-md);
-            padding: 20px 24px 18px;
-            border: 1px solid var(--border-subtle);
-            backdrop-filter: blur(8px);
-            box-shadow: var(--shadow-soft), inset 0 1px 0 rgba(255, 255, 255, 0.03);
-            transition: var(--transition-smooth);
-        }
-        .custom-player:hover {
-            border-color: rgba(124, 58, 237, 0.2);
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 8px 0;
         }
 
-        /* ===== Controls ===== */
+        /* controls */
         .player-controls {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            margin-bottom: 16px;
+            gap: 28px;
         }
-
         .ctrl-btn {
-            background: transparent;
+            background: none;
             border: none;
-            color: var(--text-secondary);
-            font-size: 1.1rem;
+            color: #1c1c1e;
+            font-size: 1.3rem;
             cursor: pointer;
-            padding: 8px;
+            padding: 6px;
             border-radius: 50%;
             width: 44px;
             height: 44px;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: var(--transition-smooth);
-            position: relative;
+            transition: all 0.15s;
+            touch-action: manipulation;
+        }
+        body.dark-mode .ctrl-btn {
+            color: #f5f5f7;
         }
         .ctrl-btn:hover {
-            color: var(--text-primary);
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(0,0,0,0.04);
+        }
+        body.dark-mode .ctrl-btn:hover {
+            background: rgba(255,255,255,0.06);
         }
         .ctrl-btn:active {
             transform: scale(0.92);
         }
-
         .ctrl-btn.play-btn {
-            font-size: 1.8rem;
-            width: 64px;
-            height: 64px;
-            background: var(--accent-gradient);
+            font-size: 2.4rem;
+            width: 68px;
+            height: 68px;
+            background: #1c1c1e;
             color: #fff;
-            box-shadow: 0 8px 28px rgba(124, 58, 237, 0.35);
-            transition: var(--transition-smooth);
+            border-radius: 50%;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+            transition: all 0.2s;
+        }
+        body.dark-mode .ctrl-btn.play-btn {
+            background: #f5f5f7;
+            color: #1c1c1e;
+            box-shadow: 0 4px 20px rgba(255,255,255,0.08);
         }
         .ctrl-btn.play-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 12px 36px rgba(124, 58, 237, 0.5);
-            background: var(--accent-gradient);
-            color: #fff;
+            transform: scale(1.02);
+            background: #2c2c2e;
+        }
+        body.dark-mode .ctrl-btn.play-btn:hover {
+            background: #e5e5ea;
         }
         .ctrl-btn.play-btn:active {
             transform: scale(0.94);
         }
 
-        .ctrl-btn i {
-            line-height: 1;
-        }
-
-        /* ===== Progress Bar ===== */
+        /* progress */
         .progress-container {
             display: flex;
             align-items: center;
             gap: 12px;
-            margin: 6px 0 12px;
             direction: ltr;
         }
         .progress-time {
-            font-size: 0.75rem;
-            font-weight: 500;
-            color: var(--text-muted);
-            min-width: 44px;
+            font-size: 0.7rem;
+            font-weight: 400;
+            color: #8e8e93;
+            min-width: 38px;
             font-variant-numeric: tabular-nums;
-            user-select: none;
-            letter-spacing: 0.3px;
+            letter-spacing: 0.2px;
+        }
+        body.dark-mode .progress-time {
+            color: #6c6c70;
         }
 
         .progress-bar {
             flex: 1;
             height: 4px;
-            background: var(--bg-surface);
+            background: #d1d1d6;
             border-radius: 4px;
             cursor: pointer;
             position: relative;
             touch-action: none;
-            transition: height 0.2s ease;
-            overflow: visible;
+            transition: height 0.15s;
+        }
+        body.dark-mode .progress-bar {
+            background: #3a3a3c;
         }
         .progress-bar:hover {
             height: 6px;
         }
-        .progress-bar:hover .progress-fill {
-            background: var(--accent-gradient);
-        }
-
         .progress-fill {
             position: absolute;
             top: 0;
             left: 0;
             height: 100%;
-            background: var(--accent-gradient);
+            background: #1c1c1e;
             border-radius: 4px;
             width: 0%;
             pointer-events: none;
             transition: width 0.05s linear;
         }
+        body.dark-mode .progress-fill {
+            background: #f5f5f7;
+        }
 
-        /* ===== Custom Thumb on Progress (via pseudo) ===== */
+        /* thumb */
         .progress-bar::after {
             content: '';
             position: absolute;
@@ -366,232 +260,225 @@
             left: 0%;
             width: 14px;
             height: 14px;
-            background: #fff;
+            background: #1c1c1e;
             border-radius: 50%;
             transform: translate(-50%, -50%) scale(0);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
             pointer-events: none;
-            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.2s;
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
             z-index: 2;
+        }
+        body.dark-mode .progress-bar::after {
+            background: #f5f5f7;
         }
         .progress-bar.dragging::after,
         .progress-bar:hover::after {
             transform: translate(-50%, -50%) scale(1);
-            background: var(--accent-light);
         }
         .progress-bar.dragging::after {
             transform: translate(-50%, -50%) scale(1.2);
-            background: #fff;
+            background: #1c1c1e;
+        }
+        body.dark-mode .progress-bar.dragging::after {
+            background: #f5f5f7;
         }
 
-        /* ===== Volume ===== */
+        /* ===== Volume (بسیار مینیمال، مخفی در حالت عادی) ===== */
         .volume-control {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            margin-top: 6px;
-            direction: ltr;
+            gap: 8px;
+            margin-top: 4px;
+            opacity: 0.5;
+            transition: opacity 0.2s;
+        }
+        .volume-control:hover {
+            opacity: 1;
         }
         .volume-control i {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            transition: var(--transition-smooth);
+            color: #8e8e93;
+            font-size: 0.8rem;
         }
-        .volume-control i:hover {
-            color: var(--text-secondary);
+        body.dark-mode .volume-control i {
+            color: #6c6c70;
         }
-
         .volume-slider {
-            width: 120px;
-            height: 4px;
+            width: 80px;
+            height: 3px;
             -webkit-appearance: none;
             appearance: none;
-            background: var(--bg-surface);
-            border-radius: 4px;
+            background: #d1d1d6;
+            border-radius: 3px;
             outline: none;
             touch-action: none;
-            transition: height 0.2s;
         }
-        .volume-slider:hover {
-            height: 6px;
+        body.dark-mode .volume-slider {
+            background: #3a3a3c;
         }
         .volume-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
-            width: 16px;
-            height: 16px;
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
-            background: var(--accent-gradient);
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(124, 58, 237, 0.3);
-            transition: var(--transition-smooth);
-        }
-        .volume-slider::-webkit-slider-thumb:hover {
-            transform: scale(1.15);
-        }
-        .volume-slider::-moz-range-thumb {
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: var(--accent-gradient);
+            background: #1c1c1e;
             cursor: pointer;
             border: none;
-            box-shadow: 0 2px 8px rgba(124, 58, 237, 0.3);
+        }
+        body.dark-mode .volume-slider::-webkit-slider-thumb {
+            background: #f5f5f7;
+        }
+        .volume-slider::-moz-range-thumb {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #1c1c1e;
+            cursor: pointer;
+            border: none;
+        }
+        body.dark-mode .volume-slider::-moz-range-thumb {
+            background: #f5f5f7;
         }
 
         /* ===== Video ===== */
         .video-wrapper {
             width: 100%;
-            margin-top: 4px;
-            border-radius: var(--radius-sm);
+            max-width: 400px;
+            border-radius: 16px;
             overflow: hidden;
             background: #000;
-            box-shadow: var(--shadow-soft);
-            border: 1px solid var(--border-subtle);
+            margin-top: 4px;
         }
         .video-wrapper video {
             width: 100%;
             display: block;
-            max-height: 400px;
-            aspect-ratio: 16 / 9;
+            aspect-ratio: 16/9;
             object-fit: cover;
-            background: #0a0a0f;
-        }
-        .video-only {
-            margin-top: 0;
-        }
-
-        @media (max-width: 899px) {
-            .video-wrapper video {
-                max-height: 300px;
-            }
-        }
-        @media (max-width: 500px) {
-            .video-wrapper video {
-                max-height: 220px;
-            }
+            background: #0a0a0b;
         }
 
         /* ===== Error ===== */
         .error-msg {
             text-align: center;
-            padding: 48px 24px;
-            color: var(--text-muted);
-            width: 100%;
+            padding: 40px 20px;
+            color: #8e8e93;
         }
         .error-msg i {
-            font-size: 3.2rem;
-            margin-bottom: 16px;
+            font-size: 2.8rem;
+            margin-bottom: 12px;
             opacity: 0.4;
-            color: var(--accent-light);
-        }
-        .error-msg p {
-            font-size: 1.05rem;
-            max-width: 400px;
-            margin: 0 auto;
         }
 
-        /* ===== Responsive fine-tune ===== */
-        @media (max-width: 899px) {
-            .cover-large {
-                max-width: 320px;
+        /* ===== Responsive ===== */
+        @media (max-width: 480px) {
+            .cover-wrapper {
+                max-width: 280px;
+                border-radius: 20px;
             }
-            .custom-player {
-                padding: 16px 18px 14px;
+            .song-title {
+                font-size: 1.5rem;
+            }
+            .song-artist {
+                font-size: 0.95rem;
             }
             .ctrl-btn {
                 width: 38px;
                 height: 38px;
-                font-size: 1rem;
+                font-size: 1.1rem;
             }
             .ctrl-btn.play-btn {
-                width: 56px;
-                height: 56px;
-                font-size: 1.6rem;
+                width: 58px;
+                height: 58px;
+                font-size: 2rem;
             }
-            .volume-slider {
-                width: 90px;
-            }
-            .progress-bar {
-                height: 6px;
-            }
-            .progress-bar::after {
-                width: 16px;
-                height: 16px;
-            }
-        }
-
-        @media (max-width: 500px) {
-            .cover-large {
-                max-width: 240px;
-            }
-            .custom-player {
-                padding: 12px 14px 12px;
-                border-radius: var(--radius-sm);
-            }
-            .ctrl-btn {
-                width: 34px;
-                height: 34px;
-                font-size: 0.85rem;
-            }
-            .ctrl-btn.play-btn {
-                width: 48px;
-                height: 48px;
-                font-size: 1.4rem;
+            .player-controls {
+                gap: 18px;
             }
             .progress-time {
-                font-size: 0.7rem;
-                min-width: 36px;
+                font-size: 0.65rem;
+                min-width: 32px;
             }
             .volume-slider {
                 width: 60px;
             }
-            .progress-bar {
-                height: 8px;
-            }
-            .progress-bar::after {
-                width: 18px;
-                height: 18px;
-            }
-            .volume-slider::-webkit-slider-thumb {
-                width: 20px;
-                height: 20px;
-            }
-            .volume-slider::-moz-range-thumb {
-                width: 20px;
-                height: 20px;
-            }
             .back-btn {
-                font-size: 0.8rem;
-                padding: 6px 12px;
-            }
-            .player-controls {
-                gap: 4px;
+                font-size: 0.75rem;
             }
         }
 
-        /* ===== Scrollbar ===== */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg-secondary);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--bg-surface);
-            border-radius: 6px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--accent);
+        @media (max-width: 380px) {
+            .cover-wrapper {
+                max-width: 220px;
+            }
+            .ctrl-btn.play-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.7rem;
+            }
         }
 
-        /* ===== Utility ===== */
-        .text-gradient {
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        /* ===== حالت تاریک خودکار (اختیاری) ===== */
+        @media (prefers-color-scheme: dark) {
+            body:not(.light-mode) {
+                background: #0a0a0b;
+                color: #f5f5f7;
+            }
+            body:not(.light-mode) .back-btn {
+                background: rgba(255,255,255,0.04);
+                color: #8e8e93;
+            }
+            body:not(.light-mode) .back-btn:hover {
+                background: rgba(255,255,255,0.08);
+                color: #fff;
+            }
+            body:not(.light-mode) .cover-wrapper {
+                box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+            }
+            body:not(.light-mode) .cover-large {
+                background: #2c2c2e;
+            }
+            body:not(.light-mode) .song-artist {
+                color: #aeaeb2;
+            }
+            body:not(.light-mode) .ctrl-btn {
+                color: #f5f5f7;
+            }
+            body:not(.light-mode) .ctrl-btn:hover {
+                background: rgba(255,255,255,0.06);
+            }
+            body:not(.light-mode) .ctrl-btn.play-btn {
+                background: #f5f5f7;
+                color: #1c1c1e;
+                box-shadow: 0 4px 20px rgba(255,255,255,0.08);
+            }
+            body:not(.light-mode) .ctrl-btn.play-btn:hover {
+                background: #e5e5ea;
+            }
+            body:not(.light-mode) .progress-bar {
+                background: #3a3a3c;
+            }
+            body:not(.light-mode) .progress-fill {
+                background: #f5f5f7;
+            }
+            body:not(.light-mode) .progress-bar::after {
+                background: #f5f5f7;
+            }
+            body:not(.light-mode) .progress-time {
+                color: #6c6c70;
+            }
+            body:not(.light-mode) .volume-slider {
+                background: #3a3a3c;
+            }
+            body:not(.light-mode) .volume-slider::-webkit-slider-thumb {
+                background: #f5f5f7;
+            }
+            body:not(.light-mode) .volume-slider::-moz-range-thumb {
+                background: #f5f5f7;
+            }
+            body:not(.light-mode) .volume-control i {
+                color: #6c6c70;
+            }
         }
     </style>
 </head>
@@ -599,7 +486,7 @@
     <div class="player-container">
         <nav class="back-nav">
             <a href="./index.html" class="back-btn">
-                <i class="fas fa-arrow-right"></i> بازگشت به لیست
+                <i class="fas fa-arrow-right"></i> بازگشت
             </a>
         </nav>
 
@@ -664,24 +551,21 @@
                 const newUrl = `./song.html?id=${currentSong.id}`;
                 window.history.replaceState({}, '', newUrl);
 
-                let leftHtml = `
-                    <div class="player-left">
-                        <div class="song-info">
-                            <h1 class="song-title">${escapeHTML(currentSong.title)}</h1>
-                            <p class="song-artist"><i class="fas fa-microphone-alt"></i> ${escapeHTML(currentSong.artist)}</p>
-                            ${currentSong.releaseDate ? `<div class="song-meta"><i class="fas fa-calendar-alt"></i> ${escapeHTML(currentSong.releaseDate)}</div>` : ''}
-                            ${currentSong.description ? `<p class="song-description">${escapeHTML(currentSong.description)}</p>` : ''}
-                        </div>
+                // ساختار مینیمال: کاور، اطلاعات، پلیر
+                let html = `
+                    <div class="cover-wrapper">
+                        <img src="${escapeHTML(currentSong.cover)}" alt="${escapeHTML(currentSong.title)}" class="cover-large" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="song-info">
+                        <h1 class="song-title">${escapeHTML(currentSong.title)}</h1>
+                        <p class="song-artist">${escapeHTML(currentSong.artist)}</p>
+                    </div>
                 `;
 
+                // پلیر (در صورت وجود موسیقی)
                 if (currentSong.hasMusic && currentSong.music) {
-                    leftHtml += `
+                    html += `
                         <div class="custom-player" id="customPlayer">
-                            <div class="player-controls">
-                                <button class="ctrl-btn" id="prevBtn" title="قبلی"><i class="fas fa-step-backward"></i></button>
-                                <button class="ctrl-btn play-btn" id="playBtn" title="پلی/مکث"><i class="fas fa-play"></i></button>
-                                <button class="ctrl-btn" id="nextBtn" title="بعدی"><i class="fas fa-step-forward"></i></button>
-                            </div>
                             <div class="progress-container">
                                 <span class="progress-time" id="currentTime">0:00</span>
                                 <div class="progress-bar" id="progressBar">
@@ -689,52 +573,46 @@
                                 </div>
                                 <span class="progress-time" id="totalTime">0:00</span>
                             </div>
+                            <div class="player-controls">
+                                <button class="ctrl-btn" id="prevBtn" aria-label="قبلی"><i class="fas fa-step-backward"></i></button>
+                                <button class="ctrl-btn play-btn" id="playBtn" aria-label="پلی/مکث"><i class="fas fa-play"></i></button>
+                                <button class="ctrl-btn" id="nextBtn" aria-label="بعدی"><i class="fas fa-step-forward"></i></button>
+                            </div>
                             <div class="volume-control">
-                                <i class="fas fa-volume-up"></i>
-                                <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.01" value="0.8" dir="ltr">
                                 <i class="fas fa-volume-down"></i>
+                                <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.01" value="0.8" dir="ltr">
+                                <i class="fas fa-volume-up"></i>
                             </div>
                         </div>
                     `;
                 }
 
+                // ویدیو (در صورت وجود)
                 if (currentSong.hasVideo && currentSong.video) {
-                    const videoClass = currentSong.hasMusic ? '' : 'video-only';
-                    leftHtml += `
-                        <div class="video-wrapper ${videoClass}">
+                    html += `
+                        <div class="video-wrapper">
                             <video controls playsinline>
                                 <source src="${escapeHTML(currentSong.video)}" type="video/mp4">
-                                مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
                             </video>
                         </div>
                     `;
                 }
 
-                leftHtml += `</div>`;
-
-                let rightHtml = `
-                    <div class="player-right">
-                        <div class="cover-wrapper">
-                            <img src="${escapeHTML(currentSong.cover)}" alt="${escapeHTML(currentSong.title)}" class="cover-large" loading="lazy" onerror="this.style.display='none'">
-                        </div>
-                    </div>
-                `;
-
+                // اگر هیچ محتوایی نبود
                 if (!currentSong.hasMusic && !currentSong.hasVideo) {
-                    leftHtml = `
+                    html = `
                         <div class="error-msg">
                             <i class="fas fa-ban"></i>
-                            <p>محتوای قابل پخشی برای این آهنگ موجود نیست.</p>
+                            <p>محتوای قابل پخشی موجود نیست.</p>
                             <br>
                             <a href="./index.html" class="back-btn" style="display:inline-flex;margin-top:12px;">
-                                <i class="fas fa-arrow-right"></i> بازگشت به صفحه اصلی
+                                <i class="fas fa-arrow-right"></i> بازگشت
                             </a>
                         </div>
                     `;
-                    rightHtml = '';
                 }
 
-                songContent.innerHTML = leftHtml + rightHtml;
+                songContent.innerHTML = html;
 
                 if (currentSong.hasMusic && currentSong.music) {
                     initPlayer();
@@ -771,9 +649,7 @@
                         const percent = (audio.currentTime / audio.duration) * 100;
                         progressFill.style.width = percent + '%';
                         currentTimeSpan.textContent = formatTime(audio.currentTime);
-                        // update thumb position
                         progressBar.style.setProperty('--thumb-pos', percent + '%');
-                        progressBar.style.setProperty('--thumb-scale', '1');
                     }
                 });
 
@@ -818,24 +694,21 @@
                 prevBtn.addEventListener('click', playPrev);
                 nextBtn.addEventListener('click', playNext);
 
-                // ===== Progress dragging =====
+                // Progress dragging
                 let isDragging = false;
 
                 function setProgress(clientX) {
                     const rect = progressBar.getBoundingClientRect();
                     let x = clientX - rect.left;
-                    // clamp
                     x = Math.max(0, Math.min(x, rect.width));
                     const percent = rect.width > 0 ? x / rect.width : 0;
                     progressFill.style.width = (percent * 100) + '%';
                     if (audio.duration) {
                         audio.currentTime = percent * audio.duration;
                     }
-                    // update thumb visual
                     progressBar.style.setProperty('--thumb-pos', (percent * 100) + '%');
                 }
 
-                // Mouse
                 progressBar.addEventListener('mousedown', (e) => {
                     isDragging = true;
                     progressBar.classList.add('dragging');
@@ -843,9 +716,7 @@
                 });
 
                 document.addEventListener('mousemove', (e) => {
-                    if (isDragging) {
-                        setProgress(e.clientX);
-                    }
+                    if (isDragging) setProgress(e.clientX);
                 });
 
                 document.addEventListener('mouseup', () => {
@@ -855,7 +726,6 @@
                     }
                 });
 
-                // Touch
                 progressBar.addEventListener('touchstart', (e) => {
                     e.preventDefault();
                     const touch = e.touches[0];
@@ -877,12 +747,10 @@
                     progressBar.classList.remove('dragging');
                 });
 
-                // Volume
                 volumeSlider.addEventListener('input', () => {
                     audio.volume = parseFloat(volumeSlider.value);
                 });
 
-                // Keyboard
                 document.addEventListener('keydown', (e) => {
                     if (e.code === 'Space' && document.activeElement?.tagName !== 'INPUT') {
                         e.preventDefault();
@@ -892,8 +760,6 @@
 
                 currentTimeSpan.textContent = '0:00';
                 if (audio.duration) totalTimeSpan.textContent = formatTime(audio.duration);
-
-                // init thumb
                 progressBar.style.setProperty('--thumb-pos', '0%');
             }
 
@@ -904,7 +770,7 @@
                         <p>${escapeHTML(msg)}</p>
                         <br>
                         <a href="./index.html" class="back-btn" style="display:inline-flex;margin-top:12px;">
-                            <i class="fas fa-arrow-right"></i> بازگشت به صفحه اصلی
+                            <i class="fas fa-arrow-right"></i> بازگشت
                         </a>
                     </div>
                 `;
