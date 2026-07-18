@@ -28,15 +28,72 @@
             transition: background 0.2s;
         }
 
-        /* حالت تاریک اختیاری با کلاس dark-mode */
-        body.dark-mode {
-            background: #0a0a0b;
-            color: #f5f5f7;
+        /* حالت تاریک خودکار (اختیاری) */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: #0a0a0b;
+                color: #f5f5f7;
+            }
+            body .back-btn {
+                background: rgba(255,255,255,0.04);
+                color: #8e8e93;
+            }
+            body .back-btn:hover {
+                background: rgba(255,255,255,0.08);
+                color: #fff;
+            }
+            body .cover-wrapper {
+                box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+            }
+            body .cover-large {
+                background: #2c2c2e;
+            }
+            body .song-artist {
+                color: #aeaeb2;
+            }
+            body .ctrl-btn {
+                color: #f5f5f7;
+            }
+            body .ctrl-btn:hover {
+                background: rgba(255,255,255,0.06);
+            }
+            body .ctrl-btn.play-btn {
+                background: #f5f5f7;
+                color: #1c1c1e;
+                box-shadow: 0 4px 20px rgba(255,255,255,0.08);
+            }
+            body .ctrl-btn.play-btn:hover {
+                background: #e5e5ea;
+            }
+            body .progress-bar {
+                background: #3a3a3c;
+            }
+            body .progress-fill {
+                background: #f5f5f7;
+            }
+            body .progress-bar::after {
+                background: #f5f5f7;
+            }
+            body .progress-time {
+                color: #6c6c70;
+            }
+            body .volume-slider {
+                background: #3a3a3c;
+            }
+            body .volume-slider::-webkit-slider-thumb {
+                background: #f5f5f7;
+            }
+            body .volume-slider::-moz-range-thumb {
+                background: #f5f5f7;
+            }
+            body .volume-control i {
+                color: #6c6c70;
+            }
         }
 
         .player-container {
             width: 100%;
-            max-width: 480px;
+            max-width: 1100px;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
@@ -48,6 +105,7 @@
         .back-nav {
             width: 100%;
             margin-bottom: 28px;
+            padding-right: 8px;
         }
         .back-btn {
             display: inline-flex;
@@ -62,20 +120,12 @@
             background: rgba(0,0,0,0.02);
             transition: all 0.2s;
         }
-        body.dark-mode .back-btn {
-            background: rgba(255,255,255,0.04);
-            color: #8e8e93;
-        }
         .back-btn:hover {
             background: rgba(0,0,0,0.05);
             color: #1c1c1e;
         }
-        body.dark-mode .back-btn:hover {
-            background: rgba(255,255,255,0.08);
-            color: #fff;
-        }
 
-        /* ===== Layout ===== */
+        /* ===== Layout (دو ستونه در نمایشگر بزرگ) ===== */
         .player-layout {
             width: 100%;
             display: flex;
@@ -84,18 +134,88 @@
             gap: 32px;
         }
 
+        @media (min-width: 820px) {
+            .player-layout {
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                gap: 48px;
+            }
+            .player-left {
+                flex: 1.2;
+                order: 1;
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+                max-width: 480px;
+            }
+            .player-right {
+                flex: 1;
+                order: 2;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                max-width: 420px;
+            }
+            .cover-wrapper {
+                width: 100%;
+                max-width: 420px;
+                aspect-ratio: 1/1;
+            }
+            .song-info {
+                text-align: right;
+                padding: 0;
+            }
+            .custom-player {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 819px) {
+            .player-layout {
+                flex-direction: column;
+                gap: 28px;
+            }
+            .player-left {
+                width: 100%;
+                order: 2;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+            .player-right {
+                width: 100%;
+                order: 1;
+                display: flex;
+                justify-content: center;
+            }
+            .cover-wrapper {
+                max-width: 320px;
+                width: 100%;
+                aspect-ratio: 1/1;
+            }
+            .song-info {
+                text-align: center;
+                padding: 0 8px;
+            }
+            .custom-player {
+                max-width: 400px;
+                width: 100%;
+            }
+        }
+
         /* ===== Cover ===== */
         .cover-wrapper {
-            width: 100%;
-            max-width: 380px;
-            aspect-ratio: 1/1;
             border-radius: 24px;
             overflow: hidden;
             box-shadow: 0 12px 40px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.02);
-            transition: box-shadow 0.3s;
+            transition: box-shadow 0.3s, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
         }
-        body.dark-mode .cover-wrapper {
-            box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+        .cover-wrapper:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.12);
         }
         .cover-large {
             width: 100%;
@@ -103,50 +223,40 @@
             object-fit: cover;
             display: block;
             background: #e5e5ea;
+            transition: transform 0.6s ease;
         }
-        body.dark-mode .cover-large {
-            background: #2c2c2e;
+        .cover-wrapper:hover .cover-large {
+            transform: scale(1.04);
         }
 
         /* ===== Song Info ===== */
-        .song-info {
-            width: 100%;
-            text-align: center;
-            padding: 0 8px;
-        }
         .song-title {
-            font-size: 1.9rem;
+            font-size: clamp(1.6rem, 4vw, 2.4rem);
             font-weight: 600;
             letter-spacing: -0.5px;
             margin-bottom: 4px;
             line-height: 1.2;
         }
         .song-artist {
-            font-size: 1.1rem;
+            font-size: clamp(1rem, 1.5vw, 1.2rem);
             font-weight: 400;
             color: #8e8e93;
-            margin-bottom: 0;
-        }
-        body.dark-mode .song-artist {
-            color: #aeaeb2;
         }
 
-        /* ===== Custom Player (مینیمال) ===== */
+        /* ===== Custom Player ===== */
         .custom-player {
             width: 100%;
-            max-width: 400px;
             display: flex;
             flex-direction: column;
             gap: 20px;
             padding: 8px 0;
         }
 
-        /* controls */
         .player-controls {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 28px;
+            gap: clamp(18px, 4vw, 36px);
         }
         .ctrl-btn {
             background: none;
@@ -164,42 +274,28 @@
             transition: all 0.15s;
             touch-action: manipulation;
         }
-        body.dark-mode .ctrl-btn {
-            color: #f5f5f7;
-        }
         .ctrl-btn:hover {
             background: rgba(0,0,0,0.04);
-        }
-        body.dark-mode .ctrl-btn:hover {
-            background: rgba(255,255,255,0.06);
         }
         .ctrl-btn:active {
             transform: scale(0.92);
         }
         .ctrl-btn.play-btn {
-            font-size: 2.4rem;
-            width: 68px;
-            height: 68px;
+            font-size: clamp(2rem, 3.5vw, 2.6rem);
+            width: clamp(58px, 8vw, 76px);
+            height: clamp(58px, 8vw, 76px);
             background: #1c1c1e;
             color: #fff;
             border-radius: 50%;
             box-shadow: 0 4px 16px rgba(0,0,0,0.12);
             transition: all 0.2s;
         }
-        body.dark-mode .ctrl-btn.play-btn {
-            background: #f5f5f7;
-            color: #1c1c1e;
-            box-shadow: 0 4px 20px rgba(255,255,255,0.08);
-        }
         .ctrl-btn.play-btn:hover {
-            transform: scale(1.02);
+            transform: scale(1.04);
             background: #2c2c2e;
         }
-        body.dark-mode .ctrl-btn.play-btn:hover {
-            background: #e5e5ea;
-        }
         .ctrl-btn.play-btn:active {
-            transform: scale(0.94);
+            transform: scale(0.92);
         }
 
         /* progress */
@@ -217,9 +313,6 @@
             font-variant-numeric: tabular-nums;
             letter-spacing: 0.2px;
         }
-        body.dark-mode .progress-time {
-            color: #6c6c70;
-        }
 
         .progress-bar {
             flex: 1;
@@ -230,9 +323,6 @@
             position: relative;
             touch-action: none;
             transition: height 0.15s;
-        }
-        body.dark-mode .progress-bar {
-            background: #3a3a3c;
         }
         .progress-bar:hover {
             height: 6px;
@@ -248,16 +338,13 @@
             pointer-events: none;
             transition: width 0.05s linear;
         }
-        body.dark-mode .progress-fill {
-            background: #f5f5f7;
-        }
 
-        /* thumb */
+        /* thumb - با استفاده از متغیر --thumb-pos */
         .progress-bar::after {
             content: '';
             position: absolute;
             top: 50%;
-            left: 0%;
+            left: var(--thumb-pos, 0%);
             width: 14px;
             height: 14px;
             background: #1c1c1e;
@@ -265,11 +352,8 @@
             transform: translate(-50%, -50%) scale(0);
             box-shadow: 0 2px 8px rgba(0,0,0,0.15);
             pointer-events: none;
-            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), left 0.05s linear;
             z-index: 2;
-        }
-        body.dark-mode .progress-bar::after {
-            background: #f5f5f7;
         }
         .progress-bar.dragging::after,
         .progress-bar:hover::after {
@@ -279,11 +363,8 @@
             transform: translate(-50%, -50%) scale(1.2);
             background: #1c1c1e;
         }
-        body.dark-mode .progress-bar.dragging::after {
-            background: #f5f5f7;
-        }
 
-        /* ===== Volume (بسیار مینیمال، مخفی در حالت عادی) ===== */
+        /* ===== Volume ===== */
         .volume-control {
             display: flex;
             align-items: center;
@@ -300,9 +381,6 @@
             color: #8e8e93;
             font-size: 0.8rem;
         }
-        body.dark-mode .volume-control i {
-            color: #6c6c70;
-        }
         .volume-slider {
             width: 80px;
             height: 3px;
@@ -312,9 +390,6 @@
             border-radius: 3px;
             outline: none;
             touch-action: none;
-        }
-        body.dark-mode .volume-slider {
-            background: #3a3a3c;
         }
         .volume-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
@@ -326,9 +401,6 @@
             cursor: pointer;
             border: none;
         }
-        body.dark-mode .volume-slider::-webkit-slider-thumb {
-            background: #f5f5f7;
-        }
         .volume-slider::-moz-range-thumb {
             width: 14px;
             height: 14px;
@@ -337,14 +409,11 @@
             cursor: pointer;
             border: none;
         }
-        body.dark-mode .volume-slider::-moz-range-thumb {
-            background: #f5f5f7;
-        }
 
         /* ===== Video ===== */
         .video-wrapper {
             width: 100%;
-            max-width: 400px;
+            max-width: 480px;
             border-radius: 16px;
             overflow: hidden;
             background: #000;
@@ -371,36 +440,36 @@
         }
 
         /* ===== Responsive ===== */
-        @media (max-width: 480px) {
+        @media (max-width: 500px) {
             .cover-wrapper {
-                max-width: 280px;
+                max-width: 240px;
                 border-radius: 20px;
             }
             .song-title {
-                font-size: 1.5rem;
+                font-size: 1.4rem;
             }
             .song-artist {
                 font-size: 0.95rem;
             }
             .ctrl-btn {
-                width: 38px;
-                height: 38px;
-                font-size: 1.1rem;
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
             }
             .ctrl-btn.play-btn {
-                width: 58px;
-                height: 58px;
-                font-size: 2rem;
+                width: 52px;
+                height: 52px;
+                font-size: 1.7rem;
             }
             .player-controls {
-                gap: 18px;
+                gap: 14px;
             }
             .progress-time {
-                font-size: 0.65rem;
-                min-width: 32px;
+                font-size: 0.6rem;
+                min-width: 30px;
             }
             .volume-slider {
-                width: 60px;
+                width: 56px;
             }
             .back-btn {
                 font-size: 0.75rem;
@@ -409,75 +478,7 @@
 
         @media (max-width: 380px) {
             .cover-wrapper {
-                max-width: 220px;
-            }
-            .ctrl-btn.play-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 1.7rem;
-            }
-        }
-
-        /* ===== حالت تاریک خودکار (اختیاری) ===== */
-        @media (prefers-color-scheme: dark) {
-            body:not(.light-mode) {
-                background: #0a0a0b;
-                color: #f5f5f7;
-            }
-            body:not(.light-mode) .back-btn {
-                background: rgba(255,255,255,0.04);
-                color: #8e8e93;
-            }
-            body:not(.light-mode) .back-btn:hover {
-                background: rgba(255,255,255,0.08);
-                color: #fff;
-            }
-            body:not(.light-mode) .cover-wrapper {
-                box-shadow: 0 12px 40px rgba(0,0,0,0.6);
-            }
-            body:not(.light-mode) .cover-large {
-                background: #2c2c2e;
-            }
-            body:not(.light-mode) .song-artist {
-                color: #aeaeb2;
-            }
-            body:not(.light-mode) .ctrl-btn {
-                color: #f5f5f7;
-            }
-            body:not(.light-mode) .ctrl-btn:hover {
-                background: rgba(255,255,255,0.06);
-            }
-            body:not(.light-mode) .ctrl-btn.play-btn {
-                background: #f5f5f7;
-                color: #1c1c1e;
-                box-shadow: 0 4px 20px rgba(255,255,255,0.08);
-            }
-            body:not(.light-mode) .ctrl-btn.play-btn:hover {
-                background: #e5e5ea;
-            }
-            body:not(.light-mode) .progress-bar {
-                background: #3a3a3c;
-            }
-            body:not(.light-mode) .progress-fill {
-                background: #f5f5f7;
-            }
-            body:not(.light-mode) .progress-bar::after {
-                background: #f5f5f7;
-            }
-            body:not(.light-mode) .progress-time {
-                color: #6c6c70;
-            }
-            body:not(.light-mode) .volume-slider {
-                background: #3a3a3c;
-            }
-            body:not(.light-mode) .volume-slider::-webkit-slider-thumb {
-                background: #f5f5f7;
-            }
-            body:not(.light-mode) .volume-slider::-moz-range-thumb {
-                background: #f5f5f7;
-            }
-            body:not(.light-mode) .volume-control i {
-                color: #6c6c70;
+                max-width: 180px;
             }
         }
     </style>
@@ -551,20 +552,17 @@
                 const newUrl = `./song.html?id=${currentSong.id}`;
                 window.history.replaceState({}, '', newUrl);
 
-                // ساختار مینیمال: کاور، اطلاعات، پلیر
-                let html = `
-                    <div class="cover-wrapper">
-                        <img src="${escapeHTML(currentSong.cover)}" alt="${escapeHTML(currentSong.title)}" class="cover-large" loading="lazy" onerror="this.style.display='none'">
-                    </div>
-                    <div class="song-info">
-                        <h1 class="song-title">${escapeHTML(currentSong.title)}</h1>
-                        <p class="song-artist">${escapeHTML(currentSong.artist)}</p>
-                    </div>
+                // ساختار دو ستونه (چپ = اطلاعات+پلیر، راست = کاور)
+                let leftHtml = `
+                    <div class="player-left">
+                        <div class="song-info">
+                            <h1 class="song-title">${escapeHTML(currentSong.title)}</h1>
+                            <p class="song-artist">${escapeHTML(currentSong.artist)}</p>
+                        </div>
                 `;
 
-                // پلیر (در صورت وجود موسیقی)
                 if (currentSong.hasMusic && currentSong.music) {
-                    html += `
+                    leftHtml += `
                         <div class="custom-player" id="customPlayer">
                             <div class="progress-container">
                                 <span class="progress-time" id="currentTime">0:00</span>
@@ -579,17 +577,16 @@
                                 <button class="ctrl-btn" id="nextBtn" aria-label="بعدی"><i class="fas fa-step-forward"></i></button>
                             </div>
                             <div class="volume-control">
-                                <i class="fas fa-volume-down"></i>
+                                <i class="fas fa-volume-down"></i> <!-- صدای کم سمت چپ -->
                                 <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.01" value="0.8" dir="ltr">
-                                <i class="fas fa-volume-up"></i>
+                                <i class="fas fa-volume-up"></i> <!-- صدای زیاد سمت راست -->
                             </div>
                         </div>
                     `;
                 }
 
-                // ویدیو (در صورت وجود)
                 if (currentSong.hasVideo && currentSong.video) {
-                    html += `
+                    leftHtml += `
                         <div class="video-wrapper">
                             <video controls playsinline>
                                 <source src="${escapeHTML(currentSong.video)}" type="video/mp4">
@@ -598,9 +595,18 @@
                     `;
                 }
 
-                // اگر هیچ محتوایی نبود
+                leftHtml += `</div>`; // بستن player-left
+
+                let rightHtml = `
+                    <div class="player-right">
+                        <div class="cover-wrapper">
+                            <img src="${escapeHTML(currentSong.cover)}" alt="${escapeHTML(currentSong.title)}" class="cover-large" loading="lazy" onerror="this.style.display='none'">
+                        </div>
+                    </div>
+                `;
+
                 if (!currentSong.hasMusic && !currentSong.hasVideo) {
-                    html = `
+                    leftHtml = `
                         <div class="error-msg">
                             <i class="fas fa-ban"></i>
                             <p>محتوای قابل پخشی موجود نیست.</p>
@@ -610,9 +616,12 @@
                             </a>
                         </div>
                     `;
+                    rightHtml = '';
                 }
 
-                songContent.innerHTML = html;
+                // در موبایل، ترتیب: کاور بالا، اطلاعات پایین
+                // با استفاده از CSS order کنترل می‌شود
+                songContent.innerHTML = leftHtml + rightHtml;
 
                 if (currentSong.hasMusic && currentSong.music) {
                     initPlayer();
@@ -640,6 +649,11 @@
                 const totalTimeSpan = document.getElementById('totalTime');
                 const volumeSlider = document.getElementById('volumeSlider');
 
+                // تابع به‌روزرسانی thumb position
+                function updateThumb(percent) {
+                    progressBar.style.setProperty('--thumb-pos', percent + '%');
+                }
+
                 audio.addEventListener('loadedmetadata', () => {
                     totalTimeSpan.textContent = formatTime(audio.duration);
                 });
@@ -649,7 +663,7 @@
                         const percent = (audio.currentTime / audio.duration) * 100;
                         progressFill.style.width = percent + '%';
                         currentTimeSpan.textContent = formatTime(audio.currentTime);
-                        progressBar.style.setProperty('--thumb-pos', percent + '%');
+                        updateThumb(percent);
                     }
                 });
 
@@ -706,7 +720,7 @@
                     if (audio.duration) {
                         audio.currentTime = percent * audio.duration;
                     }
-                    progressBar.style.setProperty('--thumb-pos', (percent * 100) + '%');
+                    updateThumb(percent * 100);
                 }
 
                 progressBar.addEventListener('mousedown', (e) => {
@@ -760,7 +774,7 @@
 
                 currentTimeSpan.textContent = '0:00';
                 if (audio.duration) totalTimeSpan.textContent = formatTime(audio.duration);
-                progressBar.style.setProperty('--thumb-pos', '0%');
+                updateThumb(0);
             }
 
             function showError(msg) {
