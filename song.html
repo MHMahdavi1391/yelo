@@ -1,94 +1,61 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
     <title>فراوا — پخش آهنگ</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
-        /* ===== Reset & Base ===== */
+        /* ===== Reset & Base (تم روشن مینیمال) ===== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        :root {
+            --bg-primary: #f5f5f7;
+            --bg-surface: #ffffff;
+            --bg-card: #ffffff;
+            --text-primary: #1c1c1e;
+            --text-secondary: #6c6c70;
+            --text-muted: #8e8e93;
+            --border-subtle: rgba(0, 0, 0, 0.06);
+            --shadow-soft: 0 2px 12px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --transition-smooth: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            --font-family: 'Inter', -apple-system, system-ui, sans-serif;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-primary: #0a0a0b;
+                --bg-surface: #1c1c1e;
+                --bg-card: #2c2c2e;
+                --text-primary: #f5f5f7;
+                --text-secondary: #aeaeb2;
+                --text-muted: #6c6c70;
+                --border-subtle: rgba(255, 255, 255, 0.06);
+                --shadow-soft: 0 2px 12px rgba(0, 0, 0, 0.4);
+                --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.6);
+            }
+        }
+
         body {
-            font-family: 'Inter', -apple-system, system-ui, sans-serif;
-            background: #f5f5f7;
-            color: #1c1c1e;
+            font-family: var(--font-family);
+            background: var(--bg-primary);
+            color: var(--text-primary);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
-            transition: background 0.2s;
-        }
-
-        /* حالت تاریک خودکار (اختیاری) */
-        @media (prefers-color-scheme: dark) {
-            body {
-                background: #0a0a0b;
-                color: #f5f5f7;
-            }
-            body .back-btn {
-                background: rgba(255,255,255,0.04);
-                color: #8e8e93;
-            }
-            body .back-btn:hover {
-                background: rgba(255,255,255,0.08);
-                color: #fff;
-            }
-            body .cover-wrapper {
-                box-shadow: 0 12px 40px rgba(0,0,0,0.6);
-            }
-            body .cover-large {
-                background: #2c2c2e;
-            }
-            body .song-artist {
-                color: #aeaeb2;
-            }
-            body .ctrl-btn {
-                color: #f5f5f7;
-            }
-            body .ctrl-btn:hover {
-                background: rgba(255,255,255,0.06);
-            }
-            body .ctrl-btn.play-btn {
-                background: #f5f5f7;
-                color: #1c1c1e;
-                box-shadow: 0 4px 20px rgba(255,255,255,0.08);
-            }
-            body .ctrl-btn.play-btn:hover {
-                background: #e5e5ea;
-            }
-            body .progress-bar {
-                background: #3a3a3c;
-            }
-            body .progress-fill {
-                background: #f5f5f7;
-            }
-            body .progress-bar::after {
-                background: #f5f5f7;
-            }
-            body .progress-time {
-                color: #6c6c70;
-            }
-            body .volume-slider {
-                background: #3a3a3c;
-            }
-            body .volume-slider::-webkit-slider-thumb {
-                background: #f5f5f7;
-            }
-            body .volume-slider::-moz-range-thumb {
-                background: #f5f5f7;
-            }
-            body .volume-control i {
-                color: #6c6c70;
-            }
+            padding: 20px 16px;
+            transition: background 0.2s, color 0.2s;
         }
 
         .player-container {
@@ -97,48 +64,47 @@
             margin: 0 auto;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            padding: 12px 0;
+            gap: 28px;
         }
 
         /* ===== Back ===== */
         .back-nav {
             width: 100%;
-            margin-bottom: 28px;
-            padding-right: 8px;
         }
         .back-btn {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            color: #8e8e93;
+            color: var(--text-muted);
             text-decoration: none;
             font-size: 0.85rem;
             font-weight: 400;
-            padding: 6px 12px;
+            padding: 6px 14px;
             border-radius: 20px;
-            background: rgba(0,0,0,0.02);
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            box-shadow: var(--shadow-soft);
             transition: all 0.2s;
         }
         .back-btn:hover {
-            background: rgba(0,0,0,0.05);
-            color: #1c1c1e;
+            background: var(--bg-card);
+            color: var(--text-primary);
+            transform: translateX(-4px);
         }
 
-        /* ===== Layout (دو ستونه در نمایشگر بزرگ) ===== */
+        /* ===== Layout ===== */
         .player-layout {
-            width: 100%;
             display: flex;
             flex-direction: column;
-            align-items: center;
             gap: 32px;
+            width: 100%;
         }
 
+        /* دسکتاپ: دو ستونه */
         @media (min-width: 820px) {
             .player-layout {
                 flex-direction: row;
                 align-items: center;
-                justify-content: center;
                 gap: 48px;
             }
             .player-left {
@@ -146,8 +112,8 @@
                 order: 1;
                 display: flex;
                 flex-direction: column;
-                gap: 24px;
-                max-width: 480px;
+                gap: 28px;
+                max-width: 500px;
             }
             .player-right {
                 flex: 1;
@@ -155,12 +121,12 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                max-width: 420px;
+                max-width: 440px;
             }
             .cover-wrapper {
                 width: 100%;
-                max-width: 420px;
                 aspect-ratio: 1/1;
+                max-width: 440px;
             }
             .song-info {
                 text-align: right;
@@ -171,28 +137,31 @@
             }
         }
 
+        /* موبایل: کاور بزرگ و چشمگیر */
         @media (max-width: 819px) {
             .player-layout {
                 flex-direction: column;
-                gap: 28px;
+                align-items: center;
+                gap: 24px;
             }
             .player-left {
-                width: 100%;
                 order: 2;
+                width: 100%;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 gap: 20px;
             }
             .player-right {
-                width: 100%;
                 order: 1;
+                width: 100%;
                 display: flex;
                 justify-content: center;
+                padding: 0 12px;
             }
             .cover-wrapper {
-                max-width: 320px;
                 width: 100%;
+                max-width: 380px;
                 aspect-ratio: 1/1;
             }
             .song-info {
@@ -200,29 +169,40 @@
                 padding: 0 8px;
             }
             .custom-player {
-                max-width: 400px;
+                max-width: 420px;
                 width: 100%;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .cover-wrapper {
+                max-width: 300px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .cover-wrapper {
+                max-width: 240px;
             }
         }
 
         /* ===== Cover ===== */
         .cover-wrapper {
-            border-radius: 24px;
+            border-radius: var(--radius-lg);
             overflow: hidden;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.02);
-            transition: box-shadow 0.3s, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            position: relative;
+            box-shadow: var(--shadow-soft), 0 0 0 1px var(--border-subtle);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s;
+            background: var(--bg-surface);
         }
         .cover-wrapper:hover {
             transform: scale(1.02);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+            box-shadow: var(--shadow-hover), 0 0 0 1px var(--border-subtle);
         }
         .cover-large {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
-            background: #e5e5ea;
             transition: transform 0.6s ease;
         }
         .cover-wrapper:hover .cover-large {
@@ -232,15 +212,15 @@
         /* ===== Song Info ===== */
         .song-title {
             font-size: clamp(1.6rem, 4vw, 2.4rem);
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: -0.5px;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
             line-height: 1.2;
         }
         .song-artist {
             font-size: clamp(1rem, 1.5vw, 1.2rem);
             font-weight: 400;
-            color: #8e8e93;
+            color: var(--text-secondary);
         }
 
         /* ===== Custom Player ===== */
@@ -248,8 +228,8 @@
             width: 100%;
             display: flex;
             flex-direction: column;
-            gap: 20px;
-            padding: 8px 0;
+            gap: 18px;
+            padding: 4px 0;
         }
 
         .player-controls {
@@ -261,7 +241,7 @@
         .ctrl-btn {
             background: none;
             border: none;
-            color: #1c1c1e;
+            color: var(--text-primary);
             font-size: 1.3rem;
             cursor: pointer;
             padding: 6px;
@@ -275,7 +255,7 @@
             touch-action: manipulation;
         }
         .ctrl-btn:hover {
-            background: rgba(0,0,0,0.04);
+            background: var(--border-subtle);
         }
         .ctrl-btn:active {
             transform: scale(0.92);
@@ -284,21 +264,21 @@
             font-size: clamp(2rem, 3.5vw, 2.6rem);
             width: clamp(58px, 8vw, 76px);
             height: clamp(58px, 8vw, 76px);
-            background: #1c1c1e;
-            color: #fff;
+            background: var(--text-primary);
+            color: var(--bg-primary);
             border-radius: 50%;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
             transition: all 0.2s;
         }
         .ctrl-btn.play-btn:hover {
             transform: scale(1.04);
-            background: #2c2c2e;
+            background: var(--text-secondary);
         }
         .ctrl-btn.play-btn:active {
             transform: scale(0.92);
         }
 
-        /* progress */
+        /* ===== Progress ===== */
         .progress-container {
             display: flex;
             align-items: center;
@@ -308,16 +288,15 @@
         .progress-time {
             font-size: 0.7rem;
             font-weight: 400;
-            color: #8e8e93;
+            color: var(--text-muted);
             min-width: 38px;
             font-variant-numeric: tabular-nums;
             letter-spacing: 0.2px;
         }
-
         .progress-bar {
             flex: 1;
             height: 4px;
-            background: #d1d1d6;
+            background: var(--border-subtle);
             border-radius: 4px;
             cursor: pointer;
             position: relative;
@@ -332,14 +311,12 @@
             top: 0;
             left: 0;
             height: 100%;
-            background: #1c1c1e;
+            background: var(--text-primary);
             border-radius: 4px;
             width: 0%;
             pointer-events: none;
             transition: width 0.05s linear;
         }
-
-        /* thumb - با استفاده از متغیر --thumb-pos */
         .progress-bar::after {
             content: '';
             position: absolute;
@@ -347,10 +324,10 @@
             left: var(--thumb-pos, 0%);
             width: 14px;
             height: 14px;
-            background: #1c1c1e;
+            background: var(--text-primary);
             border-radius: 50%;
             transform: translate(-50%, -50%) scale(0);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
             pointer-events: none;
             transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), left 0.05s linear;
             z-index: 2;
@@ -361,7 +338,6 @@
         }
         .progress-bar.dragging::after {
             transform: translate(-50%, -50%) scale(1.2);
-            background: #1c1c1e;
         }
 
         /* ===== Volume ===== */
@@ -370,15 +346,16 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            margin-top: 4px;
+            margin-top: 2px;
             opacity: 0.5;
             transition: opacity 0.2s;
+            direction: ltr; /* مهم: ترتیب آیکون‌ها درست بشه */
         }
         .volume-control:hover {
             opacity: 1;
         }
         .volume-control i {
-            color: #8e8e93;
+            color: var(--text-muted);
             font-size: 0.8rem;
         }
         .volume-slider {
@@ -386,7 +363,7 @@
             height: 3px;
             -webkit-appearance: none;
             appearance: none;
-            background: #d1d1d6;
+            background: var(--border-subtle);
             border-radius: 3px;
             outline: none;
             touch-action: none;
@@ -397,7 +374,7 @@
             width: 14px;
             height: 14px;
             border-radius: 50%;
-            background: #1c1c1e;
+            background: var(--text-primary);
             cursor: pointer;
             border: none;
         }
@@ -405,7 +382,7 @@
             width: 14px;
             height: 14px;
             border-radius: 50%;
-            background: #1c1c1e;
+            background: var(--text-primary);
             cursor: pointer;
             border: none;
         }
@@ -414,10 +391,10 @@
         .video-wrapper {
             width: 100%;
             max-width: 480px;
-            border-radius: 16px;
+            border-radius: var(--radius-md);
             overflow: hidden;
             background: #000;
-            margin-top: 4px;
+            box-shadow: var(--shadow-soft);
         }
         .video-wrapper video {
             width: 100%;
@@ -431,7 +408,7 @@
         .error-msg {
             text-align: center;
             padding: 40px 20px;
-            color: #8e8e93;
+            color: var(--text-muted);
         }
         .error-msg i {
             font-size: 2.8rem;
@@ -439,18 +416,8 @@
             opacity: 0.4;
         }
 
-        /* ===== Responsive ===== */
+        /* ===== Responsive fine-tune ===== */
         @media (max-width: 500px) {
-            .cover-wrapper {
-                max-width: 240px;
-                border-radius: 20px;
-            }
-            .song-title {
-                font-size: 1.4rem;
-            }
-            .song-artist {
-                font-size: 0.95rem;
-            }
             .ctrl-btn {
                 width: 36px;
                 height: 36px;
@@ -471,14 +438,12 @@
             .volume-slider {
                 width: 56px;
             }
+            .volume-control i {
+                font-size: 0.7rem;
+            }
             .back-btn {
                 font-size: 0.75rem;
-            }
-        }
-
-        @media (max-width: 380px) {
-            .cover-wrapper {
-                max-width: 180px;
+                padding: 4px 12px;
             }
         }
     </style>
@@ -552,7 +517,7 @@
                 const newUrl = `./song.html?id=${currentSong.id}`;
                 window.history.replaceState({}, '', newUrl);
 
-                // ساختار دو ستونه (چپ = اطلاعات+پلیر، راست = کاور)
+                // ساختار: left (اطلاعات + پلیر) | right (کاور)
                 let leftHtml = `
                     <div class="player-left">
                         <div class="song-info">
@@ -577,9 +542,9 @@
                                 <button class="ctrl-btn" id="nextBtn" aria-label="بعدی"><i class="fas fa-step-forward"></i></button>
                             </div>
                             <div class="volume-control">
-                                <i class="fas fa-volume-down"></i> <!-- صدای کم سمت چپ -->
-                                <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.01" value="0.8" dir="ltr">
-                                <i class="fas fa-volume-up"></i> <!-- صدای زیاد سمت راست -->
+                                <i class="fas fa-volume-down"></i>
+                                <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.01" value="0.8" />
+                                <i class="fas fa-volume-up"></i>
                             </div>
                         </div>
                     `;
@@ -619,8 +584,6 @@
                     rightHtml = '';
                 }
 
-                // در موبایل، ترتیب: کاور بالا، اطلاعات پایین
-                // با استفاده از CSS order کنترل می‌شود
                 songContent.innerHTML = leftHtml + rightHtml;
 
                 if (currentSong.hasMusic && currentSong.music) {
@@ -649,7 +612,6 @@
                 const totalTimeSpan = document.getElementById('totalTime');
                 const volumeSlider = document.getElementById('volumeSlider');
 
-                // تابع به‌روزرسانی thumb position
                 function updateThumb(percent) {
                     progressBar.style.setProperty('--thumb-pos', percent + '%');
                 }
