@@ -1,16 +1,16 @@
 /* ===== Reset & Variables ===== */
 :root {
-    --bg-primary: #0a0e14;
-    --bg-surface: #141a24;
-    --bg-card: #1c2333;
-    --bg-elevated: #262f44;
-    --accent: #f5c842;
-    --accent-gradient: linear-gradient(135deg, #f5c842, #e6b422);
-    --accent-glow: rgba(245, 200, 66, 0.25);
-    --text-primary: #f0f0f0;
-    --text-secondary: #b0b8c4;
-    --text-muted: #6e7681;
-    --border-subtle: rgba(255, 255, 255, 0.06);
+    --bg-primary: #f5f5f7;
+    --bg-surface: #ffffff;
+    --bg-card: #ffffff;
+    --bg-elevated: #f0f0f2;
+    --accent: #1c1c1e;
+    --accent-gradient: linear-gradient(135deg, #1c1c1e, #3a3a3c);
+    --accent-glow: rgba(0, 0, 0, 0.06);
+    --text-primary: #1c1c1e;
+    --text-secondary: #6c6c70;
+    --text-muted: #8e8e93;
+    --border-subtle: rgba(0, 0, 0, 0.06);
     --radius-sm: 10px;
     --radius-md: 18px;
     --radius-lg: 28px;
@@ -22,9 +22,33 @@
     --space-xl: 3.5rem;
     --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+    --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.02);
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-primary: #0a0a0b;
+        --bg-surface: #1c1c1e;
+        --bg-card: #2c2c2e;
+        --bg-elevated: #3a3a3c;
+        --accent: #f5f5f7;
+        --accent-gradient: linear-gradient(135deg, #f5f5f7, #d1d1d6);
+        --accent-glow: rgba(255, 255, 255, 0.06);
+        --text-primary: #f5f5f7;
+        --text-secondary: #aeaeb2;
+        --text-muted: #6c6c70;
+        --border-subtle: rgba(255, 255, 255, 0.06);
+        --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.3);
+        --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.5);
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 html {
     font-size: 16px;
@@ -41,6 +65,7 @@ body {
     flex-direction: column;
     direction: rtl;
     line-height: 1.6;
+    transition: background 0.2s, color 0.2s;
 }
 
 .container {
@@ -85,7 +110,13 @@ body {
     object-fit: cover;
     display: block;
     border-radius: var(--radius-sm);
-    box-shadow: 0 4px 20px rgba(245, 200, 66, 0.2);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+@media (prefers-color-scheme: dark) {
+    .logo-img {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    }
 }
 
 .search-wrapper {
@@ -118,11 +149,12 @@ body {
     font-size: 1rem;
     transition: all var(--transition-smooth);
     outline: none;
+    box-shadow: var(--shadow-card);
 }
 
 .search-input:focus {
     border-color: var(--accent);
-    box-shadow: 0 0 0 4px var(--accent-glow);
+    box-shadow: 0 0 0 4px var(--accent-glow), var(--shadow-card);
 }
 
 .clear-btn {
@@ -138,7 +170,9 @@ body {
     padding: 4px;
     transition: color var(--transition-smooth);
 }
-.clear-btn:hover { color: var(--accent); }
+.clear-btn:hover {
+    color: var(--text-primary);
+}
 
 /* ===== Song Grid ===== */
 .songs-section {
@@ -162,12 +196,13 @@ body {
     display: block;
     cursor: pointer;
     height: 100%;
+    box-shadow: var(--shadow-card);
 }
 
 .song-card:hover {
     border-color: var(--accent);
     transform: translateY(-6px);
-    box-shadow: 0 16px 40px rgba(0,0,0,0.6), 0 0 0 1px var(--accent-glow);
+    box-shadow: var(--shadow-hover), 0 0 0 1px var(--accent-glow);
 }
 
 .card-cover {
@@ -213,7 +248,11 @@ body {
     padding: var(--space-xl);
     color: var(--text-muted);
 }
-.no-results i { font-size: 3rem; margin-bottom: var(--space-sm); opacity: 0.5; }
+.no-results i {
+    font-size: 3rem;
+    margin-bottom: var(--space-sm);
+    opacity: 0.5;
+}
 
 /* ===== Footer ===== */
 .footer {
@@ -250,29 +289,70 @@ body {
     font-size: 0.85rem;
     transition: color var(--transition-smooth);
 }
-.footer .back-link:hover { color: var(--accent); }
+.footer .back-link:hover {
+    color: var(--text-primary);
+}
 
 /* ===== Responsive ===== */
 @media (min-width: 1024px) {
-    .song-grid { grid-template-columns: repeat(4, 1fr); gap: var(--space-lg); }
-    .card-title { font-size: 1.05rem; }
-    .card-artist { font-size: 0.85rem; }
-    .logo-img { width: 76px; height: 76px; }
-    .search-input { font-size: 1.1rem; padding: 16px 52px 16px 24px; }
-    .container { padding: var(--space-md) var(--space-xl); }
+    .song-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: var(--space-lg);
+    }
+    .card-title {
+        font-size: 1.05rem;
+    }
+    .card-artist {
+        font-size: 0.85rem;
+    }
+    .logo-img {
+        width: 76px;
+        height: 76px;
+    }
+    .search-input {
+        font-size: 1.1rem;
+        padding: 16px 52px 16px 24px;
+    }
+    .container {
+        padding: var(--space-md) var(--space-xl);
+    }
 }
 
 @media (max-width: 600px) {
-    .header-top { flex-direction: column; align-items: stretch; gap: var(--space-sm); }
-    .logo-wrapper { align-self: center; }
-    .logo-img { width: 54px; height: 54px; }
-    .song-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-    .card-title { font-size: 0.85rem; }
-    .card-artist { font-size: 0.75rem; }
-    .search-input { font-size: 0.9rem; padding: 12px 40px 12px 16px; }
-    .card-info { min-height: 70px; padding: var(--space-xs) var(--space-sm) var(--space-sm); }
+    .header-top {
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--space-sm);
+    }
+    .logo-wrapper {
+        align-self: center;
+    }
+    .logo-img {
+        width: 54px;
+        height: 54px;
+    }
+    .song-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+    .card-title {
+        font-size: 0.85rem;
+    }
+    .card-artist {
+        font-size: 0.75rem;
+    }
+    .search-input {
+        font-size: 0.9rem;
+        padding: 12px 40px 12px 16px;
+    }
+    .card-info {
+        min-height: 70px;
+        padding: var(--space-xs) var(--space-sm) var(--space-sm);
+    }
 }
 
 @media (max-width: 380px) {
-    .song-grid { grid-template-columns: repeat(2, 1fr); }
+    .song-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
