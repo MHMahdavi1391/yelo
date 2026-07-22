@@ -22,6 +22,30 @@
     "video": "video/spereso.mp4",
     "hasMusic": true,
     "hasVideo": true
+  },
+  {
+    "id": 3,
+    "title": "Sabab",
+    "artist": "Shadmehr Aghili",
+    "description": "ا",
+    "releaseDate": "",
+    "cover": "picture/05. Shadmehr Aghili - Sabab.jpg",
+    "music": "music/05. Shadmehr Aghili - Sabab.mp3",
+    "video": "",
+    "hasMusic": true,
+    "hasVideo": false
+  },
+   {
+    "id": 4,
+    "title": "Ye Kari Kon",
+    "artist": "Shadmehr Aghili",
+    "description": "ا",
+    "releaseDate": "",
+    "cover": "picture/03. Shadmehr Aghili - Ye Kari Kon.mp3.jpg",
+    "music": "music/03. Shadmehr Aghili - Ye Kari Kon.mp3",
+    "video": "",
+    "hasMusic": true,
+    "hasVideo": false
   }
   
   
