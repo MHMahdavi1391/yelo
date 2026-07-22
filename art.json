@@ -250,5 +250,17 @@
     "video": "",
     "hasMusic": true,
     "hasVideo": false
+  },
+   {
+    "id": 22,
+    "title": "Azizam",
+    "artist": "E-d Sheeran ",
+    "description": "",
+    "releaseDate": "",
+    "cover": "picture/azizam.jpg",
+    "music": "music/E-d Sheeran - Azizam.mp3",
+    "video": "",
+    "hasMusic": true,
+    "hasVideo": false
   }
 ]
