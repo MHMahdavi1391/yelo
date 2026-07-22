@@ -11,7 +11,7 @@
     "hasMusic": true,
     "hasVideo": false
   },
-   {
+  {
     "id": 2,
     "title": "Esperso Maciyato",
     "artist": "Tommy",
@@ -35,7 +35,7 @@
     "hasMusic": true,
     "hasVideo": false
   },
-   {
+  {
     "id": 4,
     "title": "Ye Kari Kon",
     "artist": "Shadmehr Aghili",
@@ -46,7 +46,209 @@
     "video": "",
     "hasMusic": true,
     "hasVideo": false
+  },
+  {
+    "id": 5,
+    "title": "Avaz Nemishi",
+    "artist": "Shadmehr Aghili",
+    "description": "",
+    "releaseDate": "",
+    "cover": "picture/Shadmehr Aghili - Avaz Nemishi.jpg",
+    "music": "music/Shadmehr Aghili - Avaz Nemishi.mp3",
+    "video": "",
+    "hasMusic": true,
+    "hasVideo": false
+  },
+  {
+    "id": 6,
+    "title": "Azadi",
+    "artist": "Shadmehr Aghili",
+    "description": "",
+    "releaseDate": "",
+    "cover": "picture/Shadmehr Aghili - Azadi.jpg",
+    "music": "music/Shadmehr Aghili - Azadi.mp3",
+    "video": "",
+    "hasMusic": true,
+    "hasVideo": false
+  },
+  {
+    "id": 7,
+    "title": "Bade To",
+    "artist": "Shadmehr Aghili",
+    "description": "",
+    "releaseDate": "",
+    "cover": "picture/Shadmehr Aghli - Bade To.jpg",
+    "music": "music/Shadmehr Aghili - Bade To.mp3",
+    "video": "",
+    "hasMusic": true,
+    "hasVideo": false
+  },
+  {
+    "id": 8,
+    "title": "Daste Man Nist",
+    "artist": "Shadmehr Aghili",
+    "description": "",
+    "releaseDate": "",
+    "cover": "picture/Shadmehr Aghili - Daste Man Nist.jpg",
+    "music": "music/Shadmehr Aghili - Daste Man Nist [320].mp3",
+    "video": "",
+    "hasMusic": true,
+    "hasVideo": false
+  },
+  {
+    "id": 9,
+    "title": "Door Shodi",
+    "artist": "Shadmehr Aghili",
+    "description": "",
+    "releaseDate": "",
+    "cover": "picture/Shadmehr Aghli - Door Shodi.jpg",
+    "music": "music/Shadmehr Aghili - Door Shodi.mp3",
+    "video": "",
+    "hasMusic": true,
+    "hasVideo": false
+  },
+  {
+    "id": 10,
+    "title": "Etefagh",
+    "artist": "Shadmehr Aghili",
+    "description": "",
+    "releaseDate": "",
+    "cover": "picture/Shadmehr Aghili - Etefagh.jpg",
+    "music": "music/Shadmehr Aghili - Etefagh.mp3",
+    "video": "",
+    "hasMusic": true,
+    "hasVideo": false
+  },
+  {
+    "id": 11,
+    "title": "Ghashangtarin Gonah",
+    "artist": "Shadmehr Aghili",
+    "description": "",
+    "releaseDate": "",
+    "cover": "picture/Shadmehr Aghli – Ghashangtarin Gonah.jpg",
+    "music": "music/Shadmehr Aghili - Ghashangtarin Gonah.mp3",
+    "video": "",
+    "hasMusic": true,
+    "hasVideo": false
+  },
+  {
+    "id": 12,
+    "title": "Ghazi",
+    "artist": "Shadmehr Aghili",
+    "description": "",
+    "releaseDate": "",
+    "cover": "picture/Shadmehr Aghli - Ghazi.jpg",
+    "music": "music/Shadmehr Aghili - Ghazi.mp3",
+    "video": "",
+    "hasMusic": true,
+    "hasVideo": false
+  },
+  {
+    "id": 13,
+    "title": "Gole Man",
+    "artist": "Shadmehr Aghili",
+    "description": "",
+    "releaseDate": "",
+    "cover": "picture/Shadmehr Aghili - Gole Man.jpg",
+    "music": "music/Shadmehr Aghili - Gole Man.mp3",
+    "video": "",
+    "hasMusic": true,
+    "hasVideo": false
+  },
+  {
+    "id": 14,
+    "title": "Hagh Bedeh",
+    "artist": "Shadmehr Aghili",
+    "description": "",
+    "releaseDate": "",
+    "cover": "picture/Shadmehr Aghli - Hagh Bedeh.jpg",
+    "music": "music/Shadmehr Aghili - Hagh Bedeh (128).mp3",
+    "video": "",
+    "hasMusic": true,
+    "hasVideo": false
+  },
+  {
+    "id": 15,
+    "title": "Halam Avaz Mishe",
+    "artist": "Shadmehr Aghili",
+    "description": "",
+    "releaseDate": "",
+    "cover": "picture/Shadmehr Aghili - Halam Avaz Mishe.jpg",
+    "music": "music/Shadmehr Aghili - Halam Avaz Mishe _320_.mp3",
+    "video": "",
+    "hasMusic": true,
+    "hasVideo": false
+  },
+  {
+    "id": 16,
+    "title": "Jange Delam",
+    "artist": "Shadmehr Aghili",
+    "description": "",
+    "releaseDate": "",
+    "cover": "picture/Shadmehr Aghli - Jange Delam.jpg",
+    "music": "music/Shadmehr Aghili - Jange Delam.mp3",
+    "video": "",
+    "hasMusic": true,
+    "hasVideo": false
+  },
+  {
+    "id": 17,
+    "title": "Mamnoon",
+    "artist": "Shadmehr Aghili",
+    "description": "",
+    "releaseDate": "",
+    "cover": "picture/Shadmehr Aghili - Mamnoon.jpg",
+    "music": "music/Shadmehr Aghili - Mamnoon.mp3",
+    "video": "",
+    "hasMusic": true,
+    "hasVideo": false
+  },
+  {
+    "id": 18,
+    "title": "Noghte Zaaf",
+    "artist": "Shadmehr Aghili",
+    "description": "",
+    "releaseDate": "",
+    "cover": "picture/Shadmehr Aghli - Noghte Zaaf.jpg",
+    "music": "music/Shadmehr Aghili - Noghte Zaaf.mp3",
+    "video": "",
+    "hasMusic": true,
+    "hasVideo": false
+  },
+  {
+    "id": 19,
+    "title": "Pishe To (Unplugged)",
+    "artist": "Shadmehr Aghili",
+    "description": "",
+    "releaseDate": "",
+    "cover": "picture/Shadmehr Aghili - Pishe To (Unplugged.jpg)",
+    "music": "music/Shadmehr Aghili - Pishe To (Unplugged).mp3",
+    "video": "",
+    "hasMusic": true,
+    "hasVideo": false
+  },
+  {
+    "id": 20,
+    "title": "Pishe To",
+    "artist": "Shadmehr Aghili",
+    "description": "",
+    "releaseDate": "",
+    "cover": "picture/Shadmehr Aghili – Pishe To.jpg",
+    "music": "music/Shadmehr Aghili - Pishe To.mp3",
+    "video": "",
+    "hasMusic": true,
+    "hasVideo": false
+  },
+  {
+    "id": 21,
+    "title": "Rabete",
+    "artist": "Shadmehr Aghili",
+    "description": "",
+    "releaseDate": "",
+    "cover": "picture/Shadmehr Aghili - Rabete.jpg",
+    "music": "music/Shadmehr Aghili - Rabete.mp3",
+    "video": "",
+    "hasMusic": true,
+    "hasVideo": false
   }
-  
-  
 ]
