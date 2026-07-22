@@ -1,15 +1,25 @@
-
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-  <title>فراوا — پخش آهنگ</title>
+  <title>پخش‌کننده موسیقی</title>
+
+  <!-- ===== فونت سفارشی از روت ===== -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  
   <style>
+    /* ===== بارگذاری فونت از فایل font.ttf ===== */
+    @font-face {
+      font-family: 'CustomFont';
+      src: url('./font.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
     /* ===== Reset & Base ===== */
     * {
       margin: 0;
@@ -30,7 +40,7 @@
       --radius-lg: 24px;
       --radius-md: 16px;
       --transition-smooth: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-      --font-family: 'Inter', -apple-system, system-ui, sans-serif;
+      --font-family: 'CustomFont', 'Inter', -apple-system, system-ui, sans-serif;
     }
 
     @media (prefers-color-scheme: dark) {
@@ -86,6 +96,7 @@
       border: 1px solid var(--border-subtle);
       box-shadow: var(--shadow-soft);
       transition: all 0.2s;
+      font-family: var(--font-family);
     }
     .back-btn:hover {
       background: var(--bg-card);
@@ -214,11 +225,13 @@
       letter-spacing: -0.5px;
       margin-bottom: 2px;
       line-height: 1.2;
+      font-family: var(--font-family);
     }
     .song-artist {
       font-size: clamp(1rem, 1.5vw, 1.2rem);
       font-weight: 400;
       color: var(--text-secondary);
+      font-family: var(--font-family);
     }
 
     /* ===== Custom Player ===== */
@@ -251,6 +264,7 @@
       justify-content: center;
       transition: all 0.15s;
       touch-action: manipulation;
+      font-family: var(--font-family);
     }
     .ctrl-btn:hover {
       background: var(--border-subtle);
@@ -290,6 +304,7 @@
       min-width: 38px;
       font-variant-numeric: tabular-nums;
       letter-spacing: 0.2px;
+      font-family: var(--font-family);
     }
     .progress-bar {
       flex: 1;
@@ -385,7 +400,7 @@
       border: none;
     }
 
-    /* ===== Download & Loop Buttons ===== */
+    /* ===== Download & Loop Buttons (English text) ===== */
     .action-bar {
       display: flex;
       align-items: center;
@@ -410,6 +425,7 @@
       box-shadow: var(--shadow-soft);
       text-decoration: none;
       touch-action: manipulation;
+      font-family: var(--font-family);
     }
     .action-btn i {
       font-size: 0.9rem;
@@ -457,6 +473,7 @@
       text-align: center;
       padding: 40px 20px;
       color: var(--text-muted);
+      font-family: var(--font-family);
     }
     .error-msg i {
       font-size: 2.8rem;
@@ -504,12 +521,12 @@
 <div class="player-container">
   <nav class="back-nav">
     <a href="./index.html" class="back-btn">
-      <i class="fas fa-arrow-right"></i> بازگشت
+      <i class="fas fa-arrow-right"></i> Back
     </a>
   </nav>
 
   <div id="songContent" class="player-layout">
-    <!-- محتوای داینامیک توسط JS -->
+    <!-- dynamic content -->
   </div>
 </div>
 
@@ -523,7 +540,61 @@
     let currentSong = null;
     let audio = null;
     let isPlaying = false;
-    let loopEnabled = false;   // حالت لوپ
+    let loopEnabled = false;
+
+    // ===== MediaSession API (برای نمایش در نوتیفیکیشن/لاک‌اسکرین) =====
+    function updateMediaSession(song) {
+      if (!song) return;
+      if ('mediaSession' in navigator) {
+        navigator.mediaSession.metadata = new MediaMetadata({
+          title: song.title || 'Unknown Title',
+          artist: song.artist || 'Unknown Artist',
+          album: song.album || 'Album',
+          artwork: [
+            { src: song.cover || '', sizes: '512x512', type: 'image/jpeg' },
+            { src: song.cover || '', sizes: '256x256', type: 'image/jpeg' },
+          ]
+        });
+
+        // تنظیم Action Handlers برای کنترل از طریق نوتیفیکیشن
+        navigator.mediaSession.setActionHandler('play', () => {
+          if (audio) {
+            audio.play().catch(() => {});
+            isPlaying = true;
+            updatePlayButton();
+          }
+        });
+        navigator.mediaSession.setActionHandler('pause', () => {
+          if (audio) {
+            audio.pause();
+            isPlaying = false;
+            updatePlayButton();
+          }
+        });
+        navigator.mediaSession.setActionHandler('previoustrack', () => {
+          playPrev();
+        });
+        navigator.mediaSession.setActionHandler('nexttrack', () => {
+          playNext();
+        });
+        navigator.mediaSession.setActionHandler('seekto', (details) => {
+          if (audio && details.seekTime !== undefined) {
+            audio.currentTime = details.seekTime;
+          }
+        });
+      }
+    }
+
+    function updatePlayButton() {
+      const playBtn = document.getElementById('playBtn');
+      if (playBtn) {
+        playBtn.innerHTML = isPlaying ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>';
+      }
+      // به‌روزرسانی MediaSession وضعیت
+      if ('mediaSession' in navigator) {
+        navigator.mediaSession.playbackState = isPlaying ? 'playing' : 'paused';
+      }
+    }
 
     function escapeHTML(str) {
       const div = document.createElement('div');
@@ -545,9 +616,9 @@
     async function loadSongs() {
       try {
         const resp = await fetch('./art.json');
-        if (!resp.ok) throw new Error('فایل art.json یافت نشد.');
+        if (!resp.ok) throw new Error('art.json not found.');
         allSongs = await resp.json();
-        if (!allSongs.length) throw new Error('هیچ آهنگی وجود ندارد.');
+        if (!allSongs.length) throw new Error('No songs available.');
 
         const idParam = getQueryParam('id');
         let id = parseInt(idParam, 10);
@@ -558,7 +629,7 @@
         renderSong(currentSongIndex);
       } catch (err) {
         console.error(err);
-        showError('خطا در بارگذاری اطلاعات آهنگ.');
+        showError('Failed to load song data.');
       }
     }
 
@@ -570,7 +641,9 @@
       const newUrl = `./song.html?id=${currentSong.id}`;
       window.history.replaceState({}, '', newUrl);
 
-      // ساخت سمت چپ: اطلاعات + پلیر + دکمه‌های دانلود و لوپ
+      // به‌روزرسانی MediaSession
+      updateMediaSession(currentSong);
+
       let leftHtml = `
         <div class="player-left">
           <div class="song-info">
@@ -590,22 +663,21 @@
               <span class="progress-time" id="totalTime">0:00</span>
             </div>
             <div class="player-controls">
-              <button class="ctrl-btn" id="prevBtn" aria-label="قبلی"><i class="fas fa-step-backward"></i></button>
-              <button class="ctrl-btn play-btn" id="playBtn" aria-label="پلی/مکث"><i class="fas fa-play"></i></button>
-              <button class="ctrl-btn" id="nextBtn" aria-label="بعدی"><i class="fas fa-step-forward"></i></button>
+              <button class="ctrl-btn" id="prevBtn" aria-label="Previous"><i class="fas fa-step-backward"></i></button>
+              <button class="ctrl-btn play-btn" id="playBtn" aria-label="Play/Pause"><i class="fas fa-play"></i></button>
+              <button class="ctrl-btn" id="nextBtn" aria-label="Next"><i class="fas fa-step-forward"></i></button>
             </div>
             <div class="volume-control">
               <i class="fas fa-volume-down"></i>
               <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.01" value="0.8" />
               <i class="fas fa-volume-up"></i>
             </div>
-            <!-- دکمه‌های دانلود و لوپ -->
             <div class="action-bar">
               <a href="${escapeHTML(currentSong.music)}" download class="action-btn" id="downloadBtn">
-                <i class="fas fa-download"></i> دانلود
+                <i class="fas fa-download"></i> Download
               </a>
               <button class="action-btn" id="loopBtn">
-                <i class="fas fa-repeat"></i> لوپ
+                <i class="fas fa-repeat"></i> Loop
               </button>
             </div>
           </div>
@@ -622,7 +694,7 @@
         `;
       }
 
-      leftHtml += `</div>`; // بستن player-left
+      leftHtml += `</div>`;
 
       let rightHtml = `
         <div class="player-right">
@@ -636,10 +708,10 @@
         leftHtml = `
           <div class="error-msg">
             <i class="fas fa-ban"></i>
-            <p>محتوای قابل پخشی موجود نیست.</p>
+            <p>No playable content available.</p>
             <br>
             <a href="./index.html" class="back-btn" style="display:inline-flex;margin-top:12px;">
-              <i class="fas fa-arrow-right"></i> بازگشت
+              <i class="fas fa-arrow-right"></i> Back
             </a>
           </div>
         `;
@@ -663,7 +735,7 @@
       }
       audio = new Audio(musicSrc);
       audio.volume = parseFloat(document.getElementById('volumeSlider')?.value || 0.8);
-      audio.loop = false; // توسط خودمون مدیریت میشه
+      audio.loop = false;
 
       const playBtn = document.getElementById('playBtn');
       const prevBtn = document.getElementById('prevBtn');
@@ -675,15 +747,14 @@
       const volumeSlider = document.getElementById('volumeSlider');
       const loopBtn = document.getElementById('loopBtn');
 
-      // ===== حالت لوپ =====
       function updateLoopUI() {
         if (loopBtn) {
           if (loopEnabled) {
             loopBtn.classList.add('loop-active');
-            loopBtn.innerHTML = '<i class="fas fa-repeat"></i> لوپ';
+            loopBtn.innerHTML = '<i class="fas fa-repeat"></i> Loop';
           } else {
             loopBtn.classList.remove('loop-active');
-            loopBtn.innerHTML = '<i class="fas fa-repeat"></i> لوپ';
+            loopBtn.innerHTML = '<i class="fas fa-repeat"></i> Loop';
           }
         }
       }
@@ -693,11 +764,7 @@
         e.preventDefault();
         loopEnabled = !loopEnabled;
         updateLoopUI();
-        // اگر لوپ فعال باشه، وقتی آهنگ تموم بشه دوباره پلی میشه (در رویداد ended مدیریت میشه)
       });
-
-      // ===== دانلود =====
-      // دکمه دانلود از قبل با href و download کار میکنه
 
       function updateThumb(percent) {
         progressBar.style.setProperty('--thumb-pos', percent + '%');
@@ -716,31 +783,28 @@
         }
       });
 
-      // ===== مدیریت پایان آهنگ با لوپ =====
       audio.addEventListener('ended', () => {
         if (loopEnabled) {
-          // لوپ: دوباره پلی کن
           audio.currentTime = 0;
           audio.play().catch(() => {});
-          playBtn.innerHTML = '<i class="fas fa-pause"></i>';
           isPlaying = true;
+          updatePlayButton();
         } else {
-          // بدون لوپ: رفتن به آهنگ بعدی
-          playBtn.innerHTML = '<i class="fas fa-play"></i>';
           isPlaying = false;
-          playNext();
+          updatePlayButton();
+          playNext(); // رفتن به آهنگ بعدی
         }
       });
 
       function togglePlay() {
         if (isPlaying) {
           audio.pause();
-          playBtn.innerHTML = '<i class="fas fa-play"></i>';
+          isPlaying = false;
         } else {
           audio.play().catch(() => {});
-          playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+          isPlaying = true;
         }
-        isPlaying = !isPlaying;
+        updatePlayButton();
       }
 
       playBtn.addEventListener('click', togglePlay);
@@ -762,12 +826,24 @@
         isPlaying = false;
         currentSongIndex = index;
         renderSong(index);
+        // بعد از رندر شدن، پخش خودکار شروع میشه
+        // ولی چون توی رندر دوباره audio ساخته میشه، باید پلی رو بزنیم
+        setTimeout(() => {
+          const newAudio = document.querySelector('audio') || document.getElementById('customPlayer')?.querySelector('audio');
+          // در واقع audio جدید ساخته شده، ولی ما از متغیر audio استفاده می‌کنیم که بازنویسی شده
+          // بنابراین بعد از رندر، audio جدید موجوده و می‌تونیم پلی کنیم
+          if (audio) {
+            audio.play().catch(() => {});
+            isPlaying = true;
+            updatePlayButton();
+          }
+        }, 100);
       }
 
       prevBtn.addEventListener('click', playPrev);
       nextBtn.addEventListener('click', playNext);
 
-      // ===== کشیدن نوار پیشرفت =====
+      // ===== Progress dragging =====
       let isDragging = false;
 
       function setProgress(clientX) {
@@ -834,6 +910,10 @@
       currentTimeSpan.textContent = '0:00';
       if (audio.duration) totalTimeSpan.textContent = formatTime(audio.duration);
       updateThumb(0);
+
+      // تنظیم اولیه وضعیت پلی
+      isPlaying = false;
+      updatePlayButton();
     }
 
     function showError(msg) {
@@ -843,7 +923,7 @@
           <p>${escapeHTML(msg)}</p>
           <br>
           <a href="./index.html" class="back-btn" style="display:inline-flex;margin-top:12px;">
-            <i class="fas fa-arrow-right"></i> بازگشت
+            <i class="fas fa-arrow-right"></i> Back
           </a>
         </div>
       `;
@@ -854,4 +934,3 @@
 </script>
 </body>
 </html>
-
