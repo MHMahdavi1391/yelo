@@ -5,13 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
   <title>پخش‌کننده موسیقی</title>
 
+  <!-- ===== Font Awesome (برای آیکون‌ها) ===== -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
   <!-- ===== فونت سفارشی از روت ===== -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  
   <style>
-    /* ===== بارگذاری فونت از فایل font.ttf ===== */
     @font-face {
       font-family: 'CustomFont';
       src: url('./font.ttf') format('truetype');
@@ -264,7 +262,12 @@
       justify-content: center;
       transition: all 0.15s;
       touch-action: manipulation;
-      font-family: var(--font-family);
+      font-family: 'Font Awesome 6 Free', 'Font Awesome 6 Brands', sans-serif;
+      font-weight: 900;
+    }
+    .ctrl-btn i {
+      font-size: inherit;
+      color: inherit;
     }
     .ctrl-btn:hover {
       background: var(--border-subtle);
@@ -370,6 +373,8 @@
     .volume-control i {
       color: var(--text-muted);
       font-size: 0.8rem;
+      font-family: 'Font Awesome 6 Free', 'Font Awesome 6 Brands', sans-serif;
+      font-weight: 900;
     }
     .volume-slider {
       width: 80px;
@@ -400,7 +405,7 @@
       border: none;
     }
 
-    /* ===== Download & Loop Buttons (English text) ===== */
+    /* ===== Download & Loop Buttons ===== */
     .action-bar {
       display: flex;
       align-items: center;
@@ -431,6 +436,8 @@
       font-size: 0.9rem;
       color: var(--text-muted);
       transition: color 0.2s;
+      font-family: 'Font Awesome 6 Free', 'Font Awesome 6 Brands', sans-serif;
+      font-weight: 900;
     }
     .action-btn:hover {
       background: var(--bg-card);
@@ -479,6 +486,8 @@
       font-size: 2.8rem;
       margin-bottom: 12px;
       opacity: 0.4;
+      font-family: 'Font Awesome 6 Free', 'Font Awesome 6 Brands', sans-serif;
+      font-weight: 900;
     }
 
     /* ===== Responsive ===== */
@@ -542,7 +551,7 @@
     let isPlaying = false;
     let loopEnabled = false;
 
-    // ===== MediaSession API (برای نمایش در نوتیفیکیشن/لاک‌اسکرین) =====
+    // ===== MediaSession API =====
     function updateMediaSession(song) {
       if (!song) return;
       if ('mediaSession' in navigator) {
@@ -556,7 +565,6 @@
           ]
         });
 
-        // تنظیم Action Handlers برای کنترل از طریق نوتیفیکیشن
         navigator.mediaSession.setActionHandler('play', () => {
           if (audio) {
             audio.play().catch(() => {});
@@ -590,7 +598,6 @@
       if (playBtn) {
         playBtn.innerHTML = isPlaying ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>';
       }
-      // به‌روزرسانی MediaSession وضعیت
       if ('mediaSession' in navigator) {
         navigator.mediaSession.playbackState = isPlaying ? 'playing' : 'paused';
       }
@@ -641,7 +648,6 @@
       const newUrl = `./song.html?id=${currentSong.id}`;
       window.history.replaceState({}, '', newUrl);
 
-      // به‌روزرسانی MediaSession
       updateMediaSession(currentSong);
 
       let leftHtml = `
@@ -792,7 +798,7 @@
         } else {
           isPlaying = false;
           updatePlayButton();
-          playNext(); // رفتن به آهنگ بعدی
+          playNext();
         }
       });
 
@@ -826,12 +832,7 @@
         isPlaying = false;
         currentSongIndex = index;
         renderSong(index);
-        // بعد از رندر شدن، پخش خودکار شروع میشه
-        // ولی چون توی رندر دوباره audio ساخته میشه، باید پلی رو بزنیم
         setTimeout(() => {
-          const newAudio = document.querySelector('audio') || document.getElementById('customPlayer')?.querySelector('audio');
-          // در واقع audio جدید ساخته شده، ولی ما از متغیر audio استفاده می‌کنیم که بازنویسی شده
-          // بنابراین بعد از رندر، audio جدید موجوده و می‌تونیم پلی کنیم
           if (audio) {
             audio.play().catch(() => {});
             isPlaying = true;
@@ -911,7 +912,6 @@
       if (audio.duration) totalTimeSpan.textContent = formatTime(audio.duration);
       updateThumb(0);
 
-      // تنظیم اولیه وضعیت پلی
       isPlaying = false;
       updatePlayButton();
     }
