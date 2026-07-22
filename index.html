@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>فراوا — لیبل موسیقی</title>
+    <title>YELO Music</title>
     
     <!-- ===== Font Awesome ===== -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -338,12 +338,12 @@
         <header class="header">
             <div class="header-top">
                 <div class="logo-wrapper">
-                    <img src="logo.jpg" alt="فراوا" class="logo-img" loading="lazy">
+                    <img src="logo.jpg" alt="YELO" class="logo-img" loading="lazy">
                 </div>
                 <div class="search-wrapper">
                     <div class="search-box">
                         <i class="fas fa-search search-icon"></i>
-                        <input type="text" id="searchInput" class="search-input" placeholder="جستجوی آهنگ یا هنرمند..." autocomplete="off">
+                        <input type="text" id="searchInput" class="search-input" placeholder="Search music or artist..." autocomplete="off">
                         <button id="clearSearch" class="clear-btn" style="display: none;"><i class="fas fa-times"></i></button>
                     </div>
                 </div>
@@ -354,17 +354,17 @@
             <div id="songGrid" class="song-grid"></div>
             <div id="noResults" class="no-results" style="display: none;">
                 <i class="fas fa-music"></i>
-                <p>موردی یافت نشد.</p>
+                <p>Nothing was found.</p>
             </div>
         </section>
 
         <footer class="footer">
             <div class="footer-content">
-                <img src="logo.jpg" alt="فراوا" class="footer-logo" loading="lazy">
-                <span>زیرمجموعه Lumen Technologies Co. (LTC)</span>
+                <img src="logo.jpg" alt="YELO" class="footer-logo" loading="lazy">
+                <span>A subdivision of Lumen Technologies Co. (LTC)</span>
             </div>
             <a href="https://lt-c.iddns.ir" class="back-link">
-                <i class="fas fa-arrow-right"></i> بازگشت به هاب LTC
+                <i class="fas fa-arrow-right"></i> back to LTC HUB
             </a>
         </footer>
     </div>
@@ -399,7 +399,7 @@
                     songGrid.innerHTML = `
                         <div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-muted);font-family:var(--font-family);">
                             <i class="fas fa-exclamation-triangle" style="font-size:2rem;margin-bottom:12px;display:block;font-family:'Font Awesome 6 Free','Font Awesome 6 Brands',sans-serif;font-weight:900;"></i>
-                            <p>خطا در بارگذاری آهنگ‌ها.</p>
+                            <p>Error</p>
                         </div>
                     `;
                 }
@@ -421,8 +421,8 @@
                             <div class="song-card-info">
                                 <div class="song-card-title">${escapeHTML(song.title)}</div>
                                 <div class="song-card-artist">${escapeHTML(song.artist)}</div>
-                                ${song.hasMusic ? `<span class="song-card-badge">🎵 موسیقی</span>` : ''}
-                                ${song.hasVideo ? `<span class="song-card-badge">🎬 ویدیو</span>` : ''}
+                                ${song.hasMusic ? `<span class="song-card-badge">music</span>` : ''}
+                                ${song.hasVideo ? `<span class="song-card-badge">video</span>` : ''}
                             </div>
                         </a>
                     `;
