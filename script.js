@@ -16,6 +16,7 @@
     let favorites = JSON.parse(localStorage.getItem('yelo_favorites') || '[]');
     let currentFilter = '';
     let artistFilter = '';
+    let isDragging = false;
 
     // ===== DOM refs =====
     const songGrid = document.getElementById('songGrid');
@@ -70,10 +71,6 @@
         updateMiniLikeButton();
     }
 
-    function getSongById(id) {
-        return allSongs.find(s => s.id === id);
-    }
-
     function getArtists() {
         const artistMap = {};
         allSongs.forEach(song => {
@@ -108,17 +105,14 @@
     function getFilteredSongs() {
         let songs = allSongs;
 
-        // Artist filter
         if (artistFilter) {
             songs = songs.filter(s => s.artist === artistFilter);
         }
 
-        // Tab filter
         if (currentTab === 'favorites') {
             songs = songs.filter(s => isFavorite(s.id));
         }
 
-        // Search filter
         if (currentFilter) {
             const q = currentFilter.toLowerCase();
             songs = songs.filter(s =>
@@ -164,7 +158,6 @@
         });
         songGrid.innerHTML = html;
 
-        // Click handlers
         document.querySelectorAll('.song-card').forEach(card => {
             card.addEventListener('click', function(e) {
                 if (e.target.closest('.favorite-btn')) return;
@@ -219,7 +212,9 @@
         document.querySelectorAll('.artist-card').forEach(card => {
             card.addEventListener('click', function() {
                 artistFilter = this.dataset.artist;
-                currentTab = 'home';
+                // Keep tab as 'artists' but show filtered songs
+                // We'll set a flag to keep the tab active
+                currentTab = 'artists';
                 updateTabs();
                 renderCurrentView();
                 searchInput.value = '';
@@ -231,7 +226,13 @@
 
     function updateTabs() {
         tabs.forEach(tab => {
-            tab.classList.toggle('active', tab.dataset.tab === currentTab);
+            const tabName = tab.dataset.tab;
+            // If we're in artist filter mode, keep artists tab active
+            if (artistFilter && tabName === 'artists') {
+                tab.classList.add('active');
+            } else {
+                tab.classList.toggle('active', tabName === currentTab);
+            }
         });
     }
 
@@ -280,7 +281,6 @@
         audio.play().catch(() => {});
         isPlaying = true;
 
-        // Update mini player
         miniCover.src = song.cover;
         miniTitle.textContent = song.title;
         miniArtist.textContent = song.artist;
@@ -290,7 +290,6 @@
         updateMiniLikeButton();
         updateMiniLoopButton();
 
-        // MediaSession
         if ('mediaSession' in navigator) {
             navigator.mediaSession.metadata = new MediaMetadata({
                 title: song.title,
@@ -349,12 +348,62 @@
 
     function updateMiniLoopButton() {
         miniLoop.classList.toggle('active', loopEnabled);
-        miniLoop.style.color = loopEnabled ? '#f5c842' : '';
     }
+
+    // ===== Mini Progress Dragging (Touch & Mouse) =====
+    function setMiniProgress(clientX) {
+        const rect = miniProgressBar.getBoundingClientRect();
+        let x = clientX - rect.left;
+        x = Math.max(0, Math.min(x, rect.width));
+        const percent = rect.width > 0 ? x / rect.width : 0;
+        miniProgressFill.style.width = (percent * 100) + '%';
+        if (audio && audio.duration) {
+            audio.currentTime = percent * audio.duration;
+        }
+    }
+
+    miniProgressBar.addEventListener('mousedown', function(e) {
+        isDragging = true;
+        this.classList.add('dragging');
+        setMiniProgress(e.clientX);
+    });
+
+    document.addEventListener('mousemove', function(e) {
+        if (isDragging) {
+            setMiniProgress(e.clientX);
+        }
+    });
+
+    document.addEventListener('mouseup', function() {
+        if (isDragging) {
+            isDragging = false;
+            miniProgressBar.classList.remove('dragging');
+        }
+    });
+
+    miniProgressBar.addEventListener('touchstart', function(e) {
+        e.preventDefault();
+        const touch = e.touches[0];
+        isDragging = true;
+        this.classList.add('dragging');
+        setMiniProgress(touch.clientX);
+    }, { passive: false });
+
+    miniProgressBar.addEventListener('touchmove', function(e) {
+        e.preventDefault();
+        if (isDragging) {
+            const touch = e.touches[0];
+            setMiniProgress(touch.clientX);
+        }
+    }, { passive: false });
+
+    miniProgressBar.addEventListener('touchend', function() {
+        isDragging = false;
+        this.classList.remove('dragging');
+    });
 
     // ===== Mini Player Events =====
     miniPlay.addEventListener('click', togglePlay);
-
     miniPrev.addEventListener('click', playPrev);
     miniNext.addEventListener('click', playNext);
 
@@ -369,18 +418,11 @@
         updateMiniLoopButton();
     });
 
-    // Mini progress
-    miniProgressBar.addEventListener('click', function(e) {
-        if (!audio || !audio.duration) return;
-        const rect = this.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width;
-        audio.currentTime = x * audio.duration;
-    });
-
     // ===== Tabs =====
     tabs.forEach(tab => {
         tab.addEventListener('click', function() {
-            currentTab = this.dataset.tab;
+            const tabName = this.dataset.tab;
+            currentTab = tabName;
             artistFilter = '';
             updateTabs();
             renderCurrentView();
@@ -394,7 +436,7 @@
     searchInput.addEventListener('input', function() {
         currentFilter = this.value.trim();
         clearBtn.style.display = currentFilter ? 'block' : 'none';
-        if (currentTab === 'artists') {
+        if (currentTab === 'artists' && !artistFilter) {
             currentTab = 'home';
             updateTabs();
         }
