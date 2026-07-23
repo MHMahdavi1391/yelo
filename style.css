@@ -197,69 +197,20 @@ body {
     }
 }
 
-/* ===== Grid برای همه لیست‌ها (Home, Artists, Favorites) ===== */
+/* ===== لیست همه صفحات با FLEXBOX ===== */
 .song-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
     gap: 20px;
     width: 100%;
     padding: 0;
     margin: 0;
-}
-
-@media (min-width: 500px) {
-    .song-grid {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 22px;
-    }
-}
-
-@media (min-width: 800px) {
-    .song-grid {
-        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-        gap: 24px;
-    }
-}
-
-@media (max-width: 400px) {
-    .song-grid {
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-        gap: 12px;
-    }
-}
-
-/* ===== Artist Grid ===== */
-.artist-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 20px;
-    width: 100%;
-    padding: 0;
-    margin: 0;
-}
-
-@media (min-width: 500px) {
-    .artist-grid {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 22px;
-    }
-}
-
-@media (min-width: 800px) {
-    .artist-grid {
-        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-        gap: 24px;
-    }
-}
-
-@media (max-width: 400px) {
-    .artist-grid {
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-        gap: 12px;
-    }
 }
 
 .song-card {
+    flex: 0 0 calc(20% - 16px);
+    min-width: 160px;
+    max-width: 220px;
     background: var(--bg-card);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
@@ -274,13 +225,66 @@ body {
     display: block;
     position: relative;
 }
-.song-card:hover {
-    transform: translateY(-6px) scale(1.02);
-    box-shadow: var(--shadow-hover);
-    border-color: var(--accent-yellow);
+
+/* ===== Artist Grid ===== */
+.artist-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+    padding: 0;
+    margin: 0;
 }
-.song-card:active {
-    transform: scale(0.97);
+
+.artist-card {
+    flex: 0 0 calc(20% - 16px);
+    min-width: 160px;
+    max-width: 220px;
+    background: var(--bg-card);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid var(--glass-border);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    text-align: center;
+}
+
+/* ===== Responsive با FLEX ===== */
+@media (max-width: 1024px) {
+    .song-card, .artist-card {
+        flex: 0 0 calc(25% - 15px);
+        min-width: 140px;
+    }
+}
+
+@media (max-width: 820px) {
+    .song-card, .artist-card {
+        flex: 0 0 calc(33.333% - 14px);
+        min-width: 120px;
+    }
+}
+
+@media (max-width: 550px) {
+    .song-grid, .artist-grid {
+        gap: 14px;
+    }
+    .song-card, .artist-card {
+        flex: 0 0 calc(50% - 10px);
+        min-width: 100px;
+    }
+}
+
+@media (max-width: 380px) {
+    .song-card, .artist-card {
+        flex: 0 0 calc(50% - 8px);
+        min-width: 80px;
+    }
 }
 
 .song-card-cover {
@@ -354,30 +358,6 @@ body {
     100% { transform: scale(1); }
 }
 
-.artist-card {
-    background: var(--bg-card);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    box-shadow: var(--shadow-soft);
-    border: 1px solid var(--glass-border);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    cursor: pointer;
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    text-align: center;
-}
-.artist-card:hover {
-    transform: translateY(-6px) scale(1.02);
-    box-shadow: var(--shadow-hover);
-    border-color: var(--accent-yellow);
-}
-.artist-card:active {
-    transform: scale(0.97);
-}
-
 .artist-card-cover {
     width: 100%;
     aspect-ratio: 1/1;
@@ -403,6 +383,15 @@ body {
     font-family: var(--font-family);
     margin-top: 3px;
     display: block;
+}
+
+.song-card:hover, .artist-card:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--accent-yellow);
+}
+.song-card:active, .artist-card:active {
+    transform: scale(0.97);
 }
 
 /* ===== No Results ===== */
