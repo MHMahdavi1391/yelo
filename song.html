@@ -5,13 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
   <title>YELO Music - Playing</title>
 
+  <!-- ===== Favicon ===== -->
+  <link rel="icon" type="image/jpeg" href="logo.jpg">
+  <link rel="apple-touch-icon" href="logo.jpg">
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
 <div class="player-container">
-  <!-- Logo -->
   <div class="page-logo">
     <img src="logo.jpg" alt="YELO" loading="lazy">
   </div>
@@ -38,8 +41,8 @@
     let audio = null;
     let isPlaying = false;
     let loopEnabled = false;
+    let isDragging = false;
 
-    // ===== MediaSession API =====
     function updateMediaSession(song) {
       if (!song) return;
       if ('mediaSession' in navigator) {
@@ -58,6 +61,9 @@
             audio.play().catch(() => {});
             isPlaying = true;
             updatePlayButton();
+            if ('mediaSession' in navigator) {
+              navigator.mediaSession.playbackState = 'playing';
+            }
           }
         });
         navigator.mediaSession.setActionHandler('pause', () => {
@@ -65,6 +71,9 @@
             audio.pause();
             isPlaying = false;
             updatePlayButton();
+            if ('mediaSession' in navigator) {
+              navigator.mediaSession.playbackState = 'paused';
+            }
           }
         });
         navigator.mediaSession.setActionHandler('previoustrack', () => {
@@ -158,9 +167,9 @@
               <span class="progress-time" id="totalTime">0:00</span>
             </div>
             <div class="player-controls">
-              <button class="ctrl-btn" id="prevBtn" aria-label="Previous"><i class="fas fa-step-backward"></i></button>
-              <button class="ctrl-btn play-btn" id="playBtn" aria-label="Play/Pause"><i class="fas fa-play"></i></button>
-              <button class="ctrl-btn" id="nextBtn" aria-label="Next"><i class="fas fa-step-forward"></i></button>
+              <button class="ctrl-btn" id="prevBtn"><i class="fas fa-step-backward"></i></button>
+              <button class="ctrl-btn play-btn" id="playBtn"><i class="fas fa-play"></i></button>
+              <button class="ctrl-btn" id="nextBtn"><i class="fas fa-step-forward"></i></button>
             </div>
             <div class="volume-control">
               <i class="fas fa-volume-down"></i>
@@ -333,9 +342,7 @@
       prevBtn.addEventListener('click', playPrev);
       nextBtn.addEventListener('click', playNext);
 
-      // ===== Progress dragging =====
-      let isDragging = false;
-
+      // ===== Progress dragging (Touch & Mouse) =====
       function setProgress(clientX) {
         const rect = progressBar.getBoundingClientRect();
         let x = clientX - rect.left;
