@@ -310,23 +310,27 @@ body {
     100% { transform: scale(1); }
 }
 
-/* ===== Artist Grid ===== */
+/* ===== Artist Grid - FIXED ===== */
 .artist-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 24px;
     width: 100%;
+    margin: 0;
+    padding: 0;
 }
 
-@media (min-width: 500px) {
+@media (max-width: 600px) {
     .artist-grid {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 16px;
     }
 }
 
-@media (min-width: 800px) {
+@media (max-width: 400px) {
     .artist-grid {
-        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 12px;
     }
 }
 
@@ -344,6 +348,7 @@ body {
     color: inherit;
     display: block;
     text-align: center;
+    width: 100%;
 }
 .artist-card:hover {
     transform: translateY(-6px) scale(1.02);
@@ -353,6 +358,7 @@ body {
 .artist-card:active {
     transform: scale(0.97);
 }
+
 .artist-card-cover {
     width: 100%;
     aspect-ratio: 1/1;
@@ -360,17 +366,23 @@ body {
     display: block;
     background: var(--bg-card);
 }
+
 .artist-card-name {
-    padding: 16px;
+    padding: 16px 12px;
     font-weight: 600;
     font-size: 1rem;
     font-family: var(--font-family);
     color: var(--text-primary);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
+
 .artist-card-count {
     font-size: 0.75rem;
     color: var(--text-muted);
     font-family: var(--font-family);
+    margin-top: 4px;
+    display: block;
 }
 
 /* ===== No Results ===== */
@@ -618,7 +630,7 @@ body {
     flex-shrink: 0;
 }
 
-/* ===== Song Page Styles (برای song.html در صورت وجود) ===== */
+/* ===== Song Page Styles ===== */
 .player-container {
     max-width: 1100px;
     margin: 0 auto;
@@ -1035,10 +1047,6 @@ body {
 /* ===== Responsive ===== */
 @media (max-width: 500px) {
     .song-grid {
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-        gap: 14px;
-    }
-    .artist-grid {
         grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
         gap: 14px;
     }
