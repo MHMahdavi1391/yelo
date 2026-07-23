@@ -310,21 +310,22 @@ body {
     100% { transform: scale(1); }
 }
 
-/* ===== Artist Grid - FIXED WITH FLEXBOX ===== */
+/* ===== Artist Grid - با INLINE-BLOCK ===== */
 .artist-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 24px;
+    display: block;
     width: 100%;
-    justify-content: flex-start;
+    text-align: left;
     padding: 0;
     margin: 0;
+    font-size: 0;
+    letter-spacing: 0;
 }
 
 .artist-card {
-    flex: 0 0 calc(20% - 20px);
-    min-width: 160px;
-    max-width: 220px;
+    display: inline-block;
+    width: 180px;
+    margin: 0 12px 20px 0;
+    vertical-align: top;
     background: var(--bg-card);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
@@ -336,40 +337,43 @@ body {
     cursor: pointer;
     text-decoration: none;
     color: inherit;
-    display: block;
     text-align: center;
-    flex-grow: 0;
-    flex-shrink: 0;
+    font-size: 16px;
+    letter-spacing: normal;
 }
 
 @media (max-width: 1024px) {
     .artist-card {
-        flex: 0 0 calc(25% - 18px);
-        min-width: 140px;
+        width: 170px;
+        margin: 0 10px 18px 0;
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 820px) {
     .artist-card {
-        flex: 0 0 calc(33.333% - 16px);
-        min-width: 120px;
+        width: 160px;
+        margin: 0 8px 16px 0;
     }
 }
 
-@media (max-width: 550px) {
-    .artist-grid {
-        gap: 14px;
-    }
+@media (max-width: 650px) {
     .artist-card {
-        flex: 0 0 calc(50% - 10px);
-        min-width: 100px;
+        width: 140px;
+        margin: 0 8px 14px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .artist-card {
+        width: 120px;
+        margin: 0 6px 12px 0;
     }
 }
 
 @media (max-width: 380px) {
     .artist-card {
-        flex: 0 0 calc(50% - 8px);
-        min-width: 80px;
+        width: 100px;
+        margin: 0 4px 10px 0;
     }
 }
 
@@ -391,9 +395,9 @@ body {
 }
 
 .artist-card-name {
-    padding: 16px 12px;
+    padding: 14px 10px;
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-family: var(--font-family);
     color: var(--text-primary);
     word-wrap: break-word;
@@ -402,10 +406,10 @@ body {
 }
 
 .artist-card-count {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: var(--text-muted);
     font-family: var(--font-family);
-    margin-top: 4px;
+    margin-top: 3px;
     display: block;
 }
 
