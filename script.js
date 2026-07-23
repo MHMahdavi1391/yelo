@@ -17,7 +17,6 @@
     let currentFilter = '';
     let artistFilter = '';
     let isDragging = false;
-    let isArtistView = false;
 
     // ===== DOM refs =====
     const songGrid = document.getElementById('songGrid');
@@ -75,10 +74,11 @@
     function getArtists() {
         const artistMap = {};
         allSongs.forEach(song => {
-            if (!artistMap[song.artist]) {
-                artistMap[song.artist] = [];
+            const artist = song.artist || 'Unknown Artist';
+            if (!artistMap[artist]) {
+                artistMap[artist] = [];
             }
-            artistMap[song.artist].push(song);
+            artistMap[artist].push(song);
         });
         return artistMap;
     }
@@ -175,7 +175,6 @@
     function renderCurrentView() {
         // Check if we're in artist filter mode (showing songs of a specific artist)
         if (artistFilter && currentTab === 'artists') {
-            // Show filtered songs but keep artists tab active
             const songs = getFilteredSongs();
             if (!songs || !songs.length) {
                 songGrid.innerHTML = '';
@@ -223,6 +222,7 @@
         });
         songGrid.innerHTML = html;
 
+        // ===== Click on song card =====
         document.querySelectorAll('.song-card').forEach(card => {
             card.addEventListener('click', function(e) {
                 if (e.target.closest('.favorite-btn')) return;
@@ -237,6 +237,7 @@
             });
         });
 
+        // ===== Favorite button =====
         document.querySelectorAll('.favorite-btn').forEach(btn => {
             btn.addEventListener('click', function(e) {
                 e.stopPropagation();
@@ -274,13 +275,14 @@
         html += '</div>';
         songGrid.innerHTML = html;
 
+        // ===== Click on artist card =====
         document.querySelectorAll('.artist-card').forEach(card => {
             card.addEventListener('click', function() {
-                artistFilter = this.dataset.artist;
+                const artistName = this.dataset.artist;
+                artistFilter = artistName;
                 currentTab = 'artists';
-                // Keep artists tab active
                 updateTabs();
-                // Render filtered songs
+                // Show filtered songs
                 const songs = getFilteredSongs();
                 if (!songs || !songs.length) {
                     songGrid.innerHTML = '';
