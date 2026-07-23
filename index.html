@@ -15,6 +15,7 @@
 <body>
 
 <div class="container" id="app">
+    <!-- Header -->
     <header class="header">
         <div class="header-top">
             <div class="logo-wrapper">
@@ -30,12 +31,14 @@
         </div>
     </header>
 
+    <!-- Tabs -->
     <div class="tabs" id="tabsContainer">
         <button class="tab-btn active" data-tab="home">Home</button>
         <button class="tab-btn" data-tab="artists">Artists</button>
         <button class="tab-btn" data-tab="favorites">Favorites</button>
     </div>
 
+    <!-- Song Grid -->
     <section class="songs-section">
         <div id="songGrid" class="song-grid"></div>
         <div id="noResults" class="no-results" style="display: none;">
@@ -44,6 +47,7 @@
         </div>
     </section>
 
+    <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
             <img src="logo.jpg" alt="YELO" class="footer-logo" loading="lazy">
@@ -55,6 +59,7 @@
     </footer>
 </div>
 
+<!-- ===== Mini Player (Glassmorphism) ===== -->
 <div class="mini-player" id="miniPlayer">
     <div class="mini-player-inner">
         <img src="" alt="cover" class="mini-cover" id="miniCover">
