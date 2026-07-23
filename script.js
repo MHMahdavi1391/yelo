@@ -17,6 +17,7 @@
     let currentFilter = '';
     let artistFilter = '';
     let isDragging = false;
+    let isArtistView = false;
 
     // ===== DOM refs =====
     const songGrid = document.getElementById('songGrid');
@@ -82,6 +83,53 @@
         return artistMap;
     }
 
+    // ===== MediaSession =====
+    function updateMediaSession(song) {
+        if (!song) return;
+        if ('mediaSession' in navigator) {
+            navigator.mediaSession.metadata = new MediaMetadata({
+                title: song.title || 'Unknown Title',
+                artist: song.artist || 'Unknown Artist',
+                artwork: [
+                    { src: song.cover || '', sizes: '512x512', type: 'image/jpeg' },
+                    { src: song.cover || '', sizes: '256x256', type: 'image/jpeg' },
+                ]
+            });
+
+            navigator.mediaSession.setActionHandler('play', () => {
+                if (audio) {
+                    audio.play().catch(() => {});
+                    isPlaying = true;
+                    updateMiniPlayButton();
+                    if ('mediaSession' in navigator) {
+                        navigator.mediaSession.playbackState = 'playing';
+                    }
+                }
+            });
+            navigator.mediaSession.setActionHandler('pause', () => {
+                if (audio) {
+                    audio.pause();
+                    isPlaying = false;
+                    updateMiniPlayButton();
+                    if ('mediaSession' in navigator) {
+                        navigator.mediaSession.playbackState = 'paused';
+                    }
+                }
+            });
+            navigator.mediaSession.setActionHandler('previoustrack', () => {
+                playPrev();
+            });
+            navigator.mediaSession.setActionHandler('nexttrack', () => {
+                playNext();
+            });
+            navigator.mediaSession.setActionHandler('seekto', (details) => {
+                if (audio && details.seekTime !== undefined) {
+                    audio.currentTime = details.seekTime;
+                }
+            });
+        }
+    }
+
     // ===== Load data =====
     async function loadSongs() {
         try {
@@ -125,6 +173,20 @@
     }
 
     function renderCurrentView() {
+        // Check if we're in artist filter mode (showing songs of a specific artist)
+        if (artistFilter && currentTab === 'artists') {
+            // Show filtered songs but keep artists tab active
+            const songs = getFilteredSongs();
+            if (!songs || !songs.length) {
+                songGrid.innerHTML = '';
+                noResults.style.display = 'block';
+                return;
+            }
+            noResults.style.display = 'none';
+            renderSongs(songs);
+            return;
+        }
+
         if (currentTab === 'artists') {
             renderArtists();
             return;
@@ -137,7 +199,10 @@
             return;
         }
         noResults.style.display = 'none';
+        renderSongs(songs);
+    }
 
+    function renderSongs(songs) {
         let html = '';
         songs.forEach(song => {
             const fav = isFavorite(song.id);
@@ -212,11 +277,18 @@
         document.querySelectorAll('.artist-card').forEach(card => {
             card.addEventListener('click', function() {
                 artistFilter = this.dataset.artist;
-                // Keep tab as 'artists' but show filtered songs
-                // We'll set a flag to keep the tab active
                 currentTab = 'artists';
+                // Keep artists tab active
                 updateTabs();
-                renderCurrentView();
+                // Render filtered songs
+                const songs = getFilteredSongs();
+                if (!songs || !songs.length) {
+                    songGrid.innerHTML = '';
+                    noResults.style.display = 'block';
+                    return;
+                }
+                noResults.style.display = 'none';
+                renderSongs(songs);
                 searchInput.value = '';
                 currentFilter = '';
                 clearBtn.style.display = 'none';
@@ -227,11 +299,12 @@
     function updateTabs() {
         tabs.forEach(tab => {
             const tabName = tab.dataset.tab;
-            // If we're in artist filter mode, keep artists tab active
             if (artistFilter && tabName === 'artists') {
                 tab.classList.add('active');
+            } else if (!artistFilter && tabName === currentTab) {
+                tab.classList.add('active');
             } else {
-                tab.classList.toggle('active', tabName === currentTab);
+                tab.classList.remove('active');
             }
         });
     }
@@ -290,20 +363,9 @@
         updateMiniLikeButton();
         updateMiniLoopButton();
 
+        // Update MediaSession
+        updateMediaSession(song);
         if ('mediaSession' in navigator) {
-            navigator.mediaSession.metadata = new MediaMetadata({
-                title: song.title,
-                artist: song.artist,
-                artwork: [{ src: song.cover, sizes: '512x512', type: 'image/jpeg' }]
-            });
-            navigator.mediaSession.setActionHandler('play', () => {
-                if (audio) { audio.play().catch(() => {}); isPlaying = true; updateMiniPlayButton(); }
-            });
-            navigator.mediaSession.setActionHandler('pause', () => {
-                if (audio) { audio.pause(); isPlaying = false; updateMiniPlayButton(); }
-            });
-            navigator.mediaSession.setActionHandler('previoustrack', playPrev);
-            navigator.mediaSession.setActionHandler('nexttrack', playNext);
             navigator.mediaSession.playbackState = 'playing';
         }
     }
