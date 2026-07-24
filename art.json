@@ -222,5 +222,21 @@
     "cover": "picture/wake me up (remix).jpg",
     "music": "music/Shadmehr Aghili - wake me up (remix).mp3",
     "hasMusic": true
+  },
+  {
+    "id": 29,
+    "title": "To Ki Hasti",
+    "artist": "Reza Sadeghi",
+    "cover": "picture/to ki hasti.jpg",
+    "music": "music/Reza Sadeghi - To Ki Hasti.mp3",
+    "hasMusic": true
+  },
+  {
+    "id": 30,
+    "title": "Man Edame Midamet",
+    "artist": "Reza Sadeghi",
+    "cover": "picture/Reza-Sadeghi-Man-Edame-Midamet.jpg",
+    "music": "music/Reza-Sadeghi-Man-Edame-Midamet.mp3",
+    "hasMusic": true
   }
 ]
