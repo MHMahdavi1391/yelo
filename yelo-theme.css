@@ -1,23 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;700;800&display=swap');
 body{font-family:Vazirmatn,'CustomFont',system-ui,sans-serif !important;background:#fff8f3 !important;color:#241433 !important}
 body::before{content:"";position:fixed;inset:-8%;z-index:-1;pointer-events:none;background:radial-gradient(42% 36% at 12% 12%, rgba(124,92,230,.28), transparent 70%),radial-gradient(40% 32% at 88% 8%, rgba(255,194,74,.4), transparent 68%),radial-gradient(46% 36% at 80% 92%, rgba(255,122,60,.28), transparent 70%),linear-gradient(135deg,#f7f1ff,#fff8ef 52%,#fff1e8)}
-.theme-light,.theme-dark{--bg-primary:#fff8f3;--bg-surface:rgba(255,255,255,.78);--bg-card:rgba(255,255,255,.78);--text-primary:#241433;--text-secondary:#5c4d6e;--text-muted:#7b6d8c;--accent:#ffb703;--accent-dark:#ff7a3c;--accent-text:#2a1738;--glass-border:rgba(92,48,140,.14);--mini-bg:rgba(255,255,255,.78)}
-.header{position:sticky;top:0;z-index:20;padding:10px 0;background:rgba(255,248,243,.72);backdrop-filter:blur(18px)}
-.logo-img,.footer-logo{border-radius:16px !important;border:1px solid rgba(92,48,140,.14)}
-.search-box,.theme-btn,.tab-btn,.song-card,.artist-card,.mini-player,.back-link,.footer-social a{background:rgba(255,255,255,.74) !important;border:1px solid rgba(92,48,140,.14) !important;backdrop-filter:blur(18px);color:#241433}
-.tab-btn.active{background:linear-gradient(135deg,#ffc24a,#ff7a3c) !important;color:#2a1738 !important}
-.song-card,.artist-card{border-radius:22px !important;box-shadow:inset 0 1px 0 rgba(255,255,255,.8),0 16px 36px rgba(90,50,140,.1) !important;animation:rise .55s cubic-bezier(.22,1,.36,1) both}
-.song-card:hover,.artist-card:hover{transform:translateY(-6px) scale(1.02)}
+.theme-light,.theme-dark{--bg-primary:transparent;--bg-surface:rgba(255,255,255,.78);--bg-card:rgba(255,255,255,.78);--text-primary:#241433;--text-secondary:#5c4d6e;--text-muted:#7b6d8c;--accent:#ffb703;--accent-text:#2a1738;--glass-border:rgba(92,48,140,.14);--mini-bg:rgba(255,255,255,.82);--border-subtle:rgba(92,48,140,.12)}
+.header{position:sticky;top:12px;z-index:20;margin-bottom:16px;padding:12px;border-radius:28px;background:rgba(255,255,255,.72);border:1px solid rgba(92,48,140,.14);box-shadow:inset 0 1px 0 rgba(255,255,255,.8),0 12px 30px rgba(90,50,140,.08);backdrop-filter:blur(18px)}
+.header-top{align-items:center}
+.logo-img,.footer-logo{border-radius:16px !important;border:1px solid rgba(92,48,140,.14);background:#fff}
+.search-box,.theme-btn{background:rgba(255,255,255,.8) !important;border:1px solid rgba(92,48,140,.14) !important;border-radius:999px !important}
+.tabs{display:flex;gap:8px;margin:0 0 14px;padding:8px;border:1px solid rgba(92,48,140,.14);border-radius:24px;background:rgba(255,255,255,.62);backdrop-filter:blur(16px);border-bottom:1px solid rgba(92,48,140,.14)}
+.tab-btn{border-radius:999px !important;border:1px solid transparent !important;background:transparent !important;color:#5c4d6e !important;padding:8px 16px}
+.tab-btn.active{background:linear-gradient(135deg,#ffc24a,#ff7a3c) !important;color:#2a1738 !important;border-color:transparent !important}
+.hero{margin:0 0 22px;padding:20px 22px;border-radius:24px;background:rgba(255,255,255,.72);border:1px solid rgba(92,48,140,.14);backdrop-filter:blur(18px)}
+.hero h1{margin:0 0 6px;font-size:clamp(1.45rem,4vw,2rem);letter-spacing:-.04em;color:#241433}
+.hero p{margin:0;color:#5c4d6e;max-width:52ch;line-height:1.8}
+.song-card,.artist-card{background:rgba(255,255,255,.78) !important;border:1px solid rgba(92,48,140,.14) !important;border-radius:22px !important;box-shadow:inset 0 1px 0 rgba(255,255,255,.85),0 16px 36px rgba(90,50,140,.1) !important;overflow:hidden}
+.song-card-cover,.artist-card-cover{border-radius:0}
+.song-card-info,.artist-card-name{background:transparent}
 .song-card-title,.artist-card-name,.mini-title,.full-title{color:#241433 !important}
-.song-card-artist,.mini-artist,.full-artist{color:#5c4d6e !important}
-.mini-player{border-radius:28px !important;box-shadow:0 18px 40px rgba(90,50,140,.16) !important}
-.mini-player.active .mini-cover{animation:spinCover 18s linear infinite}
-.mini-btn.play-btn,.full-btn.full-play,.display-btn.display-play{background:linear-gradient(135deg,#ffc24a,#ff7a3c) !important;color:#2a1738 !important}
+.song-card-artist,.mini-artist,.full-artist,.song-card-badge{color:#5c4d6e !important}
+.mini-player{border-radius:28px !important;background:rgba(255,255,255,.84) !important;border:1px solid rgba(92,48,140,.16) !important}
+.mini-cover{width:52px !important;height:52px !important;border-radius:50% !important;object-fit:cover;border:2px solid rgba(255,255,255,.9);box-shadow:0 6px 16px rgba(90,50,140,.18)}
+.mini-player.active .mini-cover{animation:spinCover 16s linear infinite}
+.mini-btn.play-btn,.full-btn.full-play{background:linear-gradient(135deg,#ffc24a,#ff7a3c) !important;color:#2a1738 !important}
 .mini-progress-fill,.full-progress-fill{background:linear-gradient(90deg,#6d4bd6,#ff7a3c) !important}
-.hero{margin:8px 0 18px;padding:22px;border-radius:28px;background:rgba(255,255,255,.7);border:1px solid rgba(92,48,140,.14);backdrop-filter:blur(18px);box-shadow:inset 0 1px 0 rgba(255,255,255,.8)}
-.hero h1{margin:0 0 6px;font-size:clamp(1.6rem,4vw,2.3rem);letter-spacing:-.04em}
-.hero p{margin:0;color:#5c4d6e;max-width:46ch}
-.footer-social a{border-radius:999px;text-decoration:none;font-weight:700}
-@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.full-player{align-items:center !important;padding:18px}
+.full-player-backdrop{background:rgba(36,20,51,.35);backdrop-filter:blur(10px)}
+.full-player-content{max-width:460px;border-radius:32px !important;background:rgba(255,248,243,.9) !important;border:1px solid rgba(255,255,255,.7);box-shadow:0 24px 60px rgba(36,20,51,.28);padding:22px 24px 28px !important}
+.full-cover-wrap{border-radius:28px !important;box-shadow:0 18px 40px rgba(90,50,140,.2)}
+.full-action-btn,.back-link,.footer-social a{border-radius:999px !important;background:rgba(255,255,255,.78) !important;border:1px solid rgba(92,48,140,.14) !important;color:#241433 !important;text-decoration:none}
+.footer-social{padding:8px;border:1px solid rgba(92,48,140,.14);border-radius:24px;background:rgba(255,255,255,.55)}
 @keyframes spinCover{from{transform:rotate(0)}to{transform:rotate(360deg)}}
-@media (prefers-reduced-motion:reduce){.song-card,.mini-cover{animation:none !important}}
+@media (prefers-reduced-motion:reduce){.mini-cover{animation:none !important}}
