@@ -1,18 +1,25 @@
 (function () {
-  var player = document.getElementById('miniPlayer');
   var play = document.getElementById('miniPlay');
-  function syncSpin() {
-    if (!player || !play) return;
-    player.classList.toggle('is-playing', !!play.querySelector('.fa-pause'));
+  var cover = document.getElementById('miniCover');
+  var angle = 0;
+  var last = 0;
+  var speed = 360 / 16;
+  function playing() { return !!(play && play.querySelector('.fa-pause')); }
+  function tick(ts) {
+    if (!last) last = ts;
+    var dt = (ts - last) / 1000;
+    last = ts;
+    if (playing() && cover) {
+      angle = (angle + speed * dt) % 360;
+      cover.style.transform = 'rotate(' + angle + 'deg)';
+    }
+    requestAnimationFrame(tick);
   }
-  if (play && window.MutationObserver) {
-    new MutationObserver(syncSpin).observe(play, { childList: true, subtree: true });
+  requestAnimationFrame(tick);
+  if (cover && window.MutationObserver) {
+    new MutationObserver(function () {
+      angle = 0;
+      cover.style.transform = 'rotate(0deg)';
+    }).observe(cover, { attributes: true, attributeFilter: ['src'] });
   }
-  syncSpin();
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  document.querySelectorAll('.tabs, .footer').forEach(function (el, i) {
-    el.setAttribute('data-aos', 'fade-up');
-    el.setAttribute('data-aos-delay', String(i * 80));
-  });
-  if (window.AOS) AOS.init({ duration: 650, once: true, offset: 20 });
 })();
