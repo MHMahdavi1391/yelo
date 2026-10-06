@@ -8,12 +8,14 @@ body::before{content:"";position:fixed;inset:-8%;z-index:-1;pointer-events:none;
 .search-box{background:rgba(255,255,255,.82) !important;border:1px solid rgba(92,48,140,.14) !important;border-radius:999px !important}
 .tabs{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:0 0 18px;padding:6px;border:1px solid rgba(92,48,140,.14);border-radius:22px;background:rgba(255,255,255,.7)}
 .tab-btn.active{background:linear-gradient(135deg,#ffc24a,#ff7a3c) !important;color:#2a1738 !important;border-radius:999px}
-.song-card,.artist-card{background:rgba(255,255,255,.78) !important;border:1px solid rgba(92,48,140,.14) !important;border-radius:22px !important;overflow:hidden}
+.song-grid,.artist-grid{display:grid !important;grid-template-columns:repeat(auto-fill,minmax(150px,1fr)) !important;gap:12px !important}
+.song-card,.artist-card{width:auto !important;max-width:none !important;min-width:0 !important;flex:none !important;background:rgba(255,255,255,.78) !important;border:1px solid rgba(92,48,140,.14) !important;border-radius:22px !important;overflow:hidden}
 .song-card-title,.mini-title,.full-title{color:#241433 !important}
 .song-card-artist,.mini-artist,.full-artist{color:#5c4d6e !important}
 .mini-player{border-radius:20px !important;background:rgba(255,255,255,.92) !important}
 #miniCover,.mini-cover{width:40px !important;height:40px !important;min-width:40px !important;border-radius:50% !important;object-fit:cover !important;clip-path:circle(50%) !important;animation:none !important;transform-origin:center center}
-.mini-btn.play-btn,.full-btn.full-play{width:56px !important;height:56px !important;min-width:56px !important;min-height:56px !important;flex:0 0 56px !important;aspect-ratio:1 !important;padding:0 !important;border-radius:50% !important;background:linear-gradient(135deg,#ffc24a,#ff7a3c) !important;color:#2a1738 !important}
+#miniPlay{width:44px !important;height:44px !important;min-width:44px !important;min-height:44px !important;max-width:44px !important;max-height:44px !important;flex:0 0 44px !important;aspect-ratio:1 !important;padding:0 !important;border-radius:50% !important;background:linear-gradient(135deg,#ffc24a,#ff7a3c) !important;color:#2a1738 !important;box-sizing:border-box !important}
+.full-btn.full-play{width:56px !important;height:56px !important;min-width:56px !important;min-height:56px !important;max-width:56px !important;flex:0 0 56px !important;aspect-ratio:1 !important;padding:0 !important;border-radius:50% !important;background:linear-gradient(135deg,#ffc24a,#ff7a3c) !important;color:#2a1738 !important}
 .mini-progress-fill,.full-progress-fill{background:linear-gradient(90deg,#6d4bd6,#ff7a3c) !important}
 .full-player{align-items:center !important;justify-content:center !important;padding:16px !important}
 .full-player-content{width:min(440px,100%) !important;border-radius:32px !important;background:rgba(255,248,243,.94) !important}
@@ -21,9 +23,11 @@ body::before{content:"";position:fixed;inset:-8%;z-index:-1;pointer-events:none;
 .full-cover-wrap{width:min(260px,70vw) !important;border-radius:28px !important;overflow:hidden}
 .footer-social a,.back-link{border-radius:999px !important;background:rgba(255,255,255,.82) !important;border:1px solid rgba(92,48,140,.16) !important;color:#241433 !important;text-decoration:none}
 @media (max-width:720px){
+  .song-grid,.artist-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
   .mini-player-inner{display:grid !important;grid-template-columns:40px minmax(0,1fr) !important}
-  .mini-controls,.mini-actions,.mini-progress{grid-column:1 / -1 !important;display:flex !important;width:100% !important;justify-content:space-evenly !important}
-  .mini-btn{width:36px !important;height:36px !important;min-width:36px !important;flex:0 0 36px !important}
-  .mini-btn.play-btn{width:42px !important;height:42px !important;min-width:42px !important;flex:0 0 42px !important}
+  .mini-controls,.mini-actions,.mini-progress{grid-column:1 / -1 !important;display:flex !important;width:100% !important;justify-content:space-evenly !important;align-items:center !important}
   .mini-volume{display:none !important}
+}
+@media (min-width:560px) and (max-width:900px){
+  .song-grid,.artist-grid{grid-template-columns:repeat(3,minmax(0,1fr)) !important}
 }
