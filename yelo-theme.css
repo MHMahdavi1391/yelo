@@ -2,38 +2,28 @@
 body{font-family:Vazirmatn,'CustomFont',system-ui,sans-serif !important;background:#fff8f3 !important;color:#241433 !important}
 body::before{content:"";position:fixed;inset:-8%;z-index:-1;pointer-events:none;background:radial-gradient(42% 36% at 12% 12%, rgba(124,92,230,.28), transparent 70%),radial-gradient(40% 32% at 88% 8%, rgba(255,194,74,.4), transparent 68%),radial-gradient(46% 36% at 80% 92%, rgba(255,122,60,.28), transparent 70%),linear-gradient(135deg,#f7f1ff,#fff8ef 52%,#fff1e8)}
 #themeToggle,.theme-btn{display:none !important}
-.header{position:static !important;margin:0 0 14px !important;padding:0 !important;background:transparent !important;border:0 !important;box-shadow:none !important}
+.header{background:transparent !important;border:0 !important;box-shadow:none !important}
 .logo-img{width:84px !important;height:84px !important;object-fit:contain !important;border:0 !important;border-radius:0 !important;background:transparent !important;box-shadow:none !important}
-.footer-logo{width:36px !important;height:36px !important;object-fit:contain !important;border:0 !important;border-radius:0 !important;background:transparent !important}
+.footer-logo{width:36px !important;height:36px !important;object-fit:contain !important;border:0 !important;background:transparent !important}
 .search-box{background:rgba(255,255,255,.82) !important;border:1px solid rgba(92,48,140,.14) !important;border-radius:999px !important}
-.tabs{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:0 0 18px;padding:6px;border:1px solid rgba(92,48,140,.14);border-radius:22px;background:rgba(255,255,255,.7);backdrop-filter:blur(16px)}
-.tab-btn{border-radius:999px !important;background:transparent !important;color:#5c4d6e !important}
-.tab-btn.active{background:linear-gradient(135deg,#ffc24a,#ff7a3c) !important;color:#2a1738 !important}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:0 0 18px;padding:6px;border:1px solid rgba(92,48,140,.14);border-radius:22px;background:rgba(255,255,255,.7)}
+.tab-btn.active{background:linear-gradient(135deg,#ffc24a,#ff7a3c) !important;color:#2a1738 !important;border-radius:999px}
 .song-card,.artist-card{background:rgba(255,255,255,.78) !important;border:1px solid rgba(92,48,140,.14) !important;border-radius:22px !important;overflow:hidden}
-.song-card-title,.artist-card-name,.mini-title,.full-title{color:#241433 !important}
+.song-card-title,.mini-title,.full-title{color:#241433 !important}
 .song-card-artist,.mini-artist,.full-artist{color:#5c4d6e !important}
-.mini-player{border-radius:24px !important;background:rgba(255,255,255,.92) !important}
-#miniCover,.mini-cover{width:48px !important;height:48px !important;min-width:48px !important;border-radius:50% !important;object-fit:cover !important;clip-path:circle(50%) !important}
-.mini-player.is-playing #miniCover{animation:spinCover 16s linear infinite}
-.mini-title,.mini-artist{display:block !important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.mini-btn.play-btn,.full-btn.full-play{background:linear-gradient(135deg,#ffc24a,#ff7a3c) !important;color:#2a1738 !important;border-radius:50% !important}
+.mini-player{border-radius:20px !important;background:rgba(255,255,255,.92) !important}
+#miniCover,.mini-cover{width:40px !important;height:40px !important;min-width:40px !important;border-radius:50% !important;object-fit:cover !important;clip-path:circle(50%) !important;animation:none !important;transform-origin:center center}
+.mini-btn.play-btn,.full-btn.full-play{width:56px !important;height:56px !important;min-width:56px !important;min-height:56px !important;flex:0 0 56px !important;aspect-ratio:1 !important;padding:0 !important;border-radius:50% !important;background:linear-gradient(135deg,#ffc24a,#ff7a3c) !important;color:#2a1738 !important}
 .mini-progress-fill,.full-progress-fill{background:linear-gradient(90deg,#6d4bd6,#ff7a3c) !important}
 .full-player{align-items:center !important;justify-content:center !important;padding:16px !important}
-.full-player-backdrop{background:rgba(36,20,51,.42) !important;backdrop-filter:blur(16px)}
-.full-player-content{width:min(440px,100%) !important;max-height:88vh !important;border-radius:32px !important;background:rgba(255,248,243,.94) !important;transform:translateY(24px) scale(.98) !important}
-.full-player.active .full-player-content{transform:none !important}
+.full-player-content{width:min(440px,100%) !important;border-radius:32px !important;background:rgba(255,248,243,.94) !important}
+.full-controls{display:flex !important;align-items:center !important;justify-content:center !important;gap:16px !important}
 .full-cover-wrap{width:min(260px,70vw) !important;border-radius:28px !important;overflow:hidden}
-.footer-note{max-width:46ch;color:#5c4d6e;line-height:1.8}
-.footer-social{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
-.footer-social a,.back-link{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:999px !important;background:rgba(255,255,255,.82) !important;border:1px solid rgba(92,48,140,.16) !important;color:#241433 !important;text-decoration:none}
-@keyframes spinCover{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+.footer-social a,.back-link{border-radius:999px !important;background:rgba(255,255,255,.82) !important;border:1px solid rgba(92,48,140,.16) !important;color:#241433 !important;text-decoration:none}
 @media (max-width:720px){
-  .header-top{display:flex !important;flex-direction:column !important;align-items:center !important;gap:12px !important}
-  .logo-wrapper{width:100%;display:flex;justify-content:center}
-  .search-wrapper{width:100% !important;max-width:none !important}
-  .mini-player-inner{display:grid !important;grid-template-columns:48px minmax(0,1fr) !important;align-items:center !important}
+  .mini-player-inner{display:grid !important;grid-template-columns:40px minmax(0,1fr) !important}
   .mini-controls,.mini-actions,.mini-progress{grid-column:1 / -1 !important;display:flex !important;width:100% !important;justify-content:space-evenly !important}
-  .mini-btn{width:44px !important;height:44px !important;flex:0 0 44px !important}
+  .mini-btn{width:36px !important;height:36px !important;min-width:36px !important;flex:0 0 36px !important}
+  .mini-btn.play-btn{width:42px !important;height:42px !important;min-width:42px !important;flex:0 0 42px !important}
   .mini-volume{display:none !important}
 }
-@media (prefers-reduced-motion:reduce){#miniCover{animation:none !important}}
