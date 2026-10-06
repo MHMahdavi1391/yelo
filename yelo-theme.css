@@ -14,7 +14,7 @@ body::before{content:"";position:fixed;inset:-8%;z-index:-1;pointer-events:none;
 .song-card-artist,.mini-artist,.full-artist{color:#5c4d6e !important}
 .mini-player{border-radius:24px !important;background:rgba(255,255,255,.92) !important}
 #miniCover,.mini-cover{width:48px !important;height:48px !important;min-width:48px !important;border-radius:50% !important;object-fit:cover !important;clip-path:circle(50%) !important}
-.mini-player.active #miniCover{animation:spinCover 16s linear infinite}
+.mini-player.is-playing #miniCover{animation:spinCover 16s linear infinite}
 .mini-title,.mini-artist{display:block !important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mini-btn.play-btn,.full-btn.full-play{background:linear-gradient(135deg,#ffc24a,#ff7a3c) !important;color:#2a1738 !important;border-radius:50% !important}
 .mini-progress-fill,.full-progress-fill{background:linear-gradient(90deg,#6d4bd6,#ff7a3c) !important}
@@ -31,10 +31,9 @@ body::before{content:"";position:fixed;inset:-8%;z-index:-1;pointer-events:none;
   .header-top{display:flex !important;flex-direction:column !important;align-items:center !important;gap:12px !important}
   .logo-wrapper{width:100%;display:flex;justify-content:center}
   .search-wrapper{width:100% !important;max-width:none !important}
-  .mini-player-inner{display:grid !important;grid-template-columns:48px minmax(0,1fr) auto !important;align-items:center !important}
-  .mini-info{display:block !important;min-width:0 !important}
-  .mini-progress,.mini-actions,#miniDisplay,#miniExpand,#miniLike,#miniDownload{display:flex !important}
-  .mini-progress,.mini-actions{grid-column:1 / -1}
+  .mini-player-inner{display:grid !important;grid-template-columns:48px minmax(0,1fr) !important;align-items:center !important}
+  .mini-controls,.mini-actions,.mini-progress{grid-column:1 / -1 !important;display:flex !important;width:100% !important;justify-content:space-evenly !important}
+  .mini-btn{width:44px !important;height:44px !important;flex:0 0 44px !important}
   .mini-volume{display:none !important}
 }
 @media (prefers-reduced-motion:reduce){#miniCover{animation:none !important}}
