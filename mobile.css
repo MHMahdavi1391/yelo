@@ -8,12 +8,16 @@
   .search-input { font-size: 16px; }
   .theme-btn, #themeToggle { display: none; }
   .tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; padding: 6px; }
-  .song-card, .artist-card { flex: 0 0 calc(50% - 5px); min-width: 0; max-width: none; }
+  .song-grid, .artist-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .song-card, .artist-card { width: 100%; min-width: 0; max-width: none; flex: none; }
   .mini-player { bottom: calc(8px + env(safe-area-inset-bottom, 0px)); width: calc(100% - 16px); padding: 8px 10px; border-radius: 20px; }
   .mini-player-inner { display: grid; grid-template-columns: 40px minmax(0,1fr); gap: 6px 8px; align-items: center; }
   .mini-info, .mini-title, .mini-artist { min-width: 0; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .mini-progress, .mini-controls, .mini-actions { grid-column: 1 / -1; display: flex; width: 100%; justify-content: space-evenly; }
-  .mini-btn { width: 36px; height: 36px; flex: 0 0 36px; }
-  .mini-btn.play-btn { width: 42px; height: 42px; flex: 0 0 42px; }
+  .mini-progress, .mini-controls, .mini-actions { grid-column: 1 / -1; display: flex; width: 100%; justify-content: space-evenly; align-items: center; }
+  .mini-btn { width: 36px; height: 36px; min-width: 36px; min-height: 36px; flex: 0 0 36px; }
+  #miniPlay.mini-btn.play-btn { width: 44px; height: 44px; min-width: 44px; min-height: 44px; flex: 0 0 44px; border-radius: 50%; padding: 0; aspect-ratio: 1; }
   .mini-volume { display: none; }
+}
+@media (min-width: 560px) and (max-width: 900px) {
+  .song-grid, .artist-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
