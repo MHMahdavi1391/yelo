@@ -8,11 +8,35 @@
     "hasMusic": true
   },
   {
+    "id": "shadmehraghilialamatsoal",
+    "title": "Alamat Soal",
+    "artist": "Shadmehr Aghili",
+    "cover": "picture/_embedded/shadmehraghilialamatsoal.jpg",
+    "music": "music/Shadmehr Aghili - Alamat Soal.mp3",
+    "hasMusic": true
+  },
+  {
+    "id": "shadmehraghiliasemooniinstrumental",
+    "title": "Asemooni (Instrumental)",
+    "artist": "Shadmehr Aghili",
+    "cover": "picture/_embedded/shadmehraghiliasemooniinstrumental.jpg",
+    "music": "music/Shadmehr Aghili - Asemooni (Instrumental).mp3",
+    "hasMusic": true
+  },
+  {
     "id": "shadmehraghilidehaati",
     "title": "Dehaati",
     "artist": "Shadmehr Aghili",
     "cover": "picture/_embedded/shadmehraghilidehaati.jpg",
     "music": "music/Shadmehr Aghili - Dehaati.mp3",
+    "hasMusic": true
+  },
+  {
+    "id": "shadmehraghiliyekarikon",
+    "title": "Ye Kari Kon",
+    "artist": "Shadmehr Aghili",
+    "cover": "picture/_embedded/shadmehraghiliyekarikon.jpg",
+    "music": "music/Shadmehr Aghili - Ye Kari Kon.mp3",
     "hasMusic": true
   }
 ]
