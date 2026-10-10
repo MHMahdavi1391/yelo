@@ -80,14 +80,6 @@
     "hasMusic": true
   },
   {
-    "id": "moeinmaghsoodtoei",
-    "title": "Maghsood Toei",
-    "artist": "Moein",
-    "cover": "picture/_embedded/moeinmaghsoodtoei.jpg",
-    "music": "music/Moein - Maghsood Toei.mp3",
-    "hasMusic": true
-  },
-  {
     "id": "shadmehraghiliasemooni",
     "title": "Asemooni",
     "artist": "Shadmehr Aghili",
