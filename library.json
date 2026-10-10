@@ -80,6 +80,14 @@
     "hasMusic": true
   },
   {
+    "id": "moeinsobhetbekheir",
+    "title": "Sobhet Bekheir",
+    "artist": "Moein",
+    "cover": "picture/_embedded/moeinsobhetbekheir.jpg",
+    "music": "music/Moein - Sobhet Bekheir.mp3",
+    "hasMusic": true
+  },
+  {
     "id": "shadmehraghiliasemooni",
     "title": "Asemooni",
     "artist": "Shadmehr Aghili",
