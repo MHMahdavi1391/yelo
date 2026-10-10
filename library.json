@@ -32,6 +32,14 @@
     "hasMusic": true
   },
   {
+    "id": "edsheeranazizam",
+    "title": "Azizam",
+    "artist": "Ed Sheeran",
+    "cover": "picture/_embedded/edsheeranazizam.jpg",
+    "music": "music/E-d Sheeran - Azizam.mp3",
+    "hasMusic": true
+  },
+  {
     "id": "haydehafsaneyehhasti",
     "title": "Afsaneyeh Hasti",
     "artist": "Haydeh",
@@ -109,6 +117,14 @@
     "artist": "Charlie Puth",
     "cover": "picture/_embedded/charlieputhwedonttalkanymore.jpg",
     "music": "music/charlie puth - we dont talk anymore.mp3",
+    "hasMusic": true
+  },
+  {
+    "id": "haydehghomebehajraafte",
+    "title": "Ghome Be Haj Raafte",
+    "artist": "Haydeh",
+    "cover": "logo.jpg",
+    "music": "music/haydeh - ghome be haj raafte .mp3",
     "hasMusic": true
   }
 ]
