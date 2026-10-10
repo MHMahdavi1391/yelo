@@ -168,6 +168,14 @@
     "hasMusic": true
   },
   {
+    "id": "shadmehraghilibaatelnew",
+    "title": "Baatel (NEW)",
+    "artist": "Shadmehr Aghili",
+    "cover": "picture/_embedded/shadmehraghilibaatelnew.jpg",
+    "music": "music/Shadmehr Aghili - baatel (NEW).mp3",
+    "hasMusic": true
+  },
+  {
     "id": "charlieputhwedonttalkanymore",
     "title": "We Dont Talk Anymore",
     "artist": "Charlie Puth",
