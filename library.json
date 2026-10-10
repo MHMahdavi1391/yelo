@@ -3,7 +3,7 @@
     "id": "rezasadeghizendegikon",
     "title": "Zendegi Kon",
     "artist": "Reza Sadeghi",
-    "cover": "picture/Zendegi kon.jpg",
+    "cover": "picture/_embedded/rezasadeghizendegikon.jpg",
     "music": "music/01-Reza Sadeghi -Zendegi Kon.mp3",
     "hasMusic": true
   },
@@ -11,7 +11,7 @@
     "id": "shadmehraghiliyekarikon",
     "title": "Ye Kari Kon",
     "artist": "Shadmehr Aghili",
-    "cover": "picture/03. Shadmehr Aghili - Ye Kari Kon.mp3.jpg",
+    "cover": "picture/_embedded/shadmehraghiliyekarikon.jpg",
     "music": "music/03. Shadmehr Aghili - Ye Kari Kon.mp3",
     "hasMusic": true
   },
@@ -19,7 +19,7 @@
     "id": "shadmehraghilisabab",
     "title": "Sabab",
     "artist": "Shadmehr Aghili",
-    "cover": "picture/05. Shadmehr Aghili - Sabab.jpg",
+    "cover": "picture/_embedded/shadmehraghilisabab.jpg",
     "music": "music/05. Shadmehr Aghili - Sabab.mp3",
     "hasMusic": true
   },
@@ -27,7 +27,7 @@
     "id": "babakjahanbakhshsharheshirin",
     "title": "Sharhe Shirin",
     "artist": "Babak Jahanbakhsh",
-    "cover": "picture/sharhe shirin.jpg",
+    "cover": "picture/_embedded/babakjahanbakhshsharheshirin.jpg",
     "music": "music/Babak Jahanbakhsh - Sharhe Shirin.mp3",
     "hasMusic": true
   },
@@ -35,7 +35,7 @@
     "id": "edsheeranazizam",
     "title": "Azizam",
     "artist": "Ed Sheeran",
-    "cover": "picture/azizam.jpg",
+    "cover": "picture/_embedded/edsheeranazizam.jpg",
     "music": "music/E-d Sheeran - Azizam.mp3",
     "hasMusic": true
   },
@@ -43,7 +43,7 @@
     "id": "choyoungwukinhalethethrone",
     "title": "Inhale the Throne",
     "artist": "Cho Young-Wuk",
-    "cover": "picture/Inhale the Throne.jpg",
+    "cover": "picture/_embedded/choyoungwukinhalethethrone.jpg",
     "music": "music/Inhale the Throne.mp3",
     "hasMusic": true
   },
@@ -51,7 +51,7 @@
     "id": "rezasadeghitokihasti",
     "title": "To Ki Hasti",
     "artist": "Reza Sadeghi",
-    "cover": "picture/to ki hasti.jpg",
+    "cover": "picture/_embedded/rezasadeghitokihasti.jpg",
     "music": "music/Reza Sadeghi - To Ki Hasti.mp3",
     "hasMusic": true
   },
@@ -59,7 +59,7 @@
     "id": "rezasadeghimanedamemidamet",
     "title": "Man Edame Midamet",
     "artist": "Reza Sadeghi",
-    "cover": "picture/Reza-Sadeghi-Man-Edame-Midamet.jpg",
+    "cover": "picture/_embedded/rezasadeghimanedamemidamet.jpg",
     "music": "music/Reza-Sadeghi-Man-Edame-Midamet.mp3",
     "hasMusic": true
   },
@@ -67,7 +67,7 @@
     "id": "shadmehraghiliamadei",
     "title": "Amadei",
     "artist": "Shadmehr Aghili",
-    "cover": "picture/Shadmehr Aghili - Amadei.jpg",
+    "cover": "picture/_embedded/shadmehraghiliamadei.jpg",
     "music": "music/Shadmehr Aghili - Amadei.mp3",
     "hasMusic": true
   },
@@ -75,7 +75,7 @@
     "id": "shadmehraghiliavaznemishi",
     "title": "Avaz Nemishi",
     "artist": "Shadmehr Aghili",
-    "cover": "picture/Shadmehr Aghili - Avaz Nemishi.jpg",
+    "cover": "picture/_embedded/shadmehraghiliavaznemishi.jpg",
     "music": "music/Shadmehr Aghili - Avaz Nemishi.mp3",
     "hasMusic": true
   },
@@ -83,7 +83,7 @@
     "id": "shadmehraghiliazadi",
     "title": "Azadi",
     "artist": "Shadmehr Aghili",
-    "cover": "picture/Shadmehr Aghili - Azadi.jpg",
+    "cover": "picture/_embedded/shadmehraghiliazadi.jpg",
     "music": "music/Shadmehr Aghili - Azadi.mp3",
     "hasMusic": true
   },
@@ -91,7 +91,7 @@
     "id": "shadmehraghilibadeto",
     "title": "Bade To",
     "artist": "Shadmehr Aghili",
-    "cover": "picture/Shadmehr Aghili - Bade To.jpg",
+    "cover": "picture/_embedded/shadmehraghilibadeto.jpg",
     "music": "music/Shadmehr Aghili - Bade To.mp3",
     "hasMusic": true
   },
@@ -99,7 +99,7 @@
     "id": "shadmehraghilibitolive",
     "title": "Bi To (Live)",
     "artist": "Shadmehr Aghili",
-    "cover": "picture/Shadmehr Aghili - Bi To (Live).jpg",
+    "cover": "picture/_embedded/shadmehraghilibitolive.jpg",
     "music": "music/Shadmehr Aghili - Bi To (Live).mp3",
     "hasMusic": true
   },
@@ -107,7 +107,7 @@
     "id": "shadmehraghilidastemannist",
     "title": "Daste Man Nist",
     "artist": "Shadmehr Aghili",
-    "cover": "picture/Shadmehr Aghili - Daste Man Nist.jpg",
+    "cover": "picture/_embedded/shadmehraghilidastemannist.jpg",
     "music": "music/Shadmehr Aghili - Daste Man Nist [320].mp3",
     "hasMusic": true
   },
@@ -115,7 +115,7 @@
     "id": "shadmehraghilidoorshodi",
     "title": "Door Shodi",
     "artist": "Shadmehr Aghili",
-    "cover": "picture/Shadmehr Aghili - Door Shodi.jpg",
+    "cover": "picture/_embedded/shadmehraghilidoorshodi.jpg",
     "music": "music/Shadmehr Aghili - Door Shodi.mp3",
     "hasMusic": true
   },
@@ -123,7 +123,7 @@
     "id": "shadmehraghilietefagh",
     "title": "Etefagh",
     "artist": "Shadmehr Aghili",
-    "cover": "picture/Shadmehr Aghili - Etefagh.jpg",
+    "cover": "picture/_embedded/shadmehraghilietefagh.jpg",
     "music": "music/Shadmehr Aghili - Etefagh.mp3",
     "hasMusic": true
   },
@@ -131,7 +131,7 @@
     "id": "shadmehraghilighazi",
     "title": "Ghazi",
     "artist": "Shadmehr Aghili",
-    "cover": "picture/Shadmehr Aghili - Ghazi.jpg",
+    "cover": "picture/_embedded/shadmehraghilighazi.jpg",
     "music": "music/Shadmehr Aghili - Ghazi.mp3",
     "hasMusic": true
   },
@@ -139,7 +139,7 @@
     "id": "shadmehraghiligoleman",
     "title": "Gole Man",
     "artist": "Shadmehr Aghili",
-    "cover": "picture/Shadmehr Aghili - Gole Man.jpg",
+    "cover": "picture/_embedded/shadmehraghiligoleman.jpg",
     "music": "music/Shadmehr Aghili - Gole Man.mp3",
     "hasMusic": true
   },
@@ -147,7 +147,7 @@
     "id": "shadmehraghilihaghbedeh",
     "title": "Hagh Bedeh",
     "artist": "Shadmehr Aghili",
-    "cover": "picture/Shadmehr Aghili - Hagh Bedeh.jpg",
+    "cover": "picture/_embedded/shadmehraghilihaghbedeh.jpg",
     "music": "music/Shadmehr Aghili - Hagh Bedeh (128).mp3",
     "hasMusic": true
   },
@@ -155,7 +155,7 @@
     "id": "shadmehraghilihalamavazmishe",
     "title": "Halam Avaz Mishe",
     "artist": "Shadmehr Aghili",
-    "cover": "picture/Shadmehr Aghili - Halam Avaz Mishe.jpg",
+    "cover": "picture/_embedded/shadmehraghilihalamavazmishe.jpg",
     "music": "music/Shadmehr Aghili - Halam Avaz Mishe _320_.mp3",
     "hasMusic": true
   },
@@ -163,7 +163,7 @@
     "id": "shadmehraghilijangedelam",
     "title": "Jange Delam",
     "artist": "Shadmehr Aghili",
-    "cover": "picture/Shadmehr Aghili - Jange Delam.jpg",
+    "cover": "picture/_embedded/shadmehraghilijangedelam.jpg",
     "music": "music/Shadmehr Aghili - Jange Delam.mp3",
     "hasMusic": true
   },
@@ -171,7 +171,7 @@
     "id": "shadmehraghilimamnoon",
     "title": "Mamnoon",
     "artist": "Shadmehr Aghili",
-    "cover": "picture/Shadmehr Aghili - Mamnoon.jpg",
+    "cover": "picture/_embedded/shadmehraghilimamnoon.jpg",
     "music": "music/Shadmehr Aghili - Mamnoon.mp3",
     "hasMusic": true
   },
@@ -179,7 +179,7 @@
     "id": "shadmehraghilinoghtezaaf",
     "title": "Noghte Zaaf",
     "artist": "Shadmehr Aghili",
-    "cover": "picture/Shadmehr Aghili - Noghte Zaaf.jpg",
+    "cover": "picture/_embedded/shadmehraghilinoghtezaaf.jpg",
     "music": "music/Shadmehr Aghili - Noghte Zaaf.mp3",
     "hasMusic": true
   },
@@ -187,7 +187,7 @@
     "id": "shadmehraghilipishetounplugged",
     "title": "Pishe To (Unplugged)",
     "artist": "Shadmehr Aghili",
-    "cover": "picture/Shadmehr Aghili - Pishe To (Unplugged).jpg",
+    "cover": "picture/_embedded/shadmehraghilipishetounplugged.jpg",
     "music": "music/Shadmehr Aghili - Pishe To (Unplugged).mp3",
     "hasMusic": true
   },
@@ -195,7 +195,7 @@
     "id": "shadmehraghilipisheto",
     "title": "Pishe To",
     "artist": "Shadmehr Aghili",
-    "cover": "picture/Shadmehr Aghili - Pishe To.jpg",
+    "cover": "picture/_embedded/shadmehraghilipisheto.jpg",
     "music": "music/Shadmehr Aghili - Pishe To.mp3",
     "hasMusic": true
   },
@@ -203,7 +203,7 @@
     "id": "shadmehraghilirabete",
     "title": "Rabete",
     "artist": "Shadmehr Aghili",
-    "cover": "picture/Shadmehr Aghili - Rabete.jpg",
+    "cover": "picture/_embedded/shadmehraghilirabete.png",
     "music": "music/Shadmehr Aghili - Rabete.mp3",
     "hasMusic": true
   },
@@ -211,7 +211,7 @@
     "id": "shadmehraghilisogand",
     "title": "Sogand",
     "artist": "Shadmehr Aghili",
-    "cover": "picture/sogand.jpg",
+    "cover": "picture/_embedded/shadmehraghilisogand.jpg",
     "music": "music/Shadmehr Aghili - Sogand.mp3",
     "hasMusic": true
   },
@@ -219,7 +219,7 @@
     "id": "shadmehraghiliwakemeupremix",
     "title": "Wake Me Up (remix)",
     "artist": "Shadmehr Aghili",
-    "cover": "picture/wake me up (remix).jpg",
+    "cover": "picture/_embedded/shadmehraghiliwakemeupremix.jpg",
     "music": "music/Shadmehr Aghili - wake me up (remix).mp3",
     "hasMusic": true
   },
@@ -227,7 +227,7 @@
     "id": "shadmehraghilighashangtaringonah",
     "title": "Ghashangtarin Gonah",
     "artist": "Shadmehr Aghili",
-    "cover": "picture/Shadmehr Aghili – Ghashangtarin Gonah.jpg",
+    "cover": "picture/_embedded/shadmehraghilighashangtaringonah.jpg",
     "music": "music/Shadmehr Aghili – Ghashangtarin Gonah.mp3",
     "hasMusic": true
   },
