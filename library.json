@@ -8,6 +8,22 @@
     "hasMusic": true
   },
   {
+    "id": "babakjahanbakhshsharheshirin",
+    "title": "Sharhe Shirin",
+    "artist": "Babak Jahanbakhsh",
+    "cover": "picture/_embedded/babakjahanbakhshsharheshirin.jpg",
+    "music": "music/Babak Jahanbakhsh - Sharhe Shirin.mp3",
+    "hasMusic": true
+  },
+  {
+    "id": "behnambanisetarehmishislowversion",
+    "title": "Setareh Mishi (Slow Version)",
+    "artist": "Behnam Bani",
+    "cover": "picture/_embedded/behnambanisetarehmishislowversion.jpg",
+    "music": "music/Behnam Bani - Setareh Mishi (Slow Version) 128.mp3",
+    "hasMusic": true
+  },
+  {
     "id": "haydehafsaneyehhasti",
     "title": "Afsaneyeh Hasti",
     "artist": "Haydeh",
