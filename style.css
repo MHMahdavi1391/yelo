@@ -173,11 +173,17 @@ body.no-scroll { overflow: hidden !important; height: 100vh; }
 .footer-content { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center; }
 .footer-logo { height: 28px; width: 28px; object-fit: cover; border-radius: 6px; }
 .footer-content span { font-size: 0.78rem; color: var(--text-muted); }
-.back-link {
-    display: inline-flex; align-items: center; gap: 6px; color: var(--text-muted);
-    text-decoration: none; font-size: 0.78rem; padding: 6px 14px; border-radius: 18px;
-    background: var(--bg-surface); border: 1px solid var(--glass-border);
+.footer-social {
+    display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+    gap: 12px; width: min(100%, 760px); margin-top: 4px;
 }
+.footer-social a, .back-link {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    min-height: 44px; padding: 10px 16px; border-radius: 999px;
+    color: var(--text-primary); text-decoration: none; font-size: 0.86rem; font-weight: 700;
+    background: var(--bg-surface); border: 1px solid var(--glass-border); white-space: nowrap;
+}
+.footer-note { max-width: 46ch; line-height: 1.8; margin: 0; }
 
 .mini-player {
     position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
