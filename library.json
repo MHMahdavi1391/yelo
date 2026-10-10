@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "id": "billieeilishkhalidlovely",
+    "title": "Lovely",
+    "artist": "Billie Eilish, Khalid",
+    "cover": "picture/_embedded/billieeilishkhalidlovely.jpg",
+    "music": "music/Billie Eilish, Khalid - lovely.flac",
+    "hasMusic": true
+  },
+  {
+    "id": "shadmehraghilidehaati",
+    "title": "Dehaati",
+    "artist": "Shadmehr Aghili",
+    "cover": "picture/_embedded/shadmehraghilidehaati.jpg",
+    "music": "music/Shadmehr Aghili - Dehaati.mp3",
+    "hasMusic": true
+  }
+]
