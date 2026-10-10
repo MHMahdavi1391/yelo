@@ -1,5 +1,13 @@
 [
   {
+    "id": "alirezatalischimajarayeman",
+    "title": "Majaraye Man",
+    "artist": "Alireza Talischi",
+    "cover": "picture/_embedded/alirezatalischimajarayeman.jpg",
+    "music": "music/Alireza Talischi - Majaraye Man.mp3",
+    "hasMusic": true
+  },
+  {
     "id": "haydehafsaneyehhasti",
     "title": "Afsaneyeh Hasti",
     "artist": "Haydeh",
@@ -29,6 +37,14 @@
     "artist": "Shadmehr Aghili",
     "cover": "picture/_embedded/shadmehraghilialamatsoal.jpg",
     "music": "music/Shadmehr Aghili - Alamat Soal.mp3",
+    "hasMusic": true
+  },
+  {
+    "id": "shadmehraghiliamadei",
+    "title": "Amadei",
+    "artist": "Shadmehr Aghili",
+    "cover": "picture/_embedded/shadmehraghiliamadei.jpg",
+    "music": "music/Shadmehr Aghili - Amadei.mp3",
     "hasMusic": true
   },
   {
