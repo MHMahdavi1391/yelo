@@ -72,6 +72,14 @@
     "hasMusic": true
   },
   {
+    "id": "moeinbazasheghambash",
+    "title": "Baz Ashegham Bash",
+    "artist": "Moein",
+    "cover": "picture/_embedded/moeinbazasheghambash.jpg",
+    "music": "music/Moein - Baz Ashegham Bash.mp3",
+    "hasMusic": true
+  },
+  {
     "id": "shadmehraghiliasemooni",
     "title": "Asemooni",
     "artist": "Shadmehr Aghili",
