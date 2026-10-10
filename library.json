@@ -64,6 +64,14 @@
     "hasMusic": true
   },
   {
+    "id": "ludwiggranssoncanyouhearthemusic",
+    "title": "Can You Hear The Music",
+    "artist": "Ludwig Göransson",
+    "cover": "picture/_embedded/ludwiggranssoncanyouhearthemusic.png",
+    "music": "music/Ludwig Göransson - Can You Hear The Music.mp3",
+    "hasMusic": true
+  },
+  {
     "id": "shadmehraghiliasemooni",
     "title": "Asemooni",
     "artist": "Shadmehr Aghili",
