@@ -41,6 +41,127 @@
         updateThemeIcon(next);
     }
 
+
+    function syncsafe(b0, b1, b2, b3) {
+        return ((b0 & 127) << 21) | ((b1 & 127) << 14) | ((b2 & 127) << 7) | (b3 & 127);
+    }
+    function be32(b0, b1, b2, b3) {
+        return ((b0 & 255) << 24) | ((b1 & 255) << 16) | ((b2 & 255) << 8) | (b3 & 255);
+    }
+    function readCString(bytes, start) {
+        var i = start;
+        while (i < bytes.length && bytes[i] !== 0) i++;
+        return i + 1;
+    }
+    function pictureFromAPIC(data) {
+        if (!data || data.length < 4) return null;
+        var enc = data[0];
+        var i = 1;
+        var mime = '';
+        while (i < data.length && data[i] !== 0) { mime += String.fromCharCode(data[i]); i++; }
+        i++;
+        if (i >= data.length) return null;
+        i++;
+        if (enc === 1 || enc === 2) {
+            while (i + 1 < data.length && !(data[i] === 0 && data[i + 1] === 0)) i += 2;
+            i += 2;
+        } else {
+            i = readCString(data, i);
+        }
+        if (i >= data.length) return null;
+        var img = data.subarray(i);
+        if (img.length < 8) return null;
+        return new Blob([img], { type: mime || 'image/jpeg' });
+    }
+    function extractEmbeddedCover(url) {
+        return fetch(url, { headers: { Range: 'bytes=0-9' } }).then(function (res) {
+            if (!res.ok && res.status !== 206) return null;
+            return res.arrayBuffer();
+        }).then(function (headBuf) {
+            if (!headBuf) return null;
+            var head = new Uint8Array(headBuf);
+            if (head.length < 10 || head[0] !== 73 || head[1] !== 68 || head[2] !== 51) return null;
+            var ver = head[3];
+            var tagSize = syncsafe(head[6], head[7], head[8], head[9]);
+            var total = Math.min(10 + tagSize, 1572864);
+            return fetch(url, { headers: { Range: 'bytes=0-' + (total - 1) } }).then(function (res) {
+                if (!res.ok && res.status !== 206) return null;
+                return res.arrayBuffer();
+            }).then(function (buf) {
+                if (!buf) return null;
+                var bytes = new Uint8Array(buf);
+                var end = Math.min(bytes.length, 10 + tagSize);
+                var pos = 10;
+                if (bytes[5] & 64) {
+                    var ext = ver === 4 ? syncsafe(bytes[10], bytes[11], bytes[12], bytes[13]) : be32(bytes[10], bytes[11], bytes[12], bytes[13]);
+                    pos = 10 + ext;
+                }
+                if (ver === 2) {
+                    while (pos + 6 < end) {
+                        var id2 = String.fromCharCode(bytes[pos], bytes[pos + 1], bytes[pos + 2]);
+                        if (id2 === '\u0000\u0000\u0000') break;
+                        var size2 = (bytes[pos + 3] << 16) | (bytes[pos + 4] << 8) | bytes[pos + 5];
+                        var start2 = pos + 6;
+                        if (size2 <= 0 || start2 + size2 > end) break;
+                        if (id2 === 'PIC') {
+                            var pic = bytes.subarray(start2, start2 + size2);
+                            var j = 1;
+                            var fmt = String.fromCharCode(pic[j] || 0, pic[j + 1] || 0, pic[j + 2] || 0);
+                            j += 4;
+                            j = readCString(pic, j);
+                            if (j < pic.length) {
+                                var blob2 = new Blob([pic.subarray(j)], { type: fmt === 'PNG' ? 'image/png' : 'image/jpeg' });
+                                return URL.createObjectURL(blob2);
+                            }
+                        }
+                        pos = start2 + size2;
+                    }
+                    return null;
+                }
+                while (pos + 10 < end) {
+                    var id = String.fromCharCode(bytes[pos], bytes[pos + 1], bytes[pos + 2], bytes[pos + 3]);
+                    if (id === '\u0000\u0000\u0000\u0000' || !/^[A-Z0-9]{4}$/.test(id)) break;
+                    var frameSize = ver === 4 ? syncsafe(bytes[pos + 4], bytes[pos + 5], bytes[pos + 6], bytes[pos + 7]) : be32(bytes[pos + 4], bytes[pos + 5], bytes[pos + 6], bytes[pos + 7]);
+                    var dataStart = pos + 10;
+                    if (frameSize <= 0 || dataStart + frameSize > end) break;
+                    if (id === 'APIC') {
+                        var blob = pictureFromAPIC(bytes.subarray(dataStart, dataStart + frameSize));
+                        return blob ? URL.createObjectURL(blob) : null;
+                    }
+                    pos = dataStart + frameSize;
+                }
+                return null;
+            });
+        }).catch(function () { return null; });
+    }
+    function paintCover(song) {
+        var url = song.cover || 'logo.jpg';
+        document.querySelectorAll('img[data-cover-for="' + song.id + '"]').forEach(function (img) { img.src = url; });
+        var current = currentPlaylist[currentIndex];
+        if (!current || current.id !== song.id) return;
+        if (miniCover) miniCover.src = url;
+        if (fullCover) fullCover.src = url;
+        if (displayCover) displayCover.src = url;
+        if (displayBlur) displayBlur.style.backgroundImage = 'url("' + url + '")';
+        updateMediaSession(song);
+    }
+    function hydrateCovers(songs) {
+        var queue = (songs || []).filter(function (s) { return s && s.music && !s._coverTried; });
+        var active = 0;
+        function pump() {
+            while (active < 3 && queue.length) {
+                (function (song) {
+                    song._coverTried = true;
+                    active++;
+                    extractEmbeddedCover(song.music).then(function (url) {
+                        if (url) { song.cover = url; paintCover(song); }
+                    }).finally(function () { active--; pump(); });
+                })(queue.shift());
+            }
+        }
+        pump();
+    }
+
     function escapeHTML(str) {
         const div = document.createElement('div');
         div.textContent = str || '';
@@ -175,7 +296,7 @@
         songGrid.innerHTML = songs.map(function (song) {
             return '<div class="song-card" data-id="' + song.id + '">' +
                 '<button class="favorite-btn ' + (isFavorite(song.id) ? 'active' : '') + '" data-fav="' + song.id + '" type="button"><i class="fas fa-heart"></i></button>' +
-                '<img class="song-card-cover" src="' + escapeHTML(song.cover) + '" alt="" loading="lazy" onerror="this.src=\'logo.jpg\'">' +
+                '<img class="song-card-cover" data-cover-for="' + song.id + '" src="' + escapeHTML(song.cover || 'logo.jpg') + '" alt="" loading="lazy" onerror="this.src=\'logo.jpg\'">' +
                 '<div class="song-card-info">' +
                 '<div class="song-card-title">' + escapeHTML(song.title) + '</div>' +
                 '<div class="song-card-artist">' + escapeHTML(song.artist) + '</div>' +
@@ -207,9 +328,10 @@
         songGrid.className = 'artist-grid';
         songGrid.innerHTML = keys.map(function (name) {
             var list = artists[name];
-            var cover = list[0] ? list[0].cover : 'logo.jpg';
+            var first = list[0];
+            var cover = first ? (first.cover || 'logo.jpg') : 'logo.jpg';
             return '<div class="artist-card" data-artist="' + escapeHTML(name) + '">' +
-                '<img class="artist-card-cover" src="' + escapeHTML(cover) + '" alt="" loading="lazy" onerror="this.src=\'logo.jpg\'">' +
+                '<img class="artist-card-cover" data-cover-for="' + (first ? first.id : '') + '" src="' + escapeHTML(cover) + '" alt="" loading="lazy" onerror="this.src=\'logo.jpg\'">' +
                 '<div class="artist-card-name">' + escapeHTML(name) +
                 '<span class="artist-card-count">' + list.length + ' song' + (list.length > 1 ? 's' : '') + '</span></div></div>';
         }).join('');
@@ -576,6 +698,7 @@
     function applySongs(data) {
         allSongs = (data || []).filter(function (s) { return s && s.hasMusic !== false && s.music; });
         renderCurrentView();
+        hydrateCovers(allSongs);
         if (!allSongs.length) noResults.style.display = 'block';
     }
     function loadFromGitHubApi() {

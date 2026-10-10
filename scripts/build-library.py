@@ -6,6 +6,11 @@ import json
 import re
 from pathlib import Path
 
+try:
+    from mutagen import File as MutagenFile
+except Exception:
+    MutagenFile = None
+
 ROOT = Path(__file__).resolve().parents[1]
 MUSIC_DIR = ROOT / "music"
 PICTURE_DIR = ROOT / "picture"
@@ -77,6 +82,38 @@ def parse_song(fname: str):
     return "Unknown", title_case(cleaned)
 
 
+EMBED_DIR = PICTURE_DIR / "_embedded"
+
+
+def embedded_cover(music_path: Path, slug: str):
+    """Write the cover stored inside the audio file. Returns a site path or None."""
+    if MutagenFile is None or not music_path.is_file():
+        return None
+    try:
+        audio = MutagenFile(music_path)
+    except Exception:
+        return None
+    if audio is None:
+        return None
+    pictures = []
+    if getattr(audio, "pictures", None):
+        pictures = list(audio.pictures)
+    tags = getattr(audio, "tags", None)
+    if tags is not None and hasattr(tags, "getall"):
+        pictures.extend(tags.getall("APIC"))
+    if not pictures:
+        return None
+    pic = pictures[0]
+    mime = (getattr(pic, "mime", "") or "").lower()
+    ext = ".png" if "png" in mime else ".webp" if "webp" in mime else ".jpg"
+    EMBED_DIR.mkdir(parents=True, exist_ok=True)
+    out = EMBED_DIR / f"{slug}{ext}"
+    out.write_bytes(getattr(pic, "data", b""))
+    if not out.stat().st_size:
+        return None
+    return "picture/_embedded/" + out.name
+
+
 def find_cover(artist, title, orig, covers):
     keys = [norm(title), norm(artist + " " + title), norm(orig)]
     for c in covers:
@@ -124,7 +161,7 @@ def main() -> None:
                 "id": slug,
                 "title": title,
                 "artist": artist,
-                "cover": find_cover(artist, title, fname, covers),
+                "cover": embedded_cover(MUSIC_DIR / fname, slug) or find_cover(artist, title, fname, covers),
                 "music": "music/" + fname,
                 "hasMusic": True,
             }
