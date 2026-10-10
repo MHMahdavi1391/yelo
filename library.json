@@ -128,6 +128,14 @@
     "hasMusic": true
   },
   {
+    "id": "shadmehraghiliavaznemishi",
+    "title": "Avaz Nemishi",
+    "artist": "Shadmehr Aghili",
+    "cover": "picture/_embedded/shadmehraghiliavaznemishi.jpg",
+    "music": "music/Shadmehr Aghili - Avaz Nemishi.mp3",
+    "hasMusic": true
+  },
+  {
     "id": "shadmehraghilidehaati",
     "title": "Dehaati",
     "artist": "Shadmehr Aghili",
