@@ -24,6 +24,14 @@
     "hasMusic": true
   },
   {
+    "id": "choyoungwukinhalethethrone",
+    "title": "Inhale The Throne",
+    "artist": "Cho Young Wuk",
+    "cover": "picture/_embedded/choyoungwukinhalethethrone.jpg",
+    "music": "music/Cho Young Wuk - Inhale the Throne.mp3",
+    "hasMusic": true
+  },
+  {
     "id": "haydehafsaneyehhasti",
     "title": "Afsaneyeh Hasti",
     "artist": "Haydeh",
@@ -93,6 +101,14 @@
     "artist": "Shadmehr Aghili",
     "cover": "picture/_embedded/shadmehraghiliyekarikon.jpg",
     "music": "music/Shadmehr Aghili - Ye Kari Kon.mp3",
+    "hasMusic": true
+  },
+  {
+    "id": "charlieputhwedonttalkanymore",
+    "title": "We Dont Talk Anymore",
+    "artist": "Charlie Puth",
+    "cover": "picture/_embedded/charlieputhwedonttalkanymore.jpg",
+    "music": "music/charlie puth - we dont talk anymore.mp3",
     "hasMusic": true
   }
 ]
