@@ -88,6 +88,14 @@
     "hasMusic": true
   },
   {
+    "id": "rezasadeghizendegikon",
+    "title": "Zendegi Kon",
+    "artist": "Reza Sadeghi",
+    "cover": "picture/_embedded/rezasadeghizendegikon.jpg",
+    "music": "music/Reza Sadeghi - Zendegi Kon.mp3",
+    "hasMusic": true
+  },
+  {
     "id": "shadmehraghiliasemooni",
     "title": "Asemooni",
     "artist": "Shadmehr Aghili",
