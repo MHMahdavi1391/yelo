@@ -118,13 +118,5 @@
     "cover": "picture/_embedded/charlieputhwedonttalkanymore.jpg",
     "music": "music/charlie puth - we dont talk anymore.mp3",
     "hasMusic": true
-  },
-  {
-    "id": "haydehghomebehajraafte",
-    "title": "Ghome Be Haj Raafte",
-    "artist": "Haydeh",
-    "cover": "logo.jpg",
-    "music": "music/haydeh - ghome be haj raafte .mp3",
-    "hasMusic": true
   }
 ]
