@@ -24,6 +24,14 @@
     "hasMusic": true
   },
   {
+    "id": "billieeilishbadguy",
+    "title": "Bad Guy",
+    "artist": "Billie Eilish",
+    "cover": "picture/_embedded/billieeilishbadguy.jpg",
+    "music": "music/Billie Eilish - bad guy.flac",
+    "hasMusic": true
+  },
+  {
     "id": "haydehafsaneyehhasti",
     "title": "Afsaneyeh Hasti",
     "artist": "Haydeh",
