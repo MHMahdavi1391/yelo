@@ -32,6 +32,14 @@
     "hasMusic": true
   },
   {
+    "id": "billieeilishkhalidlovely",
+    "title": "Lovely",
+    "artist": "Billie Eilish, Khalid",
+    "cover": "picture/_embedded/billieeilishkhalidlovely.jpg",
+    "music": "music/Billie Eilish, Khalid - lovely.flac",
+    "hasMusic": true
+  },
+  {
     "id": "haydehafsaneyehhasti",
     "title": "Afsaneyeh Hasti",
     "artist": "Haydeh",
