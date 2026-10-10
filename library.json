@@ -136,6 +136,14 @@
     "hasMusic": true
   },
   {
+    "id": "shadmehraghiliazadi",
+    "title": "Azadi",
+    "artist": "Shadmehr Aghili",
+    "cover": "picture/_embedded/shadmehraghiliazadi.jpg",
+    "music": "music/Shadmehr Aghili - Azadi.mp3",
+    "hasMusic": true
+  },
+  {
     "id": "shadmehraghilidehaati",
     "title": "Dehaati",
     "artist": "Shadmehr Aghili",
