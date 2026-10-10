@@ -1,5 +1,29 @@
 [
   {
+    "id": "haydehafsaneyehhasti",
+    "title": "Afsaneyeh Hasti",
+    "artist": "Haydeh",
+    "cover": "picture/_embedded/haydehafsaneyehhasti.jpg",
+    "music": "music/Haydeh - Afsaneyeh Hasti.mp3",
+    "hasMusic": true
+  },
+  {
+    "id": "jungjaeilaccomplished",
+    "title": "Accomplished",
+    "artist": "Jung Jae Il",
+    "cover": "picture/_embedded/jungjaeilaccomplished.png",
+    "music": "music/Jung Jae il - Accomplished.mp3",
+    "hasMusic": true
+  },
+  {
+    "id": "shadmehraghiliasemooni",
+    "title": "Asemooni",
+    "artist": "Shadmehr Aghili",
+    "cover": "picture/_embedded/shadmehraghiliasemooni.jpg",
+    "music": "music/Shadmehr Aghili -  Asemooni.mp3",
+    "hasMusic": true
+  },
+  {
     "id": "shadmehraghilialamatsoal",
     "title": "Alamat Soal",
     "artist": "Shadmehr Aghili",
