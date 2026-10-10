@@ -1,5 +1,13 @@
 [
   {
+    "id": "billieeilishkhalidlovely",
+    "title": "Lovely",
+    "artist": "Billie Eilish, Khalid",
+    "cover": "picture/_embedded/billieeilishkhalidlovely.jpg",
+    "music": "music/Billie Eilish, Khalid - lovely.flac",
+    "hasMusic": true
+  },
+  {
     "id": "shadmehraghilialamatsoal",
     "title": "Alamat Soal",
     "artist": "Shadmehr Aghili",
@@ -21,6 +29,14 @@
     "artist": "Shadmehr Aghili",
     "cover": "picture/_embedded/shadmehraghilidehaati.jpg",
     "music": "music/Shadmehr Aghili - Dehaati.mp3",
+    "hasMusic": true
+  },
+  {
+    "id": "shadmehraghilisabab",
+    "title": "Sabab",
+    "artist": "Shadmehr Aghili",
+    "cover": "picture/_embedded/shadmehraghilisabab.jpg",
+    "music": "music/Shadmehr Aghili - Sabab.mp3",
     "hasMusic": true
   },
   {
