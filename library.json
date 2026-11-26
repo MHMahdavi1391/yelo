@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "id": "shadmehraghilibatel",
+    "title": "Batel",
+    "artist": "Shadmehr Aghili",
+    "cover": "picture/_embedded/shadmehraghilibatel.jpg",
+    "music": "music/Shadmehr Aghili - Batel.mp3",
+    "hasMusic": true
+  },
+  {
+    "id": "shadmehraghilidoranetotamoomeh",
+    "title": "Dorane To Tamoomeh",
+    "artist": "Shadmehr Aghili",
+    "cover": "logo.jpg",
+    "music": "music/Shadmehr Aghili - Dorane to Tamoomeh.m4a",
+    "hasMusic": true
+  }
+]
