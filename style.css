@@ -36,7 +36,7 @@ body::before {
   width: 64px;
   height: 64px;
   object-fit: contain;
-  border-radius: 16px;
+  border-radius: 0;
 }
 .search-wrapper { flex: 1; min-width: 200px; max-width: 480px; }
 .search-box {
@@ -73,16 +73,17 @@ body::before {
 /* Tabs - Spotify-like pills, scrollable on mobile */
 .tabs {
   display: flex;
-  gap: 8px;
-  margin: 16px 0 24px;
-  padding: 6px;
-  background: rgba(255,255,255,0.65);
+  gap: 6px;
+  margin: 14px 0 22px;
+  padding: 5px;
+  background: rgba(255,255,255,0.7);
   border: 1px solid rgba(92,48,140,0.1);
-  border-radius: 999px;
+  border-radius: 20px;
   overflow-x: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
   white-space: nowrap;
+  justify-content: flex-start;
 }
 .tabs::-webkit-scrollbar { display: none; }
 .tab-btn {
@@ -435,10 +436,10 @@ body::before {
   .container { padding: 12px; }
   .header-top { flex-direction: column; align-items: stretch; }
   .logo-wrapper { text-align: center; }
-  .logo-img { width: 72px; height: 72px; }
+  .logo-img { width: 72px; height: 72px; border-radius: 0; }
   .search-wrapper { max-width: none; }
-  .tabs { margin: 12px -4px 18px; padding: 4px; }
-  .tab-btn { padding: 8px 16px; font-size: 0.85rem; }
+  .tabs { margin: 10px 0 16px; padding: 4px; border-radius: 16px; }
+  .tab-btn { padding: 9px 14px; font-size: 0.84rem; flex: 1 0 auto; text-align: center; min-width: 72px; }
   .song-grid, .artist-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
   .mini-player { width: calc(100% - 16px); bottom: 8px; padding: 8px 12px; }
   .mini-player-inner { display: grid; grid-template-columns: 44px 1fr; gap: 8px; }
